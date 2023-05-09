@@ -43,14 +43,12 @@ app.use(session({
 app.use('/', (req, res, next) => {
     const navLinks = (isValidSession(req)) ? // Is a user with a valid session logged in?
             [
-                { route: "Home", link: "/" },
-                { route: "Profile", link: "/profile" },
-                { route: "Logout", link: "/logout" }
+                { route: "Home", link: "/", materialIcon: "home" },
+                { route: "Profile", link: "/profile", materialIcon: "account_circle" },
+                { route: "Logout", link: "/logout", materialIcon: "logout"}
             ]
             : [ // Else, user not logged in (invalid session)
-                { route: "Home", link: "/" },
-                { route: "Login", link: "/login" },
-                { route: "Sign Up", link: "/signup" }
+                { route: "Home", link: "/", materialIcon: "home" },
             ];
 
     app.locals.navLinks = navLinks;

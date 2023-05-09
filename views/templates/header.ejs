@@ -12,7 +12,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Require Google Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -25,12 +25,15 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav ml-auto mr-0 pr-5">
                 <% for(var i=0; i< locals.navLinks.length; i++) { %>
-                    <li class="nav-item <% if (locals.navLinks[i].link === locals.currentURL) { %>active bg-primary<% } %>">
+                    <li class="nav-item">
                         <a class="nav-link" href="<%= locals.navLinks[i].link %>">
-                            <%= locals.navLinks[i].route %>
+                            <i class="material-icons" <%=locals.navLinks[i].link===locals.currentURL
+                                ? "style=color:green;" : "style=color:white;" %>>
+                                <%= locals.navLinks[i].materialIcon %>
+                            </i>
                         </a>
                     </li>
-                <% } %>
+                    <% } %>
             </ul>
         </div>
-    </nav>    
+    </nav>
