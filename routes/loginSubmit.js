@@ -1,15 +1,23 @@
 // Load modules below.
-const { bcrypt, Joi, router } = require('../config/dependencies');
+const { bcrypt, Joi, router, rateLimit } = require('../config/dependencies');
 
+// Rate limit configuration
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // Maximum number of requests within the window
+    message: 'Too many login attempts, please try again later.',
+  });
+
+  module.exports = { loginLimiter };
+ 
 // Route below.
-router.post('/login/submit', async (req, res) => {
+router.post('/login/submit', loginLimiter, async (req, res) => {
     const { userCollection } = await require('../config/databaseConnection');
     var email = req.body.email.toLowerCase();
     var password = req.body.password;
 
     // Define the schema (validation criteria) of the user info.
-    const schema = Joi.object(
-        {
+    const schema = Joi.object({
             email: Joi.string().email().max(20).required(),
             password: Joi.string().max(20).required()
         });

@@ -8,4 +8,7 @@ const Joi = require('joi');
 const url = require('url');
 const router = express.Router();
 
-module.exports = { express, session, MongoDBSession, bcrypt, saltRounds, Joi, router, url };
+//testing rate limit
+const rateLimit = require('express-rate-limit');
+
+module.exports = { express, session, MongoDBSession, bcrypt, saltRounds, Joi, router, url , rateLimit};

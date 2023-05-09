@@ -10,62 +10,86 @@ router.post('/signup/submit', async (req, res) => {
     const email = req.body.email.toLowerCase();
     const password = req.body.password;
 
-    const schema = Joi.object(
-        {
-            // Name represents 'username' so it will be alphanumerical (letters/numbers) 
-            name: Joi.string().alphanum().max(20).required(),
-            email: Joi.string().email().max(20).required(),
-            password: Joi.string().max(20).required()
-        });
-
-    const validationResult = schema.validate({ name, email, password });
-
-    if (validationResult.error != null) {
-        console.log(validationResult.error);
-
-        // Loop through the validation errors and check the context property
-        validationResult.error.details.forEach((error) => {
-
-            let errorMessage;
-
-            switch (error.context.key) {
-                case "name":
-                    if (name.trim() == "") {
-                        errorMessage = "Name required.";
-                    } else {
-                        errorMessage = "Name must be 20 characters or less and not contain any illegal characters.";
-                    }
-                    break;
-                case "email":
-                    if (email.trim() == "") {
-                        errorMessage = "Email required.";
-                    } else {
-                        errorMessage = "Email must be 20 characters or less and not contain any illegal characters.";
-                    }
-                    break;
-                case "password":
-                    if (password.trim() == "") {
-                        errorMessage = "Password required.";
-                    } else {
-                        errorMessage = "Password must be 20 characters or less and not contain any illegal characters.";
-                    }
-                    break;
-                default:
-                    // Error 400 for bad request if the validation error is other than 'name', 'email', and 'password'.
-                    res.status(400);
-                    const statusCode = '400';
-                    errorMessage = 'Bad request.';
-
-                    res.render("error", { errorMessage: errorMessage, statusCode: statusCode });
-                    return;
-            }
-
-            const authentication = false;
-            res.render("signupSubmit", { errorMessage: errorMessage, authentication: authentication });
-        })
-
+    const schema = Joi.object({
+        name: Joi.string().alphanum().max(20).required(),
+        email: Joi.string().email().max(20).required(),
+        password: Joi.string()
+          .min(8)
+          .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
+          .required()
+          .messages({
+            'string.min': 'Password must be at least 8 characters long.',
+            'string.regex.base': 'Password must include at least one lowercase letter, one uppercase letter, one number, and one special character.',
+            'any.required': 'Password is required.',
+          }),
+      });
+    
+      const validationResult = schema.validate({ name, email, password });
+    
+      if (validationResult.error) {
+        const errorMessage = validationResult.error.details[0].message;
+        const authentication = false;
+        res.render('signupSubmit', { errorMessage, authentication });
         return;
-    }
+      }
+
+
+    // const schema = Joi.object(
+    //     {
+    //         // Name represents 'username' so it will be alphanumerical (letters/numbers) 
+    //         name: Joi.string().alphanum().max(20).required(),
+    //         email: Joi.string().email().max(20).required(),
+    //         password: Joi.string().max(20).required()
+    //     });
+
+    // const validationResult = schema.validate({ name, email, password });
+
+    // if (validationResult.error != null) {
+    //     console.log(validationResult.error);
+
+    //     // Loop through the validation errors and check the context property
+    //     validationResult.error.details.forEach((error) => {
+
+    //         let errorMessage;
+
+    //         switch (error.context.key) {
+    //             case "name":
+    //                 if (name.trim() == "") {
+    //                     errorMessage = "Name required.";
+    //                 } else {
+    //                     errorMessage = "Name must be 20 characters or less and not contain any illegal characters.";
+    //                 }
+    //                 break;
+    //             case "email":
+    //                 if (email.trim() == "") {
+    //                     errorMessage = "Email required.";
+    //                 } else {
+    //                     errorMessage = "Email must be 20 characters or less and not contain any illegal characters.";
+    //                 }
+    //                 break;
+    //             case "password":
+    //                 if (password.trim() == "") {
+    //                     errorMessage = "Password required.";
+    //                 } else {
+    //                     errorMessage = "Password must be 20 characters or less and not contain any illegal characters.";
+    //                 }
+    //                 break;
+    //             default:
+    //                 // Error 400 for bad request if the validation error is other than 'name', 'email', and 'password'.
+    //                 res.status(400);
+    //                 const statusCode = '400';
+    //                 errorMessage = 'Bad request.';
+
+    //                 res.render("error", { errorMessage: errorMessage, statusCode: statusCode });
+    //                 return;
+    //         }
+
+    //         const authentication = false;
+    //         res.render("signupSubmit", { errorMessage: errorMessage, authentication: authentication });
+    //     })
+
+    //     return;
+    // }
 
     // Parametrized query treats user input as plain data and not code, so as to defend against injection attacks.
     // $eq looks for an exact match and requires collation for case-insensitive query.

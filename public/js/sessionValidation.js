@@ -19,4 +19,17 @@ function sessionValidation(req, res, next) {
     }
 };
 
+//Can be reduced to this?
+// function sessionValidation(req, res, next) {
+//     if (req.session && req.session.authenticated) {
+//       console.log('Valid session.');
+//       next();
+//     } else {
+//       console.log('Invalid session.');
+//       res.redirect('/');
+//     }
+//   }
+  
+//   module.exports = sessionValidation;
+
 module.exports = { isValidSession, sessionValidation };

@@ -27,6 +27,14 @@ const sessionStore = new MongoDBSession({
     secret: mongodb_session_secret
 });
 
+//Error event listeners to indicate if there are connection errors when trying to access user or session store.
+mongodbStore.on('error', err => {
+    console.error('Error connecting to MongoDB user store', err);
+});
+sessionStore.on('error', err => {
+    console.error('Error connecting to MongoDB session store', err);
+});
+
 // Below, both connections are established before the server starts listening for requests by using the Promise.
 // all() method to wait for both connections to be established before starting the server. 
 const connectDB = Promise.all([
@@ -36,6 +44,8 @@ const connectDB = Promise.all([
     console.log('MongoDB user store and session store connected');
     module.exports.userCollection = mongodbStore.client.db().collection('users');
     module.exports.sessionCollection = sessionStore.client.db().collection('sessions');
+}).catch(err => {
+    console.error('Error connecting to MongoDB', err);
 });
 
 module.exports.mongodbStore = mongodbStore;
