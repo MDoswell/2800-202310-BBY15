@@ -1,0 +1,17 @@
+<%- include("templates/header") %>
+    <div class="container px-5 mt-5">
+        <% if (!authenticated) { %>
+            <button class="p-2 m-2 col-sm-2 btn btn-primary"
+                onclick="location.href = window.location.origin + '/login'">Login</button>
+            <button class="p-2 m-2 col-sm-2 btn btn-primary"
+                onclick="location.href = window.location.origin + '/signup'">Sign Up</button>
+            <% } else { %>
+                <div class="container-fluid px-5 mt-5">
+                    <h1>Hello, <%= name %>!</h1>
+                    <div class="row mx-auto mt-5">
+                    </div>
+                    <br>
+                </div>
+                <% } %>
+    </div>
+<%- include("templates/footer") %>
