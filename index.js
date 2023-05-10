@@ -1,7 +1,7 @@
 // Start of config section.
 // Load modules below via dependencies.js.
 require('dotenv').config();
-const { express, session, url } = require('./config/dependencies');
+const { express, session, url, cors } = require('./config/dependencies');
 
 // Declare database connections.
 const { connectDB, sessionStore } = require('./config/databaseConnection');
@@ -20,6 +20,12 @@ const app = express();
 
 // Enable ejs middleware.
 app.set('view engine', 'ejs');
+
+// Enable CORS for cross-origin-sharing using Axios.
+app.use(cors());
+
+// Enable JSON middleware.
+app.use(express.json());
 
 // Defining directory to serve image files.
 app.use(express.static(__dirname + '/public'));

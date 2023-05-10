@@ -1,5 +1,8 @@
 <%- include("templates/header") %>
     <div class="container px-5">
+        <div class="alert alert-success collapse" id="success-message" role="alert"></div>
+        <div class="alert alert-primary collapse" id="redirect-message" role="alert"></div>
+        <div class="alert alert-danger collapse" id="error-message" role="alert"></div>
         <div class="row justify-content-center">
             <div class="col-md-12 col-lg-10">
                 <div class="wrap d-md-flex pt-5">
@@ -12,7 +15,7 @@
                                 <h3 class="mb-4">Sign In</h3>
                             </div>
                         </div>
-                        <form class="signin-form" action='/login/submit' method='post'>
+                        <form class="signin-form" id="login-form" action='/login/submit' method='post'>
                             <div class="form-group mb-3">
                                 <label class="label" for="name">Username</label>
                                 <input class="form-control" autocomplete="off" name='name' type='text'
@@ -24,7 +27,7 @@
                                     placeholder='password'>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign
+                                <button type="submit" class="form-control btn btn-primary rounded submit px-3" id="login-button">Sign
                                     In</button>
                             </div>
                             <div class="form-group d-md-flex">
@@ -45,4 +48,5 @@
             </div>
         </div>
     </div>
-    <%- include("templates/footer") %>
+<%- include("templates/footer") %>
+<script src="/js/loginValidation.js"></script>

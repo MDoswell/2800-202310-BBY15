@@ -50,7 +50,8 @@ router.post('/login/submit', async (req, res) => {
             }
 
             const authentication = false;
-            res.render("loginSubmit", { errorMessage: errorMessage, authentication: authentication });
+            
+            res.json({ errorMessage, authentication });
             return;
         })
     } else {
@@ -65,7 +66,7 @@ router.post('/login/submit', async (req, res) => {
             const errorMessage = "User not found.";
             const authentication = false;
 
-            res.render("loginSubmit", { errorMessage: errorMessage, authentication: authentication });
+            res.json({ errorMessage, authentication });
             return;
         }
 
@@ -79,18 +80,17 @@ router.post('/login/submit', async (req, res) => {
             req.session.user_type = result[0].user_type;
             req.session.cookie.maxAge = expireTime;
 
-            const successMessage = "Logged in successfully.";
-            const redirectMessage = "Redirecting to homefeed...";
+            const successMessage = "Logged in successfully. Redirecting to homefeed...";
             const authentication = true;
 
-            res.render("loginSubmit", { successMessage: successMessage, redirectMessage: redirectMessage, authentication: authentication });
+            res.json({ successMessage, authentication });
             return;
         } else {
             console.log("incorrect password");
             const errorMessage = "Incorrect username/password combination.";
             const authentication = false;
 
-            res.render("loginSubmit", { errorMessage: errorMessage, authentication: authentication });
+            res.json({ errorMessage, authentication });
             return;
         }
     }

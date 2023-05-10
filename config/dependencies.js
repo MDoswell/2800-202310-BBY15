@@ -7,5 +7,6 @@ const saltRounds = 12;
 const Joi = require('joi');
 const url = require('url');
 const router = express.Router();
+const cors = require('cors');
 
-module.exports = { express, session, MongoDBSession, bcrypt, saltRounds, Joi, router, url };
+module.exports = { express, session, MongoDBSession, bcrypt, saltRounds, Joi, router, url, cors };
