@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Sign up</h1>
+    <form>
+      <div class="form-group">
+        <label for="first-name">First Name</label>
+        <input type="text" class="form-control" id="first-name" placeholder="First Name">
+        <div class="invalid-feedback" id="firstNameError">First name is required.</div>
+      </div>
+      <div class="form-group">
+        <label for="last-name">Last Name</label>
+        <input type="text" class="form-control" id="last-name" placeholder="Last Name">
+        <div class="invalid-feedback" id="lastNameError">Last name is required.</div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Email">
+        <div class="invalid-feedback" id="emailError">Email is required.</div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter your password">
+        <div class="invalid-feedback" id="passwordError">Password is required.</div>
+        <div class="invalid-feedback" id="passwordRequirementsError">Password must be 8 characters long and contain at least one capital letter, one lowercase letter, and one special character (e.g., !, @, #, $, %, ^, &amp;, *).</div>
+      </div>      
+      <button type="button" class="btn btn-primary" onclick="validateForm()">Submit</button>
+    </form>
+  </div>
+  <script>
+    function validateForm() {
+      const firstName = document.getElementById('first-name').value;
+      const lastName = document.getElementById('last-name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+  
+      if (firstName.trim() === '') {
+        document.getElementById('first-name').classList.add('is-invalid');
+        document.getElementById('firstNameError').style.display = 'block';
+      } else {
+        document.getElementById('first-name').classList.remove('is-invalid');
+        document.getElementById('firstNameError').style.display = 'none';
+      }
+  
+      if (lastName.trim() === '') {
+        document.getElementById('last-name').classList.add('is-invalid');
+        document.getElementById('lastNameError').style.display = 'block';
+      } else {
+        document.getElementById('last-name').classList.remove('is-invalid');
+        document.getElementById('lastNameError').style.display = 'none';
+      }
+  
+      if (email.trim() === '') {
+        document.getElementById('email').classList.add('is-invalid');
+        document.getElementById('emailError').style.display = 'block';
+      } else {
+        document.getElementById('email').classList.remove('is-invalid');
+        document.getElementById('emailError').style.display = 'none';
+      }
+  
+      if (password.trim() === '') {
+        document.getElementById('password').classList.add('is-invalid');
+        document.getElementById('passwordError').style.display = 'block';
+        document.getElementById('passwordRequirementsError').style.display = 'none';
+      } else if (password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[!@#$%^&*]/.test(password)) {
+        document.getElementById('password').classList.add('is-invalid');
+        document.getElementById('passwordError').style.display = 'none';
+        document.getElementById('passwordRequirementsError').style.display = 'block';
+      } else {
+        document.getElementById('password').classList.remove('is-invalid');
+        document.getElementById('passwordError').style.display = 'none';
+        document.getElementById('passwordRequirementsError').style.display = 'none';
+      }
+    }
+  </script>

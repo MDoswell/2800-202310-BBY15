@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css' rel='stylesheet' />
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/gcal.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js'></script>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
+
+  <script>
+    $(document).ready(function() {
+      // Initialize FullCalendar
+      $('#calendar').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
+        selectable: true, // Allow user to select a time slot
+        selectHelper: true,
+        editable: true, // Enable event editing
+        eventOverlap: false, // Prevent events from overlapping,
+
+        // Handle date click
+        dayClick: function(date, jsEvent, view) {
+          $('#calendar').fullCalendar('changeView', 'agendaDay');
+          $('#calendar').fullCalendar('gotoDate', date);
+        },
+
+        // Handle slot select (day and week view)
+        select: function(start, end, jsEvent, view) {
+          // Check if there's an event already at the selected time slot
+          var events = $('#calendar').fullCalendar('clientEvents', function(event) {
+            return (event.start.isBefore(end) && start.isBefore(event.end));
+          });
+
+          if (events.length === 0) {
+            // Open modal to create new event
+            $('#eventModal')
+              .modal('show')
+              .on('shown.bs.modal', function() {
+                $('#event-title').val('Availability');
+                $('#event-start').val(start.format('YYYY-MM-DD HH:mm'));
+                $('#event-end').val(end.format('YYYY-MM-DD HH:mm'));
+              })
+              .on('hidden.bs.modal', function() {
+                $('#event-title').val('');
+                $('#event-start').val('');
+                $('#event-end').val('');
+              });
+          } else {
+            alert('An event already exists at this time.');
+          }
+        },
+
+        // Handle event click
+        eventClick: function(calEvent, jsEvent, view) {
+          // Open modal to edit event
+          $('#eventModal')
+            .modal('show')
+            .on('shown.bs.modal', function() {
+              $('#event-title').val(calEvent.title);
+              $('#event-start').val(calEvent.start.format('YYYY-MM-DD HH:mm'));
+              $('#event-end').val(calEvent.end.format('YYYY-MM-DD HH:mm'));
+            })
+            .on('hidden.bs.modal', function() {
+              $('#event-title').val('');
+              $('#event-start').val('');
+              $('#event-end').val('');
+            });
+
+          // Update event details when modal save button is clicked
+          $('#save-event').click(function() {
+            calEvent.title = $('#event-title').val();
+            calEvent.start = moment($('#event-start').val(), 'YYYY-MM-DD HH:mm');
+            calEvent.end = moment($('#event-end').val(), 'YYYY-MM-DD HH:mm');
+            $('#calendar').fullCalendar('updateEvent', calEvent);
+            $('#eventModal').modal('hide');
+          });
+
+          // Delete event when modal delete button is clicked
+          $('#delete-event').click(function() {
+            $('#calendar').fullCalendar('removeEvents', calEvent._id);
+            $('#eventModal').modal('hide');
+          });
+        }
+      });
+    });
+  </script>
+
+  <style>
+    body {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px;
+      font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+    }
+
+    #calendar {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='calendar'></div>
+
+  <!-- Event Modal -->
+  <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="eventModalLabel">Create/Edit Event</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="event-title">Event Title:</label>
+            <input type="text" class="form-control" id="event-title" value="Availability" readonly>
+          </div>
+          <div class="form-group">
+            <label for="event-start">Start Time:</label>
+            <input type="text" class="form-control" id="event-start" readonly>
+          </div>
+          <div class="form-group">
+            <label for="event-end">End Time:</label>
+            <input type="text" class="form-control" id="event-end" readonly>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" id="delete-event">Delete</button>
+          <button type="button" class="btn btn-primary" id="save-event">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
