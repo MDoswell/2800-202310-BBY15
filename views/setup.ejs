@@ -1,0 +1,114 @@
+<%- include("templates/header")%>
+<div class="">
+    <h1 class="fw-bold text-center my-3">Thanks for choosing mytrAIner</h1>
+    <h4 class="fw-bold text-center my-3">To get started simply fill out the form below with your information!</h4>
+    <div class="card-body" style="width:60vw; margin:0 auto;">
+        <div class="row grid">
+            <div class="col-2 g-start-8" style="margin: 0 auto">
+              <input type="number" class="form-control" placeholder="Age" aria-label="Age">
+            </div>
+            
+                <select class="form-select col-3" style="margin: 0 auto" aria-label="Defa3lt select example">
+                    <option selected>Gender</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                    <option value="3">Rather not say</option>
+                  </select>
+            
+          </div>
+
+          
+            <div class="my-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Please state your goals for using this app</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+
+            <div class="py-3">
+                <p class="fw-bold">on a scale of 1 through 10 with 10 being very experience and 1 being no experienced, how experienced are you in exercise?</p>
+
+                <input type="range" value="5" min="1" max="10" oninput="this.nextElementSibling.value = this.value">
+                <output id="experience">5</output>
+            </div>
+
+            <div>
+                <h4 class="fw-bold text-center mt-3"></h4>
+                
+                  <p class="fw-bold">Choose one or more Exercise types that you enjoy</p>
+                  <div class="form-check py-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Cardiovascular exercises: These are exercises that increase your heart rate and breathing rate, such as running, cycling, swimming, and jumping jacks.
+                    </label>
+                  </div>
+              
+                  <!-- Checked checkbox -->
+                  <div class="form-check py-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" />
+                    <label class="form-check-label" for="flexCheckDefault2">
+                        Strength training exercises: These are exercises that involve resistance to build and strengthen muscles, such as weightlifting, push-ups, pull-ups, and squats.
+                    </label>
+                  </div>
+              
+                  <!-- Checked checkbox -->
+                  <div class="form-check py-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                    <label class="form-check-label" for="flexCheckDefault3">
+                        Flexibility exercises: These are exercises that improve your range of motion and flexibility, such as yoga, Pilates, and stretching.
+                    </label>
+                  </div>
+                
+                  <div class="form-check py-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                    <label class="form-check-label" for="flexCheckDefault3">
+                        Balance exercises: These are exercises that improve your stability and balance, such as standing on one leg, yoga poses, and balancing on a stability ball.
+                    </label>
+                  </div>
+
+                  <div class="form-check py-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                    <label class="form-check-label" for="flexCheckDefault3">
+                        High-Intensity Interval Training (HIIT): These are exercises that alternate periods of high-intensity exercise with periods of rest or low-intensity exercise, such as sprinting, burpees, and jumping jacks.
+                    </label>
+                  </div>
+
+                  <div class="form-check py-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                    <label class="form-check-label" for="flexCheckDefault3">
+                        Low-impact exercises: These are exercises that are easy on your joints, such as walking, cycling, and swimming.
+                    </label>
+                  </div>
+
+                  <div class="form-check py-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                    <label class="form-check-label" for="flexCheckDefault3">
+                        Sports-specific exercises: These are exercises that are designed to improve your performance in a specific sport, such as basketball, football, or tennis.
+                    </label>
+                  </div>
+
+                  <div class="form-check py-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                    <label class="form-check-label" for="flexCheckDefault3">
+                        Functional training exercises: These are exercises that simulate movements you use in everyday life, such as lifting groceries or bending down to pick up a child, and can improve your overall strength and flexibility.
+                    </label>
+                  </div>
+
+                  <div class="form-check py-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                    <label class="form-check-label" for="flexCheckDefault3">
+                        Bodyweight exercises: These are exercises that use your own body weight as resistance, such as push-ups, pull-ups, squats, and lunges.
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                    <label class="form-check-label" for="flexCheckDefault3">
+                        Endurance exercises: These are exercises that improve your ability to sustain physical activity over a long period of time, such as long-distance running, cycling, or swimming.
+                    </label>
+                  </div>
+                
+              </div>
+         
+        <div class="card-footer text-end"></div>
+    </div>
+  </div>
+<%- include("templates/footer")%>

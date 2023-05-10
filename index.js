@@ -70,6 +70,7 @@ app.use('/login/submit', require('./routes/loginSubmit')); // post
 app.use('/logout', require('./routes/logout'));
 app.use('/profile', require('./routes/profile'));
 app.use('/openai', require('./routes/openaiRoute'));
+app.use('/setup', require('./routes/firstTimeSetup'));
 app.use('*', require('./routes/error404'));
 // Once connectDB is resolved by connecting to the MongoDB databases, start the server.
 connectDB.then(() => {
