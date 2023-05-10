@@ -31,6 +31,9 @@
                                 ? "style=color:green;" : "style=color:white;" %>>
                                 <%= locals.navLinks[i].materialIcon %>
                             </i>
+                            <span class="d-inline d-sm-none">
+                                <%= locals.navLinks[i].route %>
+                            </span>
                         </a>
                     </li>
                     <% } %>
