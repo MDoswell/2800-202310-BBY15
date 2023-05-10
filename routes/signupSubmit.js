@@ -4,11 +4,11 @@ const { bcrypt, saltRounds, Joi, router } = require('../config/dependencies');
 // Route below.
 router.post('/signup/submit', async (req, res) => {
     const { userCollection } = await require('../config/databaseConnection');
-    const name = req.body.name;
+    const name = req.query.name;
 
     // Store the email in lowercase to avoid duplicate emails capitalized differently.
-    const email = req.body.email.toLowerCase();
-    const password = req.body.password;
+    const email = req.query.email.toLowerCase();
+    
 
     const schema = Joi.object(
         {
