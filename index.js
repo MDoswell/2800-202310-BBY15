@@ -62,6 +62,9 @@ app.use('/', (req, res, next) => {
     next();
 });
 
+
+app.use("/js", express.static("./public/js"));
+
 // Modular route paths declared below.
 app.use('/', require('./routes/home'));
 app.use('/signup', require('./routes/signup'));
@@ -70,8 +73,10 @@ app.use('/login', require('./routes/login'));
 app.use('/login/submit', require('./routes/loginSubmit')); // post
 app.use('/logout', require('./routes/logout'));
 app.use('/profile', require('./routes/profile'));
+app.use('/openai', require('./routes/openaiRoute'));
+app.use('/setup', require('./routes/firstTimeSetup'));
+app.use('/profileUpdate', require('./routes/profileUpdate'));
 app.use('*', require('./routes/error404'));
-
 // Once connectDB is resolved by connecting to the MongoDB databases, start the server.
 connectDB.then(() => {
     app.listen(port, () => {
