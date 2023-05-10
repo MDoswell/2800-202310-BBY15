@@ -14,7 +14,7 @@ router.post('/signup/submit', async (req, res) => {
         {
             // Name represents 'username' so it will be alphanumerical (letters/numbers) 
             name: Joi.string().alphanum().max(20).required(),
-            email: Joi.string().email().max(20).required(),
+            email: Joi.string().email().max(50).required(),
             password: Joi.string().max(20).required()
         });
 
@@ -40,7 +40,7 @@ router.post('/signup/submit', async (req, res) => {
                     if (email.trim() == "") {
                         errorMessage = "Email required.";
                     } else {
-                        errorMessage = "Email must be 20 characters or less and not contain any illegal characters.";
+                        errorMessage = "Email must be 50 characters or less and not contain any illegal characters.";
                     }
                     break;
                 case "password":

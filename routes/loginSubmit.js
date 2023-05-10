@@ -4,17 +4,17 @@ const { bcrypt, Joi, router } = require('../config/dependencies');
 // Route below.
 router.post('/login/submit', async (req, res) => {
     const { userCollection } = await require('../config/databaseConnection');
-    var email = req.body.email.toLowerCase();
+    var username = req.body.name;
     var password = req.body.password;
 
     // Define the schema (validation criteria) of the user info.
     const schema = Joi.object(
         {
-            email: Joi.string().email().max(20).required(),
+            username: Joi.string().alphanum().max(20).required(),
             password: Joi.string().max(20).required()
         });
 
-    const validationResult = schema.validate({ email, password });
+    const validationResult = schema.validate({ username, password });
 
     if (validationResult.error != null) {
         console.log(validationResult.error);
@@ -25,11 +25,11 @@ router.post('/login/submit', async (req, res) => {
             let errorMessage;
 
             switch (error.context.key) {
-                case "email":
-                    if (email.trim() == "") {
-                        errorMessage = "Email required.";
+                case "username":
+                    if (username.trim() == "") {
+                        errorMessage = "Username required.";
                     } else {
-                        errorMessage = "Email must be 20 characters or less and not contain any illegal characters.";
+                        errorMessage = "Username must be 20 characters or less and not contain any illegal characters.";
                     }
                     break;
                 case "password":
@@ -55,7 +55,7 @@ router.post('/login/submit', async (req, res) => {
         })
     } else {
         // Search the collection for a matching user.
-        const result = await userCollection.find({ email: { $eq: email } }).project({ name: 1, password: 1, user_type: 1, _id: 1 }).toArray();
+        const result = await userCollection.find({ name: { $eq: username } }, { collation: { locale: 'en_US', strength: 2 } }).project({ name: 1, email: 1, password: 1, _id: 1 }).toArray();
 
         // Check the collection for a matching user. If none, redirect.
         console.log(result);
@@ -87,7 +87,7 @@ router.post('/login/submit', async (req, res) => {
             return;
         } else {
             console.log("incorrect password");
-            const errorMessage = "Incorrect email/password combination.";
+            const errorMessage = "Incorrect username/password combination.";
             const authentication = false;
 
             res.render("loginSubmit", { errorMessage: errorMessage, authentication: authentication });
