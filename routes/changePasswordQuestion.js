@@ -60,7 +60,7 @@ router.get('/changePassword/question', async (req, res) => {
     const securityQuestion = result[0].question;
     console.log(securityQuestion);
 
-    res.render("changePasswordQuestion", { question: securityQuestion });
+    res.render("changePasswordQuestion", { question: securityQuestion, email: email });
     return;
 });
 

@@ -10,15 +10,20 @@ router.post('/signup/submit', async (req, res) => {
     const email = req.body.email.toLowerCase();
     const password = req.body.password;
 
+    const question = req.body.question;
+    const answer = req.body.answer;
+
     const schema = Joi.object(
         {
             // Name represents 'username' so it will be alphanumerical (letters/numbers) 
             name: Joi.string().alphanum().max(20).required(),
             email: Joi.string().email().max(50).required(),
-            password: Joi.string().max(20).required()
+            password: Joi.string().max(20).required(),
+            question: Joi.string().regex(/[\w\s,.?]+/).max(80).required(),
+            answer: Joi.string().regex(/[\w\s,.?]+/).max(30).required()
         });
 
-    const validationResult = schema.validate({ name, email, password });
+    const validationResult = schema.validate({ name, email, password, question, answer });
 
     if (validationResult.error != null) {
         console.log(validationResult.error);
@@ -48,6 +53,20 @@ router.post('/signup/submit', async (req, res) => {
                         errorMessage = "Password required.";
                     } else {
                         errorMessage = "Password must be 20 characters or less and not contain any illegal characters.";
+                    }
+                    break;
+                case "question":
+                    if (name.trim() == "") {
+                        errorMessage = "Security question required.";
+                    } else {
+                        errorMessage = "Security question must be 80 characters or less and not contain any illegal characters.";
+                    }
+                    break;
+                case "answer":
+                    if (name.trim() == "") {
+                        errorMessage = "Security question answer required.";
+                    } else {
+                        errorMessage = "Security question answer must be 30 characters or less and not contain any illegal characters.";
                     }
                     break;
                 default:
@@ -94,6 +113,8 @@ router.post('/signup/submit', async (req, res) => {
         // Encrypt the password of the new account to store.
         var hashedPassword = await bcrypt.hash(password, saltRounds);
 
+        var hashedAnswer = await bcrypt.hash(answer, saltRounds);
+
         // Create a unique index with a case-insensitive collation on the name field
         await userCollection.createIndex(
             { name: 1 },
@@ -101,7 +122,8 @@ router.post('/signup/submit', async (req, res) => {
         );
 
         // Set user_type to 'user' by default on sign-up (NOTE: No need to sanitize a hard-coded explicit literal).
-        await userCollection.insertOne({ name: name, email: email, password: hashedPassword, user_type: 'user' });
+        await userCollection.insertOne({ name: name, email: email, password: hashedPassword, question: question,
+            answer: hashedAnswer, user_type: 'user' });
 
         console.log("Inserted user");
 
