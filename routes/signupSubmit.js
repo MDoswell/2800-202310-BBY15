@@ -1,6 +1,13 @@
 // Load modules below.
 const { bcrypt, saltRounds, Joi, router } = require('../config/dependencies');
 
+router.get('/signup', (req, res) => {
+  const errorMessage = req.session.errorMessage;
+  req.session.errorMessage = null; // Clear the error message from the session
+  res.render('signup', { errorMessage });
+});
+
+
 // Route below.
 router.post('/signup/submit', async (req, res) => {
     const { userCollection } = await require('../config/databaseConnection');
@@ -15,23 +22,23 @@ router.post('/signup/submit', async (req, res) => {
         email: Joi.string().email().max(20).required(),
         password: Joi.string()
           .min(8)
-          .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
+          .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/)
           .required()
           .messages({
             'string.min': 'Password must be at least 8 characters long.',
-            'string.regex.base': 'Password must include at least one lowercase letter, one uppercase letter, one number, and one special character.',
+            'string.regex.base': 'Password must include at least one lowercase letter, one uppercase letter, and one digit.',
             'any.required': 'Password is required.',
           }),
       });
-    
+      
       const validationResult = schema.validate({ name, email, password });
-    
+
       if (validationResult.error) {
-        const errorMessage = validationResult.error.details[0].message;
-        const authentication = false;
-        res.render('signupSubmit', { errorMessage, authentication });
+        req.session.errorMessage = validationResult.error.details[0].message;
+        res.redirect('/signup');
         return;
       }
+      
 
 
     // const schema = Joi.object(
