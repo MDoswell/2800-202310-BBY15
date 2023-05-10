@@ -2,11 +2,12 @@ const loginForm = document.getElementById("login-form");
 const loginButton = document.getElementById("login-button");
 const errorMessage = document.getElementById("error-message");
 const successMessage = document.getElementById("success-message");
-const redirectMessage = document.getElementById("redirect-message");
 
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
+
   const formData = new FormData(loginForm);
+  
   const serializedFormData = new URLSearchParams(formData);
 
   const response = await axios.post("/login/submit", serializedFormData);

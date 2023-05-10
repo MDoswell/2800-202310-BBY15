@@ -4,17 +4,33 @@ const { bcrypt, Joi, router } = require('../config/dependencies');
 // Route below.
 router.post('/login/submit', async (req, res) => {
     const { userCollection } = await require('../config/databaseConnection');
-    var username = req.body.name;
+    var username = req.body.usernameOrEmail;
     var password = req.body.password;
 
-    // Define the schema (validation criteria) of the user info.
-    const schema = Joi.object(
-        {
-            username: Joi.string().alphanum().max(20).required(),
-            password: Joi.string().max(20).required()
-        });
+    if (username.includes("@")) {
+        console.log('User logging in with email.');
 
-    const validationResult = schema.validate({ username, password });
+        // Define the schema (validation criteria) of the user info.
+        var schema = Joi.object(
+            {
+                email: Joi.string().email().max(50).required(),
+                password: Joi.string().max(20).required()
+            })
+        
+        var validationResult = schema.validate({ email: username, password });
+    } else {
+        console.log('User logging in with username.');
+
+        // Define the schema (validation criteria) of the user info.
+        var schema = Joi.object(
+            {
+                username: Joi.string().alphanum().max(20).required(),
+                password: Joi.string().max(20).required()
+            })
+        
+        var validationResult = schema.validate({ username, password });
+    }
+
 
     if (validationResult.error != null) {
         console.log(validationResult.error);
@@ -30,6 +46,13 @@ router.post('/login/submit', async (req, res) => {
                         errorMessage = "Username required.";
                     } else {
                         errorMessage = "Username must be 20 characters or less and not contain any illegal characters.";
+                    }
+                    break;
+                case "email":
+                    if (username.trim() == "") {
+                        errorMessage = "Email required.";
+                    } else {
+                        errorMessage = "Email must be 50 characters or less and not contain any illegal characters.";
                     }
                     break;
                 case "password":
@@ -50,13 +73,24 @@ router.post('/login/submit', async (req, res) => {
             }
 
             const authentication = false;
-            
+
             res.json({ errorMessage, authentication });
             return;
         })
     } else {
         // Search the collection for a matching user.
-        const result = await userCollection.find({ name: { $eq: username } }, { collation: { locale: 'en_US', strength: 2 } }).project({ name: 1, email: 1, password: 1, _id: 1 }).toArray();
+        const result = await userCollection.find(
+            {
+              $or: [
+                { name: { $eq: username } },
+                { email: { $eq: username } }
+              ]
+            },
+            {
+              collation: { locale: 'en_US', strength: 2 },
+              projection: { name: 1, email: 1, password: 1, user_type: 1, _id: 0 }
+            }
+          ).toArray();
 
         // Check the collection for a matching user. If none, redirect.
         console.log(result);
