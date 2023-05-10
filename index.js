@@ -64,6 +64,12 @@ app.use('/login', require('./routes/login'));
 app.use('/login/submit', require('./routes/loginSubmit')); // post
 app.use('/logout', require('./routes/logout'));
 app.use('/profile', require('./routes/profile'));
+app.use('/changePassword/begin', require('./routes/changePasswordBegin'));
+app.use('/changePassword/begin/submit', require('./routes/changePasswordEmailSubmit'));
+app.use('/changePassword/question', require('./routes/changePasswordQuestion'));
+app.use('/changePassword/question/submit', require('./routes/changePasswordQuestionSubmit'));
+app.use('/changePassword', require('./routes/changePassword'));
+app.use('/changePassword/submit', require('./routes/changePasswordSubmit'));
 app.use('*', require('./routes/error404'));
 
 // Once connectDB is resolved by connecting to the MongoDB databases, start the server.
