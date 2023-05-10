@@ -3,7 +3,7 @@ const { router, Joi} = require('../config/dependencies');
 
 // Route below.
 router.get('/profileUpdate', async (req, res) => {
-    console.log('inside profileUpdate.js')
+
     const { userCollection } = await require('../config/databaseConnection');
     const name = req.query.name;
 
