@@ -6,10 +6,10 @@
             </video>
             <div class="overlay">
                 <div class="container px-5 mt-5">
-                    <h1 class="text-start mb-5">Welcome to mytrAIner!</h1>
-                    <button class="p-2 m-2 col-sm-2 btn btn-primary"
+                    <h1 class="animate__animated animate__fadeInDown !important text-start mb-5">Welcome to mytrAIner!</h1>
+                    <button class="animate__animated animate__fadeInUp p-2 m-2 col-sm-2 btn btn-primary"
                         onclick="location.href = window.location.origin + '/login'">Login</button>
-                    <button class="p-2 m-2 col-sm-2 btn btn-primary"
+                    <button class="animate__animated animate__fadeInUp p-2 m-2 col-sm-2 btn btn-primary"
                         onclick="location.href = window.location.origin + '/signup'">Sign Up</button>
                 </div>
             </div>
@@ -23,6 +23,15 @@
             </div>
             <% } %>
 <%- include("templates/footer") %>
+
+<% if (!authenticated) { %>
+<script>
+    // Disable vertical scrolling from video overflow on logged out home page.
+    const body = document.querySelector('body');
+    body.style.overflowY = 'hidden';
+</script>
+<% } %>
+
 <script>
     const head = document.querySelector('head');
     const link = document.createElement('link');
@@ -32,3 +41,8 @@
 
     head.appendChild(link);
 </script>
+
+<!-- <script>
+    const body = document.querySelector('body');
+    body.style.overflowY = 'hidden';
+</script> -->

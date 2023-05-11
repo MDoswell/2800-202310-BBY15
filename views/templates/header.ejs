@@ -13,40 +13,67 @@
 
     <!-- Require Google Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Animate.css (no Ajax) as a simpler alternative to Swup (hi Ajax) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" >
+
+    <!-- Transition.css (no Ajax) as a simpler alternative to Swup (hi Ajax) -->
+    <link href="https://unpkg.com/transition-style" rel="stylesheet" />
+
+    <style>
+        .nav-link {
+            color: grey !important;
+            transition: ease-in-out 0.3s;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transition: ease-in-out 0.3s;
+        }
+    </style>
 </head>
 
-<body>
+<body transition-style="in:circle:center">
     <!-- FOR SWUP <main id="swup" class="transition-fade"> -->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-            <div class="d-flex align-items-center">
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent relative-top justify-content-center vw-100 fixed-top">
+            <div class="col-3 d-flex align-items-center justify-content-start">
                 <% if (locals.currentURL !='/' && locals.currentURL !='/logout' ) { %>
                     <span class="nav-item">
                         <a class="nav-link" href="javascript: history.back()">
-                            <i class="material-icons" "style=color:white;">
+                            <i class="material-icons">
                                 keyboard_backspace
                             </i>
                         </a>
                     </span>
                     <% } %>
             </div>
-            <div class="mx-auto d-flex align-items-center text-center">
-                <a class="navbar-brand mx-auto" href="#">mytrAIner</a>
+            <% if (locals.authenticated && locals.currentURL !='/logout') { %>
+                <div class="col-lg-4 col-6 d-flex pl-lg-5 ml-lg-5">
+            <% } else { %>
+                <div class="col-lg-6 col-6 d-flex">
+            <% } %>
+                <a class="navbar-brand mx-auto" href="/">mytrAIner</a>
             </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <div class="col-3 d-flex align-items-center justify-content-end">
+                <% if (locals.authenticated && locals.currentURL !='/logout' ) { %>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <% } %>
+            </div>
             <div class="collapse navbar-collapse flex-grow-0" id="navbarText">
-                <ul class="navbar-nav ml-auto mr-0 pr-5">
+                <ul class="navbar-nav ml-auto mr-0">
                     <% for(var i=0; i< locals.navLinks.length; i++) { %>
                         <% if (locals.authenticated && locals.currentURL !='/logout' ) { %>
                             <li class="nav-item">
-                                <a class="nav-link" href="<%= locals.navLinks[i].link %>">
+                                <!-- Add d-flex and align-items-center so icon and link name are vertically aligned -->
+                                <a class="nav-link d-flex align-items-center" href="<%= locals.navLinks[i].link %>">
                                     <i class="material-icons" <%=locals.navLinks[i].link===locals.currentURL
-                                        ? "style=color:green;" : "style=color:white;" %>>
+                                        ? "style=color:green;" : "" %>>
                                         <%= locals.navLinks[i].materialIcon %>
                                     </i>
-                                    <span class="d-inline d-lg-none">
+                                    <span class="d-inline d-lg-none pl-2">
                                         <%= locals.navLinks[i].route %>
                                     </span>
                                 </a>

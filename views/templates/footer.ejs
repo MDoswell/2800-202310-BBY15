@@ -1,6 +1,6 @@
 <div class="container d-flex flex-column fixed-bottom">
-    <footer
-        class="footer mt-auto py-3 border-top d-flex flex-wrap justify-content-between align-items-center border-top">
+    <footer class="footer mt-auto py-3 border-top d-flex justify-content-between align-items-center border-top"
+        style="flex-wrap: nowrap;">
         <div class="col-md-4 d-flex align-items-center">
             <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
                 <svg class="bi" width="30" height="24">
@@ -32,3 +32,14 @@
 
 <!-- Axios -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<!-- Simulate transition-in/-out with Transitions.css (no Ajax) -->
+<script>
+    // Add a click event to all links
+    $("a").click(function(e) {
+    
+        // Replace class name for transition-in (in:wipe:right) with transition-out (out:wipe:right).
+        $("body").attr("transition-style", "out:circle:center")
+        console.log('i did it')
+    });
+</script>
