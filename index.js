@@ -1,7 +1,7 @@
 // Start of config section.
 // Load modules below via dependencies.js.
 require('dotenv').config();
-const { express, session, url } = require('./config/dependencies');
+const { express, session } = require('./config/dependencies');
 
 // Declare database connections.
 const { connectDB, sessionStore } = require('./config/databaseConnection');
@@ -29,31 +29,31 @@ app.use(express.urlencoded({ extended: true }));
 
 // Setup session support to enable storing session data.
 app.use(session({
-    secret: node_session_secret,
-    store: sessionStore,
-    saveUninitialized: false,
-    resave: true
-}
-));
+  secret: node_session_secret,
+  store: sessionStore,
+  saveUninitialized: false,
+  resave: true
+}));
+
 // End of config section.
 
 
 // Start of middleware section.
 // Navlinks and currentURL are used to determine which navlinks to display in the header.
 app.use('/', (req, res, next) => {
-    const navLinks = (isValidSession(req)) ? // Is a user with a valid session logged in?
-            [
-                { route: "Home", link: "/", materialIcon: "home" },
-                { route: "Profile", link: "/profile", materialIcon: "account_circle" },
-                { route: "Logout", link: "/logout", materialIcon: "logout"}
-            ]
-            : [ // Else, user not logged in (invalid session)
-                { route: "Home", link: "/", materialIcon: "home" },
-            ];
+  const navLinks = isValidSession(req) ? // Is a user with a valid session logged in?
+    [
+      { route: "Home", link: "/", materialIcon: "home" },
+      { route: "Profile", link: "/profile", materialIcon: "account_circle" },
+      { route: "Logout", link: "/logout", materialIcon: "logout" }
+    ]
+    : [ // Else, user not logged in (invalid session)
+      { route: "Home", link: "/", materialIcon: "home" },
+    ];
 
-    app.locals.navLinks = navLinks;
-    app.locals.currentURL = url.parse(req.url).pathname;
-    next();
+  app.locals.navLinks = navLinks;
+  app.locals.currentURL = req.originalUrl;
+  next();
 });
 
 // Modular route paths declared below.
@@ -68,7 +68,7 @@ app.use('*', require('./routes/error404'));
 
 // Once connectDB is resolved by connecting to the MongoDB databases, start the server.
 connectDB.then(() => {
-    app.listen(port, () => {
-        console.log('Node application listening on port ' + port);
-    });
+  app.listen(port, () => {
+    console.log('Node application listening on port ' + port);
+  });
 });

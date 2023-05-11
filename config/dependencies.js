@@ -8,4 +8,23 @@ const Joi = require('joi');
 const url = require('url');
 const router = express.Router();
 
-module.exports = { express, session, MongoDBSession, bcrypt, saltRounds, Joi, router, url };
+//Module used for updating availability
+const bodyParser = require('body-parser');
+const { MongoClient } = require('mongodb');
+const fullcalendar = require('fullcalendar');
+const moment = require('moment');
+const jquery = require('jquery');
+
+// module.exports = { express, session, MongoDBSession, bcrypt, saltRounds, Joi, router, url };
+
+module.exports = {
+    express,
+    session,
+    MongoDBSession,
+    bodyParser,
+    MongoClient,
+    fullcalendar,
+    moment,
+    jquery,
+    router
+  };
