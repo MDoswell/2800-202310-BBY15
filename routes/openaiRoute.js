@@ -25,7 +25,7 @@ router.post('/openai', async(req, res) => {
           console.log("response" + response);
           const summary = response.data.choices[0].text.trim();
           console.log("summary" + summary);
-          res.send(response)
+          res.send(summary)
     
     } catch (error) {
             console.log(error);

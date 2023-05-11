@@ -47,7 +47,7 @@ async function generatePrompt() {
         str += ', endurance';
     }
 
-    str += ". With that profile what kind of exercise routine would you recomend me?";
+    str += ". With that profile what kind of exercise routine would you recomend me? only respond with a list of exercise names and the reps and sets i will do. Do not respond with anything else other that the list of exercises with the reps and sets";
     console.log(str);
     
 
