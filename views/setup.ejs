@@ -2,10 +2,11 @@
 <div class="">
     <h1 class="fw-bold text-center my-3">Thanks for choosing mytrAIner</h1>
     <h4 class="fw-bold text-center my-3">To get started simply fill out the form below with your information!</h4>
+    <form class="setup-form" >
     <div class="card-body" style="width:60vw; margin:0 auto;">
         <div class="row grid">
             <div class="col-2 g-start-8" style="margin: 0 auto">
-              <input type="number" id="age" class="form-control" placeholder="Age" aria-label="Age">
+              <input type="number" name="age" id="age" class="form-control" placeholder="Age" aria-label="Age">
             </div>
             
                 <select id="gender" class="form-select col-3" style="margin: 0 auto" aria-label="Defa3lt select example">
@@ -120,9 +121,10 @@
               </div>
          
         <div class="card-footer text-end">
-          <input type="button" value="submit" onclick="generatePrompt()">
+          <button type="button" onclick="generatePrompt()"></button>
         </div>
+      </form>
     </div>
   </div>
-  <script src="js/setup.js"></script>
+  <script src="js/generatePrompt.js"></script>
 <%- include("templates/footer")%>

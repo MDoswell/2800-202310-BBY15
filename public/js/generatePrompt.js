@@ -1,5 +1,6 @@
 
-function generatePrompt() {
+async function generatePrompt() {
+    console.log("runnign generatePrompt");
     str = "I am " + document.getElementById("age").value 
 
         + " years old and my gender is "+ document.getElementById("gender").selectedOptions[0].value
@@ -47,6 +48,10 @@ function generatePrompt() {
     }
 
     str += ". With that profile what kind of exercise routine would you recomend me?";
+    console.log(str);
+    
 
-    window.location.href = '/openai?prompt=' + str;
+    const aiResponse = await axios.post("/openai", {str});
+
+    console.log(aiResponse);
 }
