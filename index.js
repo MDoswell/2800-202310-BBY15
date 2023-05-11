@@ -73,6 +73,10 @@ app.use('/login', require('./routes/login'));
 app.use('/login/submit', require('./routes/loginSubmit')); // post
 app.use('/logout', require('./routes/logout'));
 app.use('/profile', require('./routes/profile'));
+app.use('/changePassword/begin', require('./routes/changePasswordBegin'));
+app.use('/changePassword/begin/submit', require('./routes/changePasswordEmailSubmit'));
+app.use('/changePassword', require('./routes/changePassword'));
+app.use('/changePassword/submit', require('./routes/changePasswordSubmit'));
 app.use('/openai', require('./routes/openaiRoute'));
 app.use('/setup', require('./routes/firstTimeSetup'));
 app.use('/profileUpdate', require('./routes/profileUpdate'));
