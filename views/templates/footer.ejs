@@ -1,7 +1,6 @@
-</body>
-<div class="container d-flex flex-column">
-    <footer
-        class="footer mt-auto py-3 border-top d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+<div class="container d-flex flex-column fixed-bottom">
+    <footer class="footer mt-auto py-3 border-top d-flex justify-content-between align-items-center border-top"
+        style="flex-wrap: nowrap;">
         <div class="col-md-4 d-flex align-items-center">
             <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
                 <svg class="bi" width="30" height="24">
@@ -13,10 +12,12 @@
 
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li class="ms-3 pr-5"><a class="text-body-secondary" href="/"><i class="material-icons"
-                        style=color:white;>home</i></a></li>
+                        style=color:white;>github</i></a></li>
         </ul>
     </footer>
 </div>
+<!-- FOR SWUP </main> -->
+</body>
 
 <!-- Require jQuery, Popper.js, and other Bootstrap JS plugins -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -28,7 +29,17 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+
+<!-- Axios -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js%22%3E</script> 
-</html>
+<!-- Simulate transition-in/-out with Transitions.css (no Ajax) -->
+<script>
+    // Add a click event to all links
+    $("a").click(function(e) {
+    
+        // Replace class name for transition-in (in:wipe:right) with transition-out (out:wipe:right).
+        $("body").attr("transition-style", "out:circle:center")
+        console.log('i did it')
+    });
+</script>

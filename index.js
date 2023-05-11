@@ -57,6 +57,7 @@ app.use('/', (req, res, next) => {
                 { route: "Home", link: "/", materialIcon: "home" },
             ];
 
+    app.locals.authenticated = isValidSession(req);
     app.locals.navLinks = navLinks;
     app.locals.currentURL = url.parse(req.url).pathname;
     next();
