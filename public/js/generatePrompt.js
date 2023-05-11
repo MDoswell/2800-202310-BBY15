@@ -1,7 +1,8 @@
+const generatedRoutine = document.getElementById("generatedRoutine");  
 
 async function generatePrompt() {
-    console.log("runnign generatePrompt");
-    str = "I am " + document.getElementById("age").value 
+    console.log("running generatePrompt");
+    let str = "I am " + document.getElementById("age").value 
 
         + " years old and my gender is "+ document.getElementById("gender").selectedOptions[0].value
 
@@ -53,5 +54,9 @@ async function generatePrompt() {
 
     const aiResponse = await axios.post("/openai", {str});
 
+    generatedRoutine.textContent = aiResponse.data;
+
     console.log(aiResponse);
+
+
 }
