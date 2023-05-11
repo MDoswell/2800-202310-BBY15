@@ -1,15 +1,15 @@
-const loginForm = document.getElementById("login-form");
+const signupForm = document.getElementById("signup-form");
 const errorMessage = document.getElementById("error-message");
 const successMessage = document.getElementById("success-message");
 
-loginForm.addEventListener("submit", async (event) => {
+signupForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const formData = new FormData(loginForm);
+  const formData = new FormData(signupForm);
   
   const serializedFormData = new URLSearchParams(formData);
 
-  const response = await axios.post("/login/submit", serializedFormData);
+  const response = await axios.post("/signup/submit", serializedFormData);
 
   if (response.data.authentication) {
     $('#success-message').hide();

@@ -4,10 +4,11 @@ const { bcrypt, saltRounds, Joi, router } = require('../config/dependencies');
 // Route below.
 router.post('/signup/submit', async (req, res) => {
     const { userCollection } = await require('../config/databaseConnection');
-    const name = req.query.name;
+    const name = req.body.name;
+    const password = req.body.password;
 
     // Store the email in lowercase to avoid duplicate emails capitalized differently.
-    const email = req.query.email.toLowerCase();
+    const email = req.body.email.toLowerCase();
     
 
     const question = req.body.question;
@@ -80,7 +81,7 @@ router.post('/signup/submit', async (req, res) => {
             }
 
             const authentication = false;
-            res.render("signupSubmit", { errorMessage: errorMessage, authentication: authentication });
+            res.json({ errorMessage, authentication });
         })
 
         return;
@@ -99,7 +100,7 @@ router.post('/signup/submit', async (req, res) => {
         const errorMessage = "Name already in use.";
         const authentication = false;
 
-        res.render("signupSubmit", { errorMessage: errorMessage, authentication: authentication });
+        res.json({ errorMessage, authentication });
         return;
     } else if (emailResult.length == 1) {
         console.log("Email already in use.");
@@ -107,7 +108,7 @@ router.post('/signup/submit', async (req, res) => {
         const errorMessage = "Email already in use.";
         const authentication = false;
 
-        res.render("signupSubmit", { errorMessage: errorMessage, authentication: authentication });
+        res.json({ errorMessage, authentication });
         return;
     } else {
         // Encrypt the password of the new account to store.
@@ -127,8 +128,7 @@ router.post('/signup/submit', async (req, res) => {
 
         console.log("Inserted user");
 
-        const successMessage = "User created successfully.";
-        const redirectMessage = "Redirecting to home feed...";
+        const successMessage = "User created successfully. Redirecting to home feed...";
         const authentication = true;
         const expireTime = 60 * 60 * 1000; //expires after 1 hour (minutes * seconds * millis)
 
@@ -137,7 +137,7 @@ router.post('/signup/submit', async (req, res) => {
         req.session.user_type = 'user';
         req.session.cookie.maxAge = expireTime;
 
-        res.render("signupSubmit", { successMessage: successMessage, redirectMessage: redirectMessage, authentication: authentication });
+        res.json({ successMessage, authentication });
     }
 });
 

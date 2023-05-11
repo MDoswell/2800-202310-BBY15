@@ -2,7 +2,7 @@
 const { isValidSession } = require('./sessionValidation');
 
 // Redirect to home if logged out user is trying to access '/login' webpage.
-function loginRedirect(req, res, next) {
+function sessionRedirect(req, res, next) {
     if (isValidSession(req)) {
         console.log('User already logged in. Redirecting to home.');
         res.redirect('/');
@@ -13,4 +13,4 @@ function loginRedirect(req, res, next) {
     }
 };
 
-module.exports = { loginRedirect };
+module.exports = { sessionRedirect };
