@@ -16,40 +16,43 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="d-flex align-items-center">
-            <% if (locals.currentURL !='/' ) { %>
-                <span class="nav-item">
-                    <a class="nav-link" href="javascript: history.back()">
-                        <i class="material-icons" "style=color:white;">
-                            keyboard_backspace
-                        </i>
-                    </a>
-                </span>
-                <% } %>
-        </div>
-        <div class="mx-auto d-flex align-items-center text-center">
-            <a class="navbar-brand mx-auto" href="#">mytrAIner</a>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse flex-grow-0" id="navbarText">
-            <ul class="navbar-nav ml-auto mr-0 pr-5">
-                <% for(var i=0; i< locals.navLinks.length; i++) { %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<%= locals.navLinks[i].link %>">
-                            <i class="material-icons" <%=locals.navLinks[i].link===locals.currentURL
-                                ? "style=color:green;" : "style=color:white;" %>>
-                                <%= locals.navLinks[i].materialIcon %>
+    <!-- FOR SWUP <main id="swup" class="transition-fade"> -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="d-flex align-items-center">
+                <% if (locals.currentURL !='/' && locals.currentURL !='/logout' ) { %>
+                    <span class="nav-item">
+                        <a class="nav-link" href="javascript: history.back()">
+                            <i class="material-icons" "style=color:white;">
+                                keyboard_backspace
                             </i>
-                            <span class="d-inline d-lg-none">
-                                <%= locals.navLinks[i].route %>
-                            </span>
                         </a>
-                    </li>
+                    </span>
                     <% } %>
-            </ul>
-        </div>
-    </nav>
+            </div>
+            <div class="mx-auto d-flex align-items-center text-center">
+                <a class="navbar-brand mx-auto" href="#">mytrAIner</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse flex-grow-0" id="navbarText">
+                <ul class="navbar-nav ml-auto mr-0 pr-5">
+                    <% for(var i=0; i< locals.navLinks.length; i++) { %>
+                        <% if (locals.authenticated && locals.currentURL !='/logout' ) { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<%= locals.navLinks[i].link %>">
+                                    <i class="material-icons" <%=locals.navLinks[i].link===locals.currentURL
+                                        ? "style=color:green;" : "style=color:white;" %>>
+                                        <%= locals.navLinks[i].materialIcon %>
+                                    </i>
+                                    <span class="d-inline d-lg-none">
+                                        <%= locals.navLinks[i].route %>
+                                    </span>
+                                </a>
+                            </li>
+                        <% } %>
+                    <% } %>
+                </ul>
+            </div>
+        </nav>
