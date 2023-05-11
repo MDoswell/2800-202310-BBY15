@@ -3,12 +3,12 @@
 /* Animations.css here (for animating elements; docs: https://animate.style/) */
 #homeWelcome {
     animation: fadeInDown;
-    animation-duration: 2s;
+    animation-duration: 1.3s;
   }
 
 #loginButton, #signupButton {
     animation: fadeInUp;
-    animation-duration: 2s;
+    animation-duration: 1.3s;
 }
 
 

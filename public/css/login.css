@@ -1,0 +1,15 @@
+/* NOTE: CSS applied as a script in index.ejs because of different layouts for home page with and without session (see index.ejs for more details) */
+
+/* Animations.css here (for animating elements; docs: https://animate.style/) */
+#success-message, #error-message {
+    animation: fadeInDown;
+    animation-duration: 1s;
+  }
+
+#loginSkeleton {
+    animation: fadeInLeft;
+    animation-duration: 1s;
+}
+
+
+/* Standard CSS styling */
