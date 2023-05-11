@@ -1,3 +1,18 @@
+/* NOTE: CSS applied as a script in index.ejs because of different layouts for home page with and without session (see index.ejs for more details) */
+
+/* Animations.css here (for animating elements; docs: https://animate.style/) */
+#homeWelcome {
+    animation: fadeInDown;
+    animation-duration: 2s;
+  }
+
+#loginButton, #signupButton {
+    animation: fadeInUp;
+    animation-duration: 2s;
+}
+
+
+/* Standard CSS styling */
 .video-container {
     position: relative;
     height: 100vh;
