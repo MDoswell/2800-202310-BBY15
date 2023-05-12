@@ -56,6 +56,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        var availabilityArray = []; // Array to store the availability data
         function addAvailability() {
             var startDate = new Date(document.getElementById('startDate').value + 'T00:00:00Z');
             var selectedDates = document.getElementById('selectedDates');
@@ -106,14 +107,15 @@
             tableRow.appendChild(actionsCell);
             actionsCell.appendChild(deleteButton);
             selectedDates.querySelector('tbody').appendChild(tableRow);
+
+            // Push the availability data to the array
+            availabilityArray.push({
+                dayOfWeek: dayOfWeek,
+                date: formattedDate,
+                startTime: startTime,
+                endTime: endTime
+            });
         }
-
-
-        $(document).ready(function () {
-            // Set the minimum selectable date as today
-            var today = new Date().toISOString().split('T')[0];
-            document.getElementById('startDate').setAttribute('min', today);
-        });
 
         $('#startDate').on('change', function () {
             var selectedDate = new Date(this.value);
@@ -126,6 +128,33 @@
             // Clear the selected dates table
             var selectedDatesTable = document.getElementById('selectedDates').querySelector('tbody');
             selectedDatesTable.innerHTML = '';
+        });
+
+        $(document).ready(function () {
+            // Form submission event handler
+            $('form[name="availabilityForm"]').on('submit', function (event) {
+                event.preventDefault();
+
+                // Assign the availability array to a hidden input field
+                $('input[name="availabilityData"]').val(JSON.stringify(availabilityArray));
+
+                // Create a new form with only the availability data
+                var form = $('<form></form>');
+                form.attr('method', 'POST');
+                form.attr('action', '/timeForm/submit');
+
+                // Create an input field for the availability data
+                var input = $('<input />');
+                input.attr('type', 'hidden');
+                input.attr('name', 'availabilityData');
+                input.attr('value', JSON.stringify(availabilityArray));
+
+                // Append the input field to the form
+                form.append(input);
+
+                // Submit the new form
+                form.appendTo('body').submit();
+            });
         });
     </script>
 </body>
