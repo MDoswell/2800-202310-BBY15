@@ -12,6 +12,8 @@ const mongodb_database = process.env.MONGODB_DATABASE;
 const mongodb_secret = process.env.MONGODB_SECRET;
 const mongodb_session_database = process.env.MONGODB_SESSION_DATABASE;
 const mongodb_session_secret = process.env.MONGODB_SESSION_SECRET;
+const mongodb_exercise_database = process.env.MONGODB_EXERCISE_DATABASE;
+const mongodb_exercise_secret = process.env.MONGODB_EXERCISE_SECRET;
 
 // Configure users database.
 const mongodbStore = new MongoDBSession({
@@ -27,15 +29,24 @@ const sessionStore = new MongoDBSession({
     secret: mongodb_session_secret
 });
 
+// Configure sessions database.
+const exerciseStore = new MongoDBSession({
+    uri: `mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/${mongodb_exercise_database}?retryWrites=true&w=majority`,
+    collection: 'exercises',
+    secret: mongodb_exercise_secret
+});
+
 // Below, both connections are established before the server starts listening for requests by using the Promise.
 // all() method to wait for both connections to be established before starting the server. 
 const connectDB = Promise.all([
     new Promise(resolve => mongodbStore.on('connected', resolve)),
-    new Promise(resolve => sessionStore.on('connected', resolve))
+    new Promise(resolve => sessionStore.on('connected', resolve)),
+    new Promise(resolve => exerciseStore.on('connected', resolve))
 ]).then(() => {
     console.log('MongoDB user store and session store connected');
     module.exports.userCollection = mongodbStore.client.db().collection('users');
     module.exports.sessionCollection = sessionStore.client.db().collection('sessions');
+    module.exports.exerciseCollection = exerciseStore.client.db().collection('exercises');
 });
 
 module.exports.mongodbStore = mongodbStore;
