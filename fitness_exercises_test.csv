@@ -1,0 +1,33 @@
+bodyPart,equipment,gifUrl,id,name,target,instructions
+waist,body weight,http://d205bpvrqc9yn1.cloudfront.net/0001.gif,1,3/4 sit-up,abs,"<ol>
+  <li>Start by lying flat on your back with your knees bent and feet flat on the floor.</li>
+  <li>Place your hands behind your head, with your elbows pointing out to the sides.</li>
+  <li>Engage your core muscles by pulling your belly button in towards your spine.</li>
+  <li>Slowly lift your head, shoulders, and upper back off the ground, while keeping your lower back pressed into the floor.</li>
+  <li>Pause for a moment at the top of the movement, then slowly lower yourself back down to the starting position.</li>
+  <li>Repeat for the desired number of repetitions.</li>
+  <li>Remember to breathe throughout the exercise, exhaling as you lift up and inhaling as you lower back down.</li>
+  <li>For added challenge, you can hold a weight or medicine ball against your chest as you perform the exercise.</li>
+</ol>"
+waist,body weight,http://d205bpvrqc9yn1.cloudfront.net/0002.gif,2,45° side bend,abs,"<ol>
+<li>Stand with your feet shoulder-width apart and your arms at your sides.</li>
+<li>Place your right hand on your right hip and raise your left arm straight overhead.</li>
+<li>Inhale deeply and as you exhale, slowly bend your upper body to the right side, keeping your left arm straight and your hand reaching towards the right.</li>
+<li>Hold the stretch for 15-30 seconds, feeling the stretch in your left side.</li>
+<li>Inhale and slowly return to the starting position.</li>
+<li>Repeat the exercise on the opposite side by placing your left hand on your left hip and raising your right arm straight overhead.</li>
+<li>Perform 10-15 repetitions on each side.</li>
+</ol>"
+waist,body weight,http://d205bpvrqc9yn1.cloudfront.net/0003.gif,3,air bike,abs,"<ol>
+  <li>Adjust the seat and handlebars to your height.</li>
+  <li>Place your feet on the pedals and secure them with the straps.</li>
+  <li>Begin pedaling with your arms and legs simultaneously.</li>
+  <li>Start with a warm-up of 5-10 minutes at a moderate pace.</li>
+  <li>Gradually increase the resistance level to increase the intensity of the workout.</li>
+  <li>Alternate between high-intensity intervals and recovery periods.</li>
+  <li>For a high-intensity interval, pedal as fast as you can for 20-30 seconds.</li>
+  <li>For a recovery period, pedal at a slower pace for 60-90 seconds.</li>
+  <li>Repeat the high-intensity interval and recovery period for 10-20 minutes.</li>
+  <li>Cool down with 5-10 minutes of pedaling at a slow pace.</li>
+  <li>Stretch your legs and arms after the workout.</li>
+</ol>"
