@@ -6,7 +6,7 @@ router.get('/sendData', async (req, res) => {
 
     const { userCollection, exerciseCollection } = await require('../config/databaseConnection');
 
-    //updating currently logged in user with new name and email.
+    //updating currently logged in user.
     // await userCollection.findOneAndUpdate({ name: 'qtest2' }, { $set: { test: 123 } });
 
     // await exerciseCollection.insertOne({ exercise: 'testo4', gif: 'url4' });
@@ -91,7 +91,7 @@ router.get('/sendData', async (req, res) => {
         await userCollection.findOneAndUpdate({ name: 'Dobe' }, { $push: { routine: dummyData[i] } })
     }
 
-    res.send('good');
+    res.send('Data sent');
 });
 
 module.exports = router;
