@@ -38,34 +38,54 @@ router.post('/setupSubmit', async(req, res) => {
     var selectedExercises = [];
 
     //looking for checked exercises and adding them to an array
-    if (req.body.cardio){
+    console.log("cardio: " + req.body.cardio)
+    if (req.body.cardio != null){
+        console.log("inside cardio");
         selectedExercises.push('cardio');
     }
-    if (req.body.strength){
+    console.log("strength: " + req.body.strength)
+    if (req.body.strength != null){
+        console.log("inside srength");
         selectedExercises.push('strength training');
     }
-    if (req.body.flexibility){
+    console.log("flexibility: " + req.body.flexibility)
+    if (req.body.flexibility != null){
+        console.log("inside flexibility");
         selectedExercises.push('flexibility');
     }
-    if (req.body.balance){
+    console.log("balance: " + req.body.balance)
+    if (req.body.balance != null){
+        console.log("inside balance");
         selectedExercises.push('balance');
     }
-    if (req.body.high){
+    console.log("high" + req.body.high)
+    if (req.body.high != null){
+        console.log("inside high");
         selectedExercises.push('high-intensity');
     }
-    if (req.body.low){
+    console.log("low: " + req.body.low)
+    if (req.body.low != null){
+        console.log("inside low");
         selectedExercises.push('low-impact');
     }
-    if (req.body.sport){
+    console.log("sport: " + req.body.sport)
+    if (req.body.sport != null){
+        console.log("inside sport");
         selectedExercises.push('sport specific');
     }
-    if (req.body.functional){
+    console.log("functional: " + req.body.functional)
+    if (req.body.functional != null){
+        console.log("inside funcitonal");
         selectedExercises.push('functional');
     }
-    if (req.body.bodyweight){
+    console.log("bodyweight: " + req.body.bodyweight)
+    if (req.body.bodyweight != null){
+        console.log("inside bodyweight");
         selectedExercises.push('bodyweight');
     }
-    if (req.body.endurance){
+    console.log("endurance: " + req.body.endurance)
+    if (req.body.endurance != null){
+        console.log("inside endurance");
         selectedExercises.push('endurance');
     }
     for (i= 0; i < selectedExercises.length; i++){
