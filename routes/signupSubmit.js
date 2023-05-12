@@ -57,14 +57,14 @@ router.post('/signup/submit', async (req, res) => {
                     }
                     break;
                 case "question":
-                    if (name.trim() == "") {
+                    if (question.trim() == "") {
                         errorMessage = "Security question required.";
                     } else {
                         errorMessage = "Security question must be 80 characters or less and not contain any illegal characters.";
                     }
                     break;
                 case "answer":
-                    if (name.trim() == "") {
+                    if (answer.trim() == "") {
                         errorMessage = "Security question answer required.";
                     } else {
                         errorMessage = "Security question answer must be 30 characters or less and not contain any illegal characters.";
