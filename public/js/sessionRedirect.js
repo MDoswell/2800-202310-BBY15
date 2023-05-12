@@ -1,7 +1,8 @@
 // Enable session validation as middleware to use in route handlers.
 const { isValidSession } = require('./sessionValidation');
 
-function loginRedirect(req, res, next) {
+// Redirect to home if logged out user is trying to access '/login' webpage.
+function sessionRedirect(req, res, next) {
     if (isValidSession(req)) {
         console.log('User already logged in. Redirecting to home.');
         res.redirect('/');
@@ -12,4 +13,4 @@ function loginRedirect(req, res, next) {
     }
 };
 
-module.exports = { loginRedirect };
+module.exports = { sessionRedirect };

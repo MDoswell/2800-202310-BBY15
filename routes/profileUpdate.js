@@ -74,7 +74,8 @@ router.get('/profileUpdate', async (req, res) => {
         req.session.user_type = 'user';
         
 
-        res.render("profile", { name: name, email: email, user_type: "user",});
+        // res.render("profile", { name: name, email: email, user_type: "user",});
+        res.redirect('/profile');
     
 });
 

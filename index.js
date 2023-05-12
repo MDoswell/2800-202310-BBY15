@@ -57,6 +57,7 @@ app.use('/', (req, res, next) => {
                 { route: "Home", link: "/", materialIcon: "home" },
             ];
 
+    app.locals.authenticated = isValidSession(req);
     app.locals.navLinks = navLinks;
     app.locals.currentURL = url.parse(req.url).pathname;
     next();
@@ -74,10 +75,16 @@ app.use('/login', require('./routes/login'));
 app.use('/login/submit', require('./routes/loginSubmit')); // post
 app.use('/logout', require('./routes/logout'));
 app.use('/profile', require('./routes/profile'));
+app.use('/changePassword/begin', require('./routes/changePasswordBegin'));
+app.use('/changePassword/begin/submit', require('./routes/changePasswordEmailSubmit'));
+app.use('/changePassword', require('./routes/changePassword'));
+app.use('/changePassword/submit', require('./routes/changePasswordSubmit'));
 app.use('/openai', require('./routes/openaiRoute'));
 app.use('/setup', require('./routes/setup'));
 app.use('/setupSubmit', require('./routes/setupSubmit'));
 app.use('/profileUpdate', require('./routes/profileUpdate'));
+app.use('/timeForm', require('./routes/timeForm'));
+app.use('/timeFrom/submit', require('./routes/timeFormSubmit')); // post
 app.use('*', require('./routes/error404'));
 // Once connectDB is resolved by connecting to the MongoDB databases, start the server.
 connectDB.then(() => {

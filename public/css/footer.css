@@ -1,0 +1,11 @@
+/* Animations.css here (for animating elements; docs: https://animate.style/) */
+footer {
+    animation: fadeInUp;
+    animation-duration: 1s;
+}
+
+
+/* Standard CSS styling */
+footer span {
+    color: white;
+}

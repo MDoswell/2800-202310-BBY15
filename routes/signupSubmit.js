@@ -4,21 +4,27 @@ const { bcrypt, saltRounds, Joi, router } = require('../config/dependencies');
 // Route below.
 router.post('/signup/submit', async (req, res) => {
     const { userCollection } = await require('../config/databaseConnection');
-    const name = req.query.name;
+    const name = req.body.name;
+    const password = req.body.password;
 
     // Store the email in lowercase to avoid duplicate emails capitalized differently.
-    const email = req.query.email.toLowerCase();
+    const email = req.body.email.toLowerCase();
     
+
+    const question = req.body.question;
+    const answer = req.body.answer;
 
     const schema = Joi.object(
         {
             // Name represents 'username' so it will be alphanumerical (letters/numbers) 
             name: Joi.string().alphanum().max(20).required(),
             email: Joi.string().email().max(50).required(),
-            password: Joi.string().max(20).required()
+            password: Joi.string().max(20).required(),
+            question: Joi.string().regex(/[\w\s,.?]+/).max(80).required(),
+            answer: Joi.string().regex(/[\w\s,.?]+/).max(30).required()
         });
 
-    const validationResult = schema.validate({ name, email, password });
+    const validationResult = schema.validate({ name, email, password, question, answer });
 
     if (validationResult.error != null) {
         console.log(validationResult.error);
@@ -50,6 +56,20 @@ router.post('/signup/submit', async (req, res) => {
                         errorMessage = "Password must be 20 characters or less and not contain any illegal characters.";
                     }
                     break;
+                case "question":
+                    if (question.trim() == "") {
+                        errorMessage = "Security question required.";
+                    } else {
+                        errorMessage = "Security question must be 80 characters or less and not contain any illegal characters.";
+                    }
+                    break;
+                case "answer":
+                    if (answer.trim() == "") {
+                        errorMessage = "Security question answer required.";
+                    } else {
+                        errorMessage = "Security question answer must be 30 characters or less and not contain any illegal characters.";
+                    }
+                    break;
                 default:
                     // Error 400 for bad request if the validation error is other than 'name', 'email', and 'password'.
                     res.status(400);
@@ -61,7 +81,7 @@ router.post('/signup/submit', async (req, res) => {
             }
 
             const authentication = false;
-            res.render("signupSubmit", { errorMessage: errorMessage, authentication: authentication });
+            res.json({ errorMessage, authentication });
         })
 
         return;
@@ -80,7 +100,7 @@ router.post('/signup/submit', async (req, res) => {
         const errorMessage = "Name already in use.";
         const authentication = false;
 
-        res.render("signupSubmit", { errorMessage: errorMessage, authentication: authentication });
+        res.json({ errorMessage, authentication });
         return;
     } else if (emailResult.length == 1) {
         console.log("Email already in use.");
@@ -88,11 +108,13 @@ router.post('/signup/submit', async (req, res) => {
         const errorMessage = "Email already in use.";
         const authentication = false;
 
-        res.render("signupSubmit", { errorMessage: errorMessage, authentication: authentication });
+        res.json({ errorMessage, authentication });
         return;
     } else {
         // Encrypt the password of the new account to store.
         var hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        var hashedAnswer = await bcrypt.hash(answer, saltRounds);
 
         // Create a unique index with a case-insensitive collation on the name field
         await userCollection.createIndex(
@@ -101,12 +123,12 @@ router.post('/signup/submit', async (req, res) => {
         );
 
         // Set user_type to 'user' by default on sign-up (NOTE: No need to sanitize a hard-coded explicit literal).
-        await userCollection.insertOne({ name: name, email: email, password: hashedPassword, user_type: 'user' });
+        await userCollection.insertOne({ name: name, email: email, password: hashedPassword, question: question,
+            answer: hashedAnswer, user_type: 'user' });
 
         console.log("Inserted user");
 
-        const successMessage = "User created successfully.";
-        const redirectMessage = "Redirecting to home feed...";
+        const successMessage = "User created successfully. Redirecting to home feed...";
         const authentication = true;
         const expireTime = 60 * 60 * 1000; //expires after 1 hour (minutes * seconds * millis)
 
@@ -115,7 +137,7 @@ router.post('/signup/submit', async (req, res) => {
         req.session.user_type = 'user';
         req.session.cookie.maxAge = expireTime;
 
-        res.render("signupSubmit", { successMessage: successMessage, redirectMessage: redirectMessage, authentication: authentication });
+        res.json({ successMessage, authentication });
     }
 });
 

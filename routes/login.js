@@ -1,9 +1,9 @@
 // Load modules below.
 const { router } = require('../config/dependencies');
-const { loginRedirect } = require('../public/js/loginRedirect');
+const { sessionRedirect } = require('../public/js/sessionRedirect');
 
 // Route below.
-router.get('/login', loginRedirect, (req, res) => {
+router.get('/login', sessionRedirect, (req, res) => {
     res.render("login");
 });
 
