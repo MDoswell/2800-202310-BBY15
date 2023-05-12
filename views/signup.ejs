@@ -1,0 +1,63 @@
+<%- include("templates/header") %>
+    <div class="container px-5">
+        <div class="alert alert-success collapse fixed-top text-center" id="success-message" role="alert"></div>
+        <div class="alert alert-danger collapse fixed-top text-center" id="error-message" role="alert"></div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div id="signupSkeleton" class="wrap d-md-flex justify-content-center pt-5"></div>
+                    <div class="wrap pt-5">
+                        <!-- <div class="col-md-4">
+                            <img src="#" class="img-fluid" alt="Sign Up image">
+                        </div> -->
+                        <div class="login-wrap p-4 p-md-5">
+                            <div class="d-flex">
+                                <div class="w-100">
+                                    <h3 class="mb-4">Sign Up</h3>
+                                </div>
+                            </div>
+                            <form class="signup-form" id="signup-form" action='/signup/submit' method='post'>
+                                <div class="form-group mb-3">
+                                    <label class="label" for="name">Name</label>
+                                    <input class="form-control" autocomplete="off" name='name' type='text'
+                                        placeholder='name'>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="label" for="name">Email</label>
+                                    <input class="form-control" autocomplete="off" name='email' type='email'
+                                        placeholder='email'>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="label" for="password">Password</label>
+                                    <input class="form-control" autocomplete="off" name='password' type='password'
+                                        placeholder='password'>
+                                </div>
+                                <div class="card bg-dark my-3">
+                                    <div class="card-body">
+                                        <p>In case you ever need to recover your account, please provide a security
+                                            question.</p>
+                                        <div class="form-group mb-3">
+                                            <label class="label" for="question">Security question</label>
+                                            <input class="form-control" autocomplete="off" name='question'
+                                                placeholder='question'>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="label" for="answer">Answer</label>
+                                            <input class="form-control" autocomplete="off" name='answer'
+                                                placeholder='answer'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button id="signup-button" type="submit" class="form-control btn btn-primary rounded submit px-3">Sign
+                                        Up</button>
+                                </div>
+                            </form>
+                            <p class="text-center">Already a member? <a href="/login">Sign In</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include("templates/footer") %>
+<script src="/js/signupValidation.js"></script>

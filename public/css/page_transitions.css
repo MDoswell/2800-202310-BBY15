@@ -1,0 +1,8 @@
+/* NOTE: CSS applied in header.ejs so that all pages share universal page transitions for consistency (see header.ejs <body> for more details, which contains 'transition-style' in the element to activate transitions.css) */
+
+/* Transitions.css here (for animating page transitions; docs: https://www.transition.style/) */
+.--allPageTransitions {
+    --transition__duration: 1s;
+    --transition__easing: ease-in-out;
+    animation-name: circle-in-center;
+}

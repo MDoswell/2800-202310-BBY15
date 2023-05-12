@@ -1,0 +1,13 @@
+body {
+    background-color: #1B2021;
+}
+
+/* Body scrollbar is hidden but still functional so that the bars don't appear when animation is triggered */
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+h1, h2, h3, h4, p, label {
+    color: white;
+}

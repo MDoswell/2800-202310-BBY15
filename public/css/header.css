@@ -1,0 +1,22 @@
+/* Animations.css here (for animating elements; docs: https://animate.style/) */
+nav {
+    animation: fadeInDown;
+    animation-duration: 1s;
+}
+
+
+/* Standard CSS styling */
+.navbar-brand {
+    color: white !important;
+    font-size: 25pt;
+}
+
+.nav-link {
+    color: grey !important;
+    transition: ease-in-out 0.3s;
+}
+
+.nav-link:hover {
+    color: white !important;
+    transition: ease-in-out 0.3s;
+}
