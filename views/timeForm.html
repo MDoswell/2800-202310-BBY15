@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <title>Availability Form</title>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h2>Availability Form</h2>
+    <form id="availabilityForm">
+      <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" class="form-control" id="startDate" min="<?php echo date('Y-m-d'); ?>"
+          value="<?php echo date('Y-m-d'); ?>" required>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col">
+            <input type="time" class="form-control" id="startTime" required>
+            <small class="form-text text-muted">Start Time</small>
+          </div>
+          <div class="col">
+            <input type="time" class="form-control" id="endTime" required>
+            <small class="form-text text-muted">End Time</small>
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-primary" onclick="addAvailability()">Add Availability</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="selectedDates">Selected Dates:</label>
+        <table class="table" id="selectedDates">
+          <thead>
+            <tr>
+              <th>Day of the Week</th>
+              <th>Date</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function addAvailability() {
+      var startDate = new Date(document.getElementById('startDate').value + 'T00:00:00Z');
+      var selectedDates = document.getElementById('selectedDates');
+      var tableRow = document.createElement('tr');
+      var dayOfWeekCell = document.createElement('td');
+      var dateCell = document.createElement('td');
+      var startTimeCell = document.createElement('td');
+      var endTimeCell = document.createElement('td');
+      var actionsCell = document.createElement('td');
+      var deleteButton = document.createElement('button');
+
+      var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      var dayOfWeek = daysOfWeek[startDate.getUTCDay()];
+
+      // Convert the date to UTC before formatting
+      var utcDate = new Date(startDate.getTime() + startDate.getTimezoneOffset() * 60000);
+      var formattedDate = utcDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      dayOfWeekCell.innerText = dayOfWeek;
+      dateCell.innerText = formattedDate;
+
+      var startTimeInput = document.getElementById('startTime');
+      var endTimeInput = document.getElementById('endTime');
+      var startTime = startTimeInput.value;
+      var endTime = endTimeInput.value;
+
+      // Prevent negative time
+      var startTimeStamp = new Date('1970-01-01T' + startTime + 'Z').getTime();
+      var endTimeStamp = new Date('1970-01-01T' + endTime + 'Z').getTime();
+
+      if (startTimeStamp >= endTimeStamp) {
+        alert('End time must be greater than start time.');
+        return;
+      }
+
+      startTimeCell.innerText = startTime;
+      endTimeCell.innerText = endTime;
+
+      deleteButton.innerText = 'Delete';
+      deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
+      deleteButton.onclick = function () {
+        tableRow.remove();
+      };
+
+      tableRow.appendChild(dayOfWeekCell);
+      tableRow.appendChild(dateCell);
+      tableRow.appendChild(startTimeCell);
+      tableRow.appendChild(endTimeCell);
+      tableRow.appendChild(actionsCell);
+      actionsCell.appendChild(deleteButton);
+      selectedDates.querySelector('tbody').appendChild(tableRow);
+    }
+
+
+    $(document).ready(function () {
+      // Set the minimum selectable date as today
+      var today = new Date().toISOString().split('T')[0];
+      document.getElementById('startDate').setAttribute('min', today);
+    });
+
+    $('#startDate').on('change', function () {
+      var selectedDate = new Date(this.value);
+      var today = new Date();
+
+      // Disable or enable the "Add Availability" button based on the selected date
+      var addAvailabilityButton = document.getElementById('addAvailabilityButton');
+      addAvailabilityButton.disabled = selectedDate < today;
+
+      // Clear the selected dates table
+      var selectedDatesTable = document.getElementById('selectedDates').querySelector('tbody');
+      selectedDatesTable.innerHTML = '';
+    });
+
+  </script>
+</body>
+
+</html>
