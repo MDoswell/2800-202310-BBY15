@@ -81,6 +81,7 @@ app.use('/changePassword/submit', require('./routes/changePasswordSubmit'));
 app.use('/openai', require('./routes/openaiRoute'));
 app.use('/setup', require('./routes/firstTimeSetup'));
 app.use('/profileUpdate', require('./routes/profileUpdate'));
+app.use('/timeForm', require('./routes/timeForm'));
 app.use('*', require('./routes/error404'));
 // Once connectDB is resolved by connecting to the MongoDB databases, start the server.
 connectDB.then(() => {
