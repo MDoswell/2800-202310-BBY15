@@ -1,9 +1,9 @@
 const { router } = require('../config/dependencies');
-const { userCollection } = require('../config/databaseConnection');
+const { sessionValidation } = require('../public/js/sessionValidation');
 
-router.post('/timeForm/submit', async (req, res) => {
+router.post('/timeForm/submit', sessionValidation, async (req, res) => {
 
-    const name = req.query.name;
+  const { userCollection } = await require('../config/databaseConnection');
   const availabilityData = [];
 
   // Iterate over each row in the table
@@ -21,9 +21,9 @@ router.post('/timeForm/submit', async (req, res) => {
       endTime,
     });
   });
-
+  
   try {
-    await userCollection.insertMany(availabilityData);
+    await userCollection.findOneAndUpdate({ name: req.session.name}, { $set: {availabilityData: availabilityData}});
     res.status(200).json({ message: 'Availability data saved successfully.' });
   } catch (error) {
     res.status(500).json({ message: 'Error saving availability data.' });
