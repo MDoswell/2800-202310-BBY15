@@ -4,6 +4,10 @@ nav {
     animation-duration: 1s;
 }
 
+#navHamburger {
+    color: white;
+}
+
 
 /* Standard CSS styling */
 .navbar-brand {
