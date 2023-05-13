@@ -51,6 +51,7 @@ app.use('/', (req, res, next) => {
             [
                 { route: "Home", link: "/", materialIcon: "home" },
                 { route: "Profile", link: "/profile", materialIcon: "account_circle" },
+                { route: "Schedule", link: "/timeform", materialIcon: "schedule" },
                 { route: "Logout", link: "/logout", materialIcon: "logout"}
             ]
             : [ // Else, user not logged in (invalid session)

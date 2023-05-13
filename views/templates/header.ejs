@@ -26,6 +26,8 @@
     <link href="../css/footer.css" rel="stylesheet" />
     <link href="../css/page_transitions.css" rel="stylesheet" />
     <link href="../css/login.css" rel="stylesheet" />
+    <link href="../css/signup.css" rel="stylesheet" />
+    <link href="../css/timeForm.css" rel="stylesheet" />
 
 </head>
 
@@ -34,10 +36,12 @@
     <!-- FOR SWUP <main id="swup" class="transition-fade"> -->
         <!-- If the user is not logged on, the navbar should be overlaying the video using relative-top. If not logged in, use sticky-top.  -->
         <% if (locals.authenticated) { %>
-            <nav class="navbar navbar-expand-lg navbar-light bg-transparent sticky-top justify-content-center vw-100 fixed-top">
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify-content-center vw-100 sticky-top">
+        <% } else if (!locals.authenticated && locals.currentURL == '/') { %>
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent justify-content-center vw-100 fixed-top">
         <% } else { %>
-            <nav class="navbar navbar-expand-lg navbar-light bg-transparent relative-top justify-content-center vw-100 fixed-top">
-        <% } %>
+            <nav class="navbar navbar-expand-lg navbar-light bg-dark relative-top justify-content-center vw-100 fixed-top" style="background-color: #1b2021 !important;">
+            <% } %>
             <div class="col-3 d-flex align-items-center justify-content-start">
                 <% if (locals.currentURL !='/' && locals.currentURL !='/logout' ) { %>
                     <span class="nav-item">
