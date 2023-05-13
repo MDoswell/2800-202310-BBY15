@@ -16,7 +16,7 @@ nav {
 }
 
 .nav-link {
-    color: grey !important;
+    color: lightgrey !important;
     transition: ease-in-out 0.3s;
 }
 
