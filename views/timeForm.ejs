@@ -4,158 +4,162 @@
         <div class="alert alert-success" role="alert">
             Availability data saved successfully.
         </div>
-    <% } %>
-    <% if (showErrorMessage) { %>
-        <div class="alert alert-danger" role="alert">
-            Error saving availability data.
-        </div>
-    <% } %>
+        <% } %>
+            <% if (showErrorMessage) { %>
+                <div class="alert alert-danger" role="alert">
+                    Error saving availability data.
+                </div>
+                <% } %>
 
-    <div class="container mt-5">
-        <h2>Availability Form</h2>
-                <form name="availabilityForm" method="POST" action="/timeForm/submit">
-                    <div class="form-group">
-                        <label for="startDate">Select Date:</label>
-                        <input type="date" class="form-control" id="startDate"
-                            min="<%= new Date().toISOString().split('T')[0] %>"
-                            value="<%= new Date().toISOString().split('T')[0] %>" required>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col">
-                                <input type="time" class="form-control" id="startTime" required>
-                                <small class="form-text">Start Time</small>
+                    <div class="container mt-5">
+                        <h2>Availability Form</h2>
+                        <form name="availabilityForm" method="POST" action="/timeForm/submit">
+                            <div class="form-group">
+                                <label for="startDate">Select Date:</label>
+                                <input type="date" class="form-control" id="startDate"
+                                    min="<%= new Date().toISOString().split('T')[0] %>"
+                                    value="<%= new Date().toISOString().split('T')[0] %>" required>
                             </div>
-                            <div class="col">
-                                <input type="time" class="form-control" id="endTime" required>
-                                <small class="form-text">End Time</small>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="time" class="form-control" id="startTime" required>
+                                        <small class="form-text">Start Time</small>
+                                    </div>
+                                    <div class="col">
+                                        <input type="time" class="form-control" id="endTime" required>
+                                        <small class="form-text">End Time</small>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="button" class="btn btn-primary" onclick="addAvailability()">Add
+                                            Availability</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-auto">
-                                <button type="button" class="btn btn-primary" onclick="addAvailability()">Add
-                                    Availability</button>
+                            <div class="form-group">
+                                <label for="selectedDates">Selected Dates:</label>
+                                <table class="table" id="selectedDates">
+                                    <thead>
+                                        <tr>
+                                            <th>Day of the Week</th>
+                                            <th>Date</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="selectedDates">Selected Dates:</label>
-                        <table class="table" id="selectedDates">
-                            <thead>
-                                <tr>
-                                    <th>Day of the Week</th>
-                                    <th>Date</th>
-                                    <th>Start Time</th>
-                                    <th>End Time</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </form>
-    </div>
-    <%- include("templates/footer") %>
-        <script>
-            var availabilityArray = []; // Array to store the availability data
-            function addAvailability() {
-                var startDate = new Date(document.getElementById('startDate').value + 'T00:00:00Z');
-                var selectedDates = document.getElementById('selectedDates');
-                var tableRow = document.createElement('tr');
-                var dayOfWeekCell = document.createElement('td');
-                var dateCell = document.createElement('td');
-                var startTimeCell = document.createElement('td');
-                var endTimeCell = document.createElement('td');
-                var actionsCell = document.createElement('td');
-                var deleteButton = document.createElement('button');
+                    <%- include("templates/footer") %>
+                        <script>
+                            var availabilityArray = []; // Array to store the availability data
+                            function addAvailability() {
+                                var startDate = new Date(document.getElementById('startDate').value + 'T00:00:00Z');
+                                var selectedDates = document.getElementById('selectedDates');
+                                var tableRow = document.createElement('tr');
+                                var dayOfWeekCell = document.createElement('td');
+                                var dateCell = document.createElement('td');
+                                var startTimeCell = document.createElement('td');
+                                var endTimeCell = document.createElement('td');
+                                var actionsCell = document.createElement('td');
+                                var deleteButton = document.createElement('button');
 
-                var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                var dayOfWeek = daysOfWeek[startDate.getUTCDay()];
+                                var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                                var dayOfWeek = daysOfWeek[startDate.getUTCDay()];
 
-                // Convert the date to UTC before formatting
-                var utcDate = new Date(startDate.getTime() + startDate.getTimezoneOffset() * 60000);
-                var formattedDate = utcDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                                // Convert the date to UTC before formatting
+                                var utcDate = new Date(startDate.getTime() + startDate.getTimezoneOffset() * 60000);
+                                var formattedDate = utcDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-                dayOfWeekCell.innerText = dayOfWeek;
-                dateCell.innerText = formattedDate;
+                                dayOfWeekCell.innerText = dayOfWeek;
+                                dateCell.innerText = formattedDate;
 
-                var startTimeInput = document.getElementById('startTime');
-                var endTimeInput = document.getElementById('endTime');
-                var startTime = startTimeInput.value;
-                var endTime = endTimeInput.value;
+                                var startTimeInput = document.getElementById('startTime');
+                                var endTimeInput = document.getElementById('endTime');
+                                var startTime = startTimeInput.value;
+                                var endTime = endTimeInput.value;
 
-                if (startTime === '' || endTime === '') {
-                    // Show Bootstrap alert for empty time fields
-                    var alertDiv = document.createElement('div');
-                    alertDiv.classList.add('alert', 'alert-danger');
-                    alertDiv.innerText = 'Please enter a start and end time.';
-                    document.getElementById('alertContainer').appendChild(alertDiv);
-                    return;
-                }
+                                if (startTime === '' || endTime === '') {
+                                    // Show Bootstrap alert for empty time fields
+                                    var alertDiv = document.createElement('div');
+                                    alertDiv.classList.add('alert', 'alert-danger');
+                                    alertDiv.innerText = 'Please enter a start and end time.';
+                                    document.getElementById('alertContainer').appendChild(alertDiv);
+                                    return;
+                                }
 
-                // Prevent negative time
-                var startTimeStamp = new Date('1970-01-01T' + startTime + 'Z').getTime();
-                var endTimeStamp = new Date('1970-01-01T' + endTime + 'Z').getTime();
+                                // Prevent negative time
+                                var startTimeStamp = new Date('1970-01-01T' + startTime + 'Z').getTime();
+                                var endTimeStamp = new Date('1970-01-01T' + endTime + 'Z').getTime();
 
-                if (startTimeStamp >= endTimeStamp) {
-                    alert('End time must be greater than start time.');
-                    return;
-                }
+                                if (startTimeStamp >= endTimeStamp) {
+                                    // Show Bootstrap alert for empty time fields
+                                    var alertDiv = document.createElement('div');
+                                    alertDiv.classList.add('alert', 'alert-danger');
+                                    alertDiv.innerText = 'End time must be greater than start time.';
+                                    document.getElementById('alertContainer').appendChild(alertDiv);
+                                    return;
+                                }
 
-                startTimeCell.innerText = startTime;
-                endTimeCell.innerText = endTime;
+                                startTimeCell.innerText = startTime;
+                                endTimeCell.innerText = endTime;
 
-                deleteButton.innerText = 'Delete';
-                deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
-                deleteButton.onclick = function () {
-                    tableRow.remove();
-                };
+                                deleteButton.innerText = 'Delete';
+                                deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
+                                deleteButton.onclick = function () {
+                                    tableRow.remove();
+                                };
 
-                tableRow.appendChild(dayOfWeekCell);
-                tableRow.appendChild(dateCell);
-                tableRow.appendChild(startTimeCell);
-                tableRow.appendChild(endTimeCell);
-                tableRow.appendChild(actionsCell);
-                actionsCell.appendChild(deleteButton);
-                selectedDates.querySelector('tbody').appendChild(tableRow);
+                                tableRow.appendChild(dayOfWeekCell);
+                                tableRow.appendChild(dateCell);
+                                tableRow.appendChild(startTimeCell);
+                                tableRow.appendChild(endTimeCell);
+                                tableRow.appendChild(actionsCell);
+                                actionsCell.appendChild(deleteButton);
+                                selectedDates.querySelector('tbody').appendChild(tableRow);
 
-                // Push the availability data to the array
-                availabilityArray.push({
-                    dayOfWeek: dayOfWeek,
-                    date: formattedDate,
-                    startTime: startTime,
-                    endTime: endTime
-                });
+                                // Push the availability data to the array
+                                availabilityArray.push({
+                                    dayOfWeek: dayOfWeek,
+                                    date: formattedDate,
+                                    startTime: startTime,
+                                    endTime: endTime
+                                });
 
-                // Clear the Bootstrap alert
-                var alertContainer = document.getElementById('alertContainer');
-                alertContainer.innerHTML = '';
-            }
+                                // Clear the Bootstrap alert
+                                var alertContainer = document.getElementById('alertContainer');
+                                alertContainer.innerHTML = '';
+                            }
 
-            $(document).ready(function () {
-                // Form submission event handler
-                $('form[name="availabilityForm"]').on('submit', function (event) {
-                    event.preventDefault();
+                            $(document).ready(function () {
+                                // Form submission event handler
+                                $('form[name="availabilityForm"]').on('submit', function (event) {
+                                    event.preventDefault();
 
-                    // Assign the availability array to a hidden input field
-                    $('input[name="availabilityData"]').val(JSON.stringify(availabilityArray));
+                                    // Assign the availability array to a hidden input field
+                                    $('input[name="availabilityData"]').val(JSON.stringify(availabilityArray));
 
-                    // Create a new form with only the availability data
-                    var form = $('<form></form>');
-                    form.attr('method', 'POST');
-                    form.attr('action', '/timeForm/submit');
+                                    // Create a new form with only the availability data
+                                    var form = $('<form></form>');
+                                    form.attr('method', 'POST');
+                                    form.attr('action', '/timeForm/submit');
 
-                    // Create an input field for the availability data
-                    var input = $('<input />');
-                    input.attr('type', 'hidden');
-                    input.attr('name', 'availabilityData');
-                    input.attr('value', JSON.stringify(availabilityArray));
+                                    // Create an input field for the availability data
+                                    var input = $('<input />');
+                                    input.attr('type', 'hidden');
+                                    input.attr('name', 'availabilityData');
+                                    input.attr('value', JSON.stringify(availabilityArray));
 
-                    // Append the input field to the form
-                    form.append(input);
+                                    // Append the input field to the form
+                                    form.append(input);
 
-                    // Submit the new form
-                    form.appendTo('body').submit();
-                });
-            });
-        </script>
+                                    // Submit the new form
+                                    form.appendTo('body').submit();
+                                });
+                            });
+                        </script>
