@@ -1,10 +1,15 @@
 <%- include("templates/header") %>
     <div id="alertContainer"></div>
-    <% if (showAlert) { %>
+    <% if (showSuccessMessage) { %>
         <div class="alert alert-success" role="alert">
-          Availability data saved successfully.
+            Availability data saved successfully.
         </div>
-      <% } %>
+    <% } %>
+    <% if (showErrorMessage) { %>
+        <div class="alert alert-danger" role="alert">
+            Error saving availability data.
+        </div>
+    <% } %>
 
     <div class="container mt-5">
         <h2>Availability Form</h2>

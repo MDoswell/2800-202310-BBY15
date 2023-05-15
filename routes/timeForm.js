@@ -7,7 +7,10 @@ const { sessionValidation } = require('../public/js/sessionValidation');
 router.get('/timeForm', sessionValidation, (req, res) => {
     const { success } = req.query; // Check if 'success' query parameter is present
 
-    res.render("timeForm", { showAlert: success === 'true' }); // Pass showAlert parameter to the template
+    const showSuccessMessage = success === 'true';
+    const showErrorMessage = success === 'false';
+
+    res.render("timeForm", { showSuccessMessage, showErrorMessage }); // Pass showSuccessMessage and showErrorMessage parameters to the template
 });
 
 router.post('/timeForm/submit', sessionValidation, async (req, res) => {
@@ -24,7 +27,8 @@ router.post('/timeForm/submit', sessionValidation, async (req, res) => {
         // Redirect to the '/timeForm' route with success query parameter
         res.redirect('/timeForm?success=true');
     } catch (error) {
-        res.status(500).json({ message: 'Error saving availability data.' });
+        console.error(error);
+        res.redirect('/timeForm?success=false');
     }
 });
 
