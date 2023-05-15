@@ -3,7 +3,11 @@ const { router } = require('../config/dependencies');
 
 // Route below.
 router.get('/', (req, res) => {
-    res.render("index", { authenticated: req.session.authenticated, name: req.session.name });
+    if (req.session.authenticated) {
+        res.render("index_validSession", { name: req.session.name });
+    } else {
+        res.render("index_invalidSession");
+    }
 });
 
 module.exports = router;

@@ -1,0 +1,33 @@
+<%- include("templates/header") %>
+    <div class="container-fluid video-container">
+        <video autoplay loop muted playsinline>
+            <source src="video/login_bg.mp4" type="video/mp4">
+        </video>
+        <div class="overlay">
+            <div class="container px-5 mt-5">
+                <h1 class="text-start mb-5" id="homeWelcome">Welcome to mytrAIner!</h1>
+                <button class="p-2 m-2 col-sm-2 btn btn-primary"
+                    id="loginButton" onclick="location.href = window.location.origin + '/login'">Login</button>
+                <button class="p-2 m-2 col-sm-2 btn btn-primary"
+                    id="signupButton" onclick="location.href = window.location.origin + '/signup'">Sign Up</button>
+            </div>
+        </div>
+    </div>
+<%- include("templates/footer") %>
+
+<!-- Scripts for home page when user is not logged in. -->
+<script>
+    // Disable vertical scrolling from video overflow on logged out home page.
+    const body = document.querySelector('body');
+    body.style.overflowY = 'hidden';
+</script>
+
+<script>
+    const head = document.querySelector('head');
+    const link = document.createElement('link');
+
+    link.rel = 'stylesheet';
+    link.href = 'css/home_noSession.css';
+
+    head.appendChild(link);
+</script>
