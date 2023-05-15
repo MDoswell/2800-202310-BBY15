@@ -12,7 +12,8 @@ router.post('/timeForm/submit', sessionValidation, async (req, res) => {
       { $set: { availabilityData: availabilityData } }
     );
 
-    res.status(200).json({ message: 'Availability data saved successfully.' });
+    // Render the page with a success message
+    res.render('timeForm', { success: true, availabilityData, showAlert: true });
   } catch (error) {
     res.status(500).json({ message: 'Error saving availability data.' });
   }
