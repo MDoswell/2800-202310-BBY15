@@ -4,9 +4,17 @@ async function generatePrompt() {
     console.log("running generatePrompt");
     let str = "I am " + document.getElementById("age").value 
 
-        + " years old and my gender is "+ document.getElementById("gender").selectedOptions[0].value
+        + " years old and my gender is ";
 
-        + ". My weight is " + document.getElementById('weight').value 
+        if (document.getElementById('male').checked){
+            str += "male";
+        } else if (document.getElementById('female').checked){
+            str += "female";
+        } else{
+            str += "undisclosed";
+        }
+
+        str += ". My weight is " + document.getElementById('weight').value 
         
         + " and my height is " + document.getElementById('feet').value + " feet and " + document.getElementById('inches').value + " inches."
         
