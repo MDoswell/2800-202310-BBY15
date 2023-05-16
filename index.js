@@ -51,6 +51,7 @@ app.use('/', (req, res, next) => {
             [
                 { route: "Home", link: "/", materialIcon: "home" },
                 { route: "Profile", link: "/profile", materialIcon: "account_circle" },
+                { route: "Schedule", link: "/timeform", materialIcon: "schedule" },
                 { route: "Logout", link: "/logout", materialIcon: "logout"}
             ]
             : [ // Else, user not logged in (invalid session)
@@ -84,6 +85,7 @@ app.use('/profileUpdate', require('./routes/profileUpdate'));
 app.use('/timeForm', require('./routes/timeForm'));
 app.use('/timeFrom/submit', require('./routes/timeFormSubmit')); // post
 app.use('/newRoutine', require('./routes/newRoutine'));
+app.use('/availabilityData', require('./routes/availabilityData'));
 app.use('*', require('./routes/error404'));
 // Once connectDB is resolved by connecting to the MongoDB databases, start the server.
 connectDB.then(() => {

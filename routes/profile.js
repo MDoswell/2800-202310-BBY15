@@ -1,7 +1,6 @@
 // Load modules below.
 require('dotenv').config();
 const { router } = require('../config/dependencies');
-const { session } = require('../config/dependencies');
 const { sessionValidation } = require('../public/js/sessionValidation');
 
 
