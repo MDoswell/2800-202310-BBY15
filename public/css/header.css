@@ -24,3 +24,7 @@ nav {
     color: white !important;
     transition: ease-in-out 0.3s;
 }
+
+#navContainer {
+    margin-bottom: 100px;
+} 

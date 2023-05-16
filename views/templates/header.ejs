@@ -33,10 +33,11 @@
 
 <body transition-style class="--allPageTransitions d-flex flex-column min-vh-100">
     <main class="flex-grow-1" id="mainContainer">
+        <div id="navContainer">
     <!-- FOR SWUP <main id="swup" class="transition-fade"> -->
         <!-- If the user is not logged on, the navbar should be overlaying the video using relative-top. If not logged in, use sticky-top.  -->
         <% if (locals.authenticated) { %>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-transparent justify-content-center vw-100 sticky-top">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark relative-top justify-content-center vw-100 fixed-top" style="background-color: #1b2021 !important;">
         <% } else if (!locals.authenticated && locals.currentURL == '/') { %>
             <nav class="navbar navbar-expand-lg navbar-dark bg-transparent justify-content-center vw-100 fixed-top">
         <% } else { %>
@@ -89,3 +90,4 @@
                 </ul>
             </div>
         </nav>
+    </div>

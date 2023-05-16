@@ -29,7 +29,6 @@ const getRoutine = async (username) => {
 
     // Return the user's routine.
     return userRoutine;
-    
-}
+};
 
 module.exports = getRoutine;
