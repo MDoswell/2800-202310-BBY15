@@ -16,13 +16,7 @@ router.post('/newRoutine/submit', async (req, res) => {
     currentRoutine.forEach((e) => {
         const exercise = e.exerciseName;
         const inputValue = req.body[exercise];
-        if (inputValue ==  "no"){
-            str += "i have not been enjoying " + exercise + " and would like to change it."
-        }
-
-        if (inputValue == "yes"){
-            str +=  "I have been enjoying " + exercise + " and would like to keep it in my routine."
-        }
+        
 
         const challenge = "challenge" + e.exerciseName;
         const challengeValue = req.body[challenge];
@@ -33,12 +27,19 @@ router.post('/newRoutine/submit', async (req, res) => {
         } else {
             str += "Doing " + e.exerciseName + " for " + e.intensity + " has been too challenging, make it easier for the next routine."
         }
-        
+
+
+        if (inputValue ==  "no"){
+            str += "i have not been enjoying " + exercise + " use a different exercise for the next routine."
+        }
+        if (inputValue == "yes"){
+            str +=  "I have been enjoying " + exercise + " and would like to keep it in my routine."
+        }
     })
 
-    str += "with the information I've given you, make the next routine for me. Don't reply in anything other than the exercise name with the reps and sets for that exercise."
+    str += "with the information I've given you, make the next routine for me. only respond in the format of (exercise name): (number of sets) sets of (number of reps) reps. Do not deviate from the format i just gave or have any other words in the response."
 
-    const aiResponse = await axios.post("/openai", {str});
-    res.json(aiResponse)
+    
+    res.json(str);
 })
 module.exports = router;

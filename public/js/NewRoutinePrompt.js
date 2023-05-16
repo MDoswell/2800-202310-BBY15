@@ -10,6 +10,8 @@ signupForm.addEventListener("submit", async (event) => {
 
   const response = await axios.post("/newRoutine/submit", serializedFormData);
 
-  console.log(response.data);
+  var str =  response.data;
+  const aiResponse = await axios.post("/openai", {str});
+  console.log(aiResponse);
   }
 );
