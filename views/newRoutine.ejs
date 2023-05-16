@@ -1,0 +1,21 @@
+<%- include("templates/header") %>
+    <h2 style="margin: 1rem"> Hi <%= name %>, did you like your last routine? Answer below!</h2>
+        <form>
+            <h4>Tell us which exercises you'd like to keep in your next routine!</h4>
+            <% for(i=0; i < routine.length; i++) { %>
+                
+            <%- include('templates/exercise', {exercise: routine[i], group: "group" + i})  %> 
+                
+            <% } %> 
+            
+            <h4>Tell us how challenging the exercises were so we can help you progress!</h4>
+
+            <% for(i=0; i < routine.length; i++) { %>
+                
+                <%- include('templates/challenge', {exercise: routine[i], group: "form" + i})  %> 
+                    
+                <% } %> 
+            </form>
+		 
+    <script src="/js/newRoutinePrompt.js"></script>
+<%- include("templates/footer") %>

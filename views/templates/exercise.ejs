@@ -1,0 +1,14 @@
+
+    <h5 style="color:rgb(15, 99, 172)"><%= exercise.exerciseName%></h5>
+    
+        <fieldset id="<%=group%>">
+        <p>Would you like to keep this exercise in your next routine?</p>
+        <input type="radio" class="btn-check" name="<%=group%>" id="btnradio<%= exercise.exerciseName%>1" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="btnradio<%= exercise.exerciseName%>1">Yes</label>
+      
+        <input type="radio" class="btn-check" name="<%=group%>" id="btnradio<%= exercise.exerciseName%>2" autocomplete="off" >
+        <label class="btn btn-outline-primary" for="btnradio<%= exercise.exerciseName%>2">No</label>
+      </fieldset>
+    
+    
+
