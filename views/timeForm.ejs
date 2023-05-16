@@ -84,12 +84,16 @@
                                 var startTime = startTimeInput.value;
                                 var endTime = endTimeInput.value;
 
+                                // Clear the Bootstrap alert
+                                var alertContainer = document.getElementById('alertContainer');
+                                alertContainer.innerHTML = '';
+
                                 if (startTime === '' || endTime === '') {
                                     // Show Bootstrap alert for empty time fields
                                     var alertDiv = document.createElement('div');
                                     alertDiv.classList.add('alert', 'alert-danger');
                                     alertDiv.innerText = 'Please enter a start and end time.';
-                                    document.getElementById('alertContainer').appendChild(alertDiv);
+                                    alertContainer.appendChild(alertDiv);
                                     return;
                                 }
 
@@ -102,8 +106,29 @@
                                     var alertDiv = document.createElement('div');
                                     alertDiv.classList.add('alert', 'alert-danger');
                                     alertDiv.innerText = 'End time must be greater than start time.';
-                                    document.getElementById('alertContainer').appendChild(alertDiv);
+                                    alertContainer.appendChild(alertDiv);
                                     return;
+                                }
+
+                                // Check for overlapping time blocks
+                                for (var i = 0; i < availabilityArray.length; i++) {
+                                    var existingStartTime = new Date('1970-01-01T' + availabilityArray[i].startTime + 'Z').getTime();
+                                    var existingEndTime = new Date('1970-01-01T' + availabilityArray[i].endTime + 'Z').getTime();
+
+                                    // Exclude overlapping time blocks on different days
+                                    if (formattedDate === availabilityArray[i].date) {
+                                        if (
+                                            (startTimeStamp >= existingStartTime && startTimeStamp < existingEndTime) ||
+                                            (endTimeStamp > existingStartTime && endTimeStamp <= existingEndTime)
+                                        ) {
+                                            // Show Bootstrap alert for overlapping time blocks
+                                            var alertDiv = document.createElement('div');
+                                            alertDiv.classList.add('alert', 'alert-danger');
+                                            alertDiv.innerText = 'Time block overlaps with an existing entry.';
+                                            alertContainer.appendChild(alertDiv);
+                                            return;
+                                        }
+                                    }
                                 }
 
                                 startTimeCell.innerText = startTime;
