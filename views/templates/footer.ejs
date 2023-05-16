@@ -30,4 +30,14 @@
 
 <!-- Axios -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<!--  Custom JS  -->
+<script>
+    window.addEventListener('beforeunload', function(event) {
+        event.preventDefault();
+
+        // $('body.--allPageTransitions').css('animation-name', 'wipe-out-right');
+});
+</script>
+
 </body>

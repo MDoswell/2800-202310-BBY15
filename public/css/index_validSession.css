@@ -1,0 +1,40 @@
+/* exercise-card
+exercise-content
+exercise-title
+exercise-intensity  
+day-card
+day-title */
+
+/* NOTE: CSS applied as a script in index.ejs because of different layouts for home page with and without session (see index.ejs for more details) */
+
+/* Animations.css here (for animating elements; docs: https://animate.style/) */
+.day-card {
+    animation: slideInLeft;
+    animation-duration: 1s;
+}
+
+
+/* Standard CSS styling */
+.day-title, .exercise-card, .exercise-title, .exercise-intensity {
+    color: black;
+}
+
+.day-card {
+    background-color: lightgrey;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 15px;
+}
+
+.day-title {
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.exercise-card {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 15px;
+}   
+

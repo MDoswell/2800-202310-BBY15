@@ -10,7 +10,7 @@ const getRoutine = async (username) => {
     const userRoutine = result[0].routine;
 
     // Check if the array is empty.
-    if (userRoutine.length == 0) {
+    if (userRoutine == null) {
         console.log("user routine not found");
 
         // Prompt user to set up a routine

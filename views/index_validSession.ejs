@@ -10,3 +10,13 @@
         <br>
     </div>
 <%- include("templates/footer") %>
+
+<script>
+    const head = document.querySelector('head');
+    const link = document.createElement('link');
+
+    link.rel = 'stylesheet';
+    link.href = 'css/index_validSession.css';
+
+    head.appendChild(link);
+</script>
