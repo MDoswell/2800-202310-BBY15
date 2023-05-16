@@ -1,6 +1,6 @@
 <%- include("templates/header") %>
     <h2 style="margin: 1rem"> Hi <%= name %>, did you like your last routine? Answer below!</h2>
-        <form>
+        <form id="form" action="submit" method="post">
             <h4>Tell us which exercises you'd like to keep in your next routine!</h4>
             <% for(i=0; i < routine.length; i++) { %>
                 
@@ -15,7 +15,13 @@
                 <%- include('templates/challenge', {exercise: routine[i], group: "form" + i})  %> 
                     
                 <% } %> 
+
+                <button id="signup-button" type="submit" class="form-control btn btn-primary rounded submit px-3" >Submit</button>
             </form>
+
+            <div id="routineResponse">
+
+            </div>
 		 
     <script src="/js/newRoutinePrompt.js"></script>
 <%- include("templates/footer") %>
