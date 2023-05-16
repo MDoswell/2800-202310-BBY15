@@ -65,6 +65,7 @@ app.use('/', (req, res, next) => {
 });
 
 
+
 app.use("/js", express.static("./public/js"));
 
 // Modular route paths declared below.
@@ -80,7 +81,8 @@ app.use('/changePassword/begin/submit', require('./routes/changePasswordEmailSub
 app.use('/changePassword', require('./routes/changePassword'));
 app.use('/changePassword/submit', require('./routes/changePasswordSubmit'));
 app.use('/openai', require('./routes/openaiRoute'));
-app.use('/setup', require('./routes/firstTimeSetup'));
+app.use('/setup', require('./routes/setup'));
+app.use('/setupSubmit', require('./routes/setupSubmit'));
 app.use('/profileUpdate', require('./routes/profileUpdate'));
 app.use('/timeForm', require('./routes/timeForm'));
 app.use('/timeFrom/submit', require('./routes/timeFormSubmit')); // post

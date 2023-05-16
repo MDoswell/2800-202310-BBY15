@@ -1,0 +1,15 @@
+
+    <script>
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 3000);
+    </script>
+    <% } else { %>
+        <div class="container">
+            <h3>
+                <%= errorMessage %>
+            </h3>
+            <a href="/signup">Try again</a>
+            <% } %>
+        </div>
+<%- include("templates/footer") %>
