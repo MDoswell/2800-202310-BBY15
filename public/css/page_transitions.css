@@ -4,5 +4,5 @@
 .--allPageTransitions {
     --transition__duration: 1s;
     --transition__easing: ease-in-out;
-    animation-name: wipe-in-down;
+    animation-name: wipe-in-right;
 }
