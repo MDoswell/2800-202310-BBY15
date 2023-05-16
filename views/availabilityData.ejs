@@ -22,5 +22,10 @@
     </tbody>
   </table>
   <a href="/timeForm" class="btn btn-primary">Update Time Form</a>
+    <!-- Text box for displaying availability data as a string -->
+    <div class="form-group">
+        <label for="availabilityDataTextBox">Availability Data:</label>
+        <textarea id="availabilityDataTextBox" class="form-control" rows="5" readonly><%= JSON.stringify(availabilityData) %></textarea>
+      </div>
 </div>
 <%- include("templates/footer") %>
