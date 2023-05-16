@@ -8,6 +8,9 @@ const getRoutine = async (username) => {
 
     // Check if the array is empty.
     if (result.length > 0 && result[0].routine) {
+        // Get the user's routine.
+        const userRoutine = result[0].routine;
+
         // What is the user's routine?
         console.log(userRoutine);
 
