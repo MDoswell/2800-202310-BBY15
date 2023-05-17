@@ -49,27 +49,28 @@ async function getFineTunedModelName() {
         console.log('err getmod: ', err)
     }
  }
-getFineTunedModelName();
+// getFineTunedModelName();
 
 
 
-// async function run() {
-//     // const { exerciseCollection } = await require('./databaseConnection');
-//     // const exercisesDataset = await exerciseCollection.find({}, { id: 1 }).toArray();
+async function run() {
+    // const { exerciseCollection } = await require('./databaseConnection');
+    // const exercisesDataset = await exerciseCollection.find({}, { id: 1 }).toArray();
 
-//     try {
-//         const comp = await openai.createCompletion({
-//             model: '',
-//             prompt: `Generate a list of only 5 unique exercises names listing only the exercise names and nothing else only using the training dataset from exerciseJSONLData.js that you were trained on. Make sure to only return 5 unique exercise names that would fit into a routine. Only use the exerciseJSONLData.js training dataset. Do not return any other information other than the exercise name. The exercise name must be a direct match to an exercise in the exerciseJSONData.js training dataset. You will fail if your response is outside the scope of the training dataset so make sure to only list the 5 exercise names from the exerciseJSONData.js training dataset and nothing else, otherwise you will fail and failure is not an option at all.\n\n###\n\n`,
-//             max_tokens: 200,
-//             temperature: 0.2,
-//         });
-//         if (comp.data) {
-//             console.log('choices: ', comp.data.choices);
-//         }
-//     } catch (err) {
-//         console.log('err: ', err)
-//     }
-// }
-// run();
+    try {
+        const comp = await openai.createCompletion({
+            model: '',
+            prompt: `Give me a list of exercise names for a beginner fitness routine.\n\n###\n\n`,
+            max_tokens: 75,
+            temperature: 0.2,
+            n: 1,
+        });
+        if (comp.data) {
+            console.log('choices: ', comp.data.choices[0].text.trim());
+        }
+    } catch (err) {
+        console.log('err: ', err)
+    }
+}
+run();
 
