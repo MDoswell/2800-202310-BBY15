@@ -1,11 +1,26 @@
 // Load modules below.
 const { bcrypt, Joi, router } = require('../config/dependencies');
+const { loginLimiter } = require('../public/js/loginLimiter');
 
 // Route below.
-router.post('/login/submit', async (req, res) => {
+router.post('/login/submit', loginLimiter, async (req, res) => {
     const { userCollection } = await require('../config/databaseConnection');
-    var username = req.body.usernameOrEmail;
-    var password = req.body.password;
+    const username = req.body.usernameOrEmail;
+    const password = req.body.password;
+
+    // Error message for rateLimit, username/email taken, wrong password, etc.
+    let errorMessage;
+
+    // Check if user has exceeded rate limit.
+    console.log(req.rateLimit);
+
+    // Check if user has exceeded rate limit
+    if (req.rateLimit.remaining === 0) {
+        console.log('too many attempts');
+        errorMessage = 'Too many login attempts. Please try again later.';
+        res.json({ errorMessage, authenticated: false });
+        return;
+    }
 
     if (username.includes("@")) {
         console.log('User logging in with email.');
@@ -16,7 +31,7 @@ router.post('/login/submit', async (req, res) => {
                 email: Joi.string().email().max(50).required(),
                 password: Joi.string().max(20).required()
             })
-        
+
         var validationResult = schema.validate({ email: username, password });
     } else {
         console.log('User logging in with username.');
@@ -27,7 +42,7 @@ router.post('/login/submit', async (req, res) => {
                 username: Joi.string().alphanum().max(20).required(),
                 password: Joi.string().max(20).required()
             })
-        
+
         var validationResult = schema.validate({ username, password });
     }
 
@@ -37,8 +52,6 @@ router.post('/login/submit', async (req, res) => {
 
         // Loop through the validation errors and check the context property
         validationResult.error.details.forEach((error) => {
-
-            let errorMessage;
 
             switch (error.context.key) {
                 case "username":
@@ -81,16 +94,16 @@ router.post('/login/submit', async (req, res) => {
         // Search the collection for a matching user.
         const result = await userCollection.find(
             {
-              $or: [
-                { name: { $eq: username } },
-                { email: { $eq: username } }
-              ]
+                $or: [
+                    { name: { $eq: username } },
+                    { email: { $eq: username } }
+                ]
             },
             {
-              collation: { locale: 'en_US', strength: 2 },
-              projection: { name: 1, email: 1, password: 1, user_type: 1, _id: 0 }
+                collation: { locale: 'en_US', strength: 2 },
+                projection: { name: 1, email: 1, password: 1, user_type: 1, _id: 0 }
             }
-          ).toArray();
+        ).toArray();
 
         // Check the collection for a matching user. If none, redirect.
         console.log(result);
