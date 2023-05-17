@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<head>
+    <link href="../css/easterEgg.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- <p>Welcome</p> -->
+    <!-- <img id="test" src="./img/dumbbell.png" style="width: 200px;"> -->
+    <!-- <canvas id="canvas" height="500" width="350"></canvas> -->
+
+    <script>
+        // set global game variables
+        var floorY = 1600;
+        var ceilingY = 300;
+        var weightX = 450;
+        var weightY = 1600;
+        var weightWidth = 600;
+        var weightHeight = 250;
+        var letGoTime = 0;
+        var floorTime = 0;
+        var shakeOffset = [60, 48, 36, 24, 12];
+        var isBouncing = false;
+
+        // create canvas
+        var canvas = document.createElement("canvas");
+        canvas.width = 900;
+        canvas.height = 2000;
+
+        // get context
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = "80px sans-serif";
+
+        // load image
+        var weightImg = new Image();
+        weightImg.src = "./img/dumbbell.png";
+        weightImg.onload = function () {
+            drawImgAt(450, 1600);
+        };
+
+        function drawImgAt(x, y) {
+            ctx.drawImage(
+                weightImg,
+                x - weightWidth / 2,
+                y - weightHeight / 2,
+                weightWidth,
+                weightHeight
+            );
+        }
+
+        //Add Canvas
+        canvas.id = "main";
+        document.body.appendChild(canvas);
+
+        function drawAtMouse(event) {
+            console.log(
+                "clientX: " + event.clientX +
+                " - clientY: " + event.clientY
+            );
+            drawImgAt(event.clientX, event.clientY);
+        }
+
+        function lift() {
+            weightY -= 100;
+            letGoTime = 0;
+        }
+
+        canvas.addEventListener("click", lift);
+
+        // start game clock
+        setInterval(() => {
+            weightY = Math.max(weightY, ceilingY);
+
+            if (floorTime > 4) {
+                isBouncing = false;
+            }
+
+            if (isBouncing) {
+                weightY += 10 * letGoTime * letGoTime - shakeOffset[floorTime];
+                floorTime += 1;
+            } else {
+                weightY += 10 * letGoTime * letGoTime;
+            }
+
+            if (weightY >= floorY) {
+                if (letGoTime > 5) {
+                    isBouncing = true;
+                    floorTime = 0;
+                }
+                letGoTime = 0;
+                weightY = floorY;
+            }
+
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            drawImgAt(weightX, weightY);
+
+            ctx.fillStyle = "white";
+            ctx.fillText("Tap to lift!", 280, 80);
+            letGoTime += 1;
+        }, 100)
+    </script>
+
+</body>

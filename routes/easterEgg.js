@@ -2,6 +2,8 @@
 const { router } = require('../config/dependencies');
 
 // Route below.
-router.get('/sendData', async (req, res) => {
-
+router.get('/liftingTime', async (req, res) => {
+    res.render('easterEgg');
 })
+
+module.exports = router;
