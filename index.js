@@ -82,6 +82,8 @@ app.use('/changePassword', require('./routes/changePassword'));
 app.use('/changePassword/submit', require('./routes/changePasswordSubmit'));
 app.use('/openai', require('./routes/openaiRoute'));
 app.use('/setup', require('./routes/setup'));
+app.use('/openai/get', require('./routes/openaiGetRoute'));
+app.use('/openai/submit', require('./routes/openaiSubmitRoute'));
 app.use('/setupSubmit', require('./routes/setupSubmit'));
 app.use('/profileUpdate', require('./routes/profileUpdate'));
 app.use('/timeForm', require('./routes/timeForm'));
