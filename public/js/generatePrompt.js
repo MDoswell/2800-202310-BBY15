@@ -1,7 +1,7 @@
+// Used in first time setup. See setup.js and setup.ejs files for first time setup of the app.
 const generatedRoutine = document.getElementById("generatedRoutine");  
 
 async function generatePrompt() {
-    console.log("running generatePrompt");
     let str = "I am " + document.getElementById("age").value 
 
         + " years old and my gender is ";
@@ -56,15 +56,11 @@ async function generatePrompt() {
         str += ', endurance';
     }
 
-    str += ". With that profile what kind of exercise routine would you recomend me? only respond with a list of exercise names and the reps and sets i will do. Do not respond with anything else other that the list of exercises with the reps and sets";
-    console.log(str);
-    
+    str += ". With that profile what kind of exercise routine would you recomend me? only respond with a list of exercise names and the workload measurement (reps and sets) I will do. Do not respond with anything else other that the list of exercises with the workload measurement (reps and sets). Make sure the response is always formatted as follows: 'summary:\nexercise name: workload measurement'.\n\n###\n\n";
 
     const aiResponse = await axios.post("/openai", {str});
 
     generatedRoutine.textContent = aiResponse.data;
-
-    console.log(aiResponse);
 
 
 }
