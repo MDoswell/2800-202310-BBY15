@@ -79,6 +79,7 @@ app.use('/changePassword/begin/submit', require('./routes/changePasswordEmailSub
 app.use('/changePassword', require('./routes/changePassword'));
 app.use('/changePassword/submit', require('./routes/changePasswordSubmit'));
 app.use('/openai', require('./routes/openaiRoute'));
+app.use('/dbExercises', require('./routes/dbExercises'));
 app.use('/setup', require('./routes/firstTimeSetup'));
 app.use('/profileUpdate', require('./routes/profileUpdate'));
 app.use('/timeForm', require('./routes/timeForm'));

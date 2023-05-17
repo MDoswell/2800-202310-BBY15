@@ -29,14 +29,6 @@ router.get('/openai', async (req, res) => {
   // res.send("Complete");
 
   try {
-    // const response = await openai.createCompletion({
-    //   engine: 'text-davinci-003',
-    //   prompt: "give me a book name",
-    //   maxTokens: 10,
-    //   temperature: 0.5,
-    //   n: 2,
-    //   stop: '\n ',
-    // });
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: prompts,
