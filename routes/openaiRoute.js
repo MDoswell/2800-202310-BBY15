@@ -19,7 +19,7 @@ router.post('/openai', async(req, res) => {
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: userPrompt,
-            max_tokens: 1000,
+            max_tokens: 500,
             temperature: 0,
           });
           console.log("response" + response);
