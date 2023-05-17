@@ -24,7 +24,7 @@ router.get('/dbExercises', async (req, res) => {
 
     const prompt1 = "Create an exercise routine suitable for a beginner. Rather than a list of exercises, provide a list of exercise "
         + "placeholders which specify a general region of the body to target, a specific muscle group to target, and the equipment required, "
-        + "in the following format: { 'ordinal': 1, 'bodyPart': General region, 'target': muscle group, 'equipment': equipment }. "
+        + "in the following format: { \"ordinal\": 1, \"bodyPart\": General region, \"target\": muscle group, \"equipment\": equipment }. "
         + "General region of the body should be one of: " + bodyParts + ". Specific muscle group should be one of: " + targets
         + ". Equipment should be one of: " + equipment + ". The final output should be an array of objects in JSON.";
 
@@ -32,51 +32,64 @@ router.get('/dbExercises', async (req, res) => {
     var prompts = [];
     prompts.push({ role: 'user', content: prompt1 });
 
-    var test = await exerciseCollection.find({}, { projection: { id: 1 } }).toArray();
-    test = test.map(row => row.id);
-    console.log(test.join());
-    // // exerciseArray.forEach(exercise => console.log(exercise.name));
-    // for (var i = 0; i < 10; i++) {
-    //     prompts.push({ role: 'user', content: exerciseArray[i].name + ' (id: ' + exerciseArray[i].id + '),' });
-    // }
+    try {
+        // const response = await openai.createChatCompletion({
+        //     model: "gpt-3.5-turbo",
+        //     messages: prompts,
+        //     temperature: 0.5,
+        // });
+        // console.log("response: " + response);
+        // const summary = response.data.choices[0].message.content;
+        // console.log(summary[0]);
 
-    // // console.log(prompts);
+        summary = `[
+            {"ordinal": 1, "bodyPart": "cardio", "target": "cardiovascular system", "equipment": "stationary bike"},
+            {"ordinal": 2, "bodyPart": "upper body", "target": "pectorals", "equipment": "body weight"}
+        ]`;
 
-    // // res.send("Complete");
+        var routineSkeleton = JSON.parse(summary);
 
-    // try {
-    //     const response = await openai.createChatCompletion({
-    //         model: "gpt-3.5-turbo",
-    //         messages: prompts,
-    //         temperature: 0.5,
-    //     });
-    //     console.log("response: " + response);
-    //     const summary = response.data.choices[0].message.content;
-    //     console.log(summary);
+        var testExerciseList = await exerciseCollection.find(
+            {
+                // bodyPart: routineSkeleton[0].bodyPart,
+                target: routineSkeleton[0].target
+            },
+            {
+                projection: { name: 1, id: 1, bodyPart: 1, target: 1, equipment: 1 }
+            }
+        ).toArray();
 
-    //     var routineSkeleton = JSON.parse(summary);
-    //     routineSkeleton.forEach(exercise => console.log(exercise.bodyPart));
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    };
 
-    //     var test = await userCollection.find(
-    //         {
-    //             bodyPart: routineSkeleton[0].bodyPart,
-    //             target: routineSkeleton[0].target
-    //         },
-    //         {
-    //             projection: { name: 1, id: 1 }
-    //         }
-    //     ).toArray();
 
-    //     console.log(test);
+    testExerciseList = testExerciseList.map(exercise => exercise.name);
 
-    //     res.render("openaiTest", { response: summary });
+    console.log(testExerciseList);
 
-    // } catch (error) {
-    //     console.log(error);
-    //     res.status(500).json({ message: 'Internal server error' });
-    // };
+    var singleExercisePrompt = `I am a fitness beginner. My goals are to lose weight and increase strength. I need to include one
+        exercise from this list in my fitness routine:\n${testExerciseList.join()}\nThe exercise I should include is:`
 
-    // res.send('done');
+    try {
+        const response = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: singleExercisePrompt,
+            temperature: 0.5,
+        });
+        const summary = response.data.choices[0].text;
+        console.log(summary);
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    };
+
+    res.send('done');
+
+
+
 
 
 });
