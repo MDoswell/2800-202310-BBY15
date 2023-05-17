@@ -80,13 +80,85 @@
                                 </div>
                                 <hr>
                                 <div class="row mb-3">
-                                    <label for="exercise-types" class="col-sm-3 col-form-label">Exercise
-                                        Preference</label>
+                                    <label for="exercise-types" class="col-sm-3 col-form-label">Exercise Preference</label>
                                     <div class="col-sm-9">
-                                        <textarea class="form-control" id="exercise-types" rows="3"
-                                            readonly>Exercise Preference</textarea>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="cardiovascular-exercise">
+                                            <label class="form-check-label" for="cardiovascular-exercise">
+                                                Cardiovascular exercises
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="strength-training-exercise">
+                                            <label class="form-check-label" for="strength-training-exercise">
+                                                Strength training exercises
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="flexibility-exercise">
+                                            <label class="form-check-label" for="flexibility-exercise">
+                                                Flexibility exercises
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="balance-exercise">
+                                            <label class="form-check-label" for="balance-exercise">
+                                                Balance exercises
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="hiit-exercise">
+                                            <label class="form-check-label" for="hiit-exercise">
+                                                High-Intensity Interval Training (HIIT)
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="low-impact-exercise">
+                                            <label class="form-check-label" for="low-impact-exercise">
+                                                Low-impact exercises
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="sports-specific-exercise">
+                                            <label class="form-check-label" for="sports-specific-exercise">
+                                                Sports-specific exercises
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="functional-training-exercise">
+                                            <label class="form-check-label" for="functional-training-exercise">
+                                                Functional training exercises
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="bodyweight-exercise">
+                                            <label class="form-check-label" for="bodyweight-exercise">
+                                                Bodyweight exercises
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="endurance-exercise">
+                                            <label class="form-check-label" for="endurance-exercise">
+                                                Endurance exercises
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <label for="weight" class="col-sm-3 col-form-label">Weight (lbs)</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="weight" id="weight" value="<%=weight%>" readonly>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <label for="experience" class="col-sm-3 col-form-label">Experience Level (1-10)</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="experience" id="experience" value="<%= experience%>" readonly>
+                                    </div>
+                                </div>
+                                
                                 <div id="buttonContainer" class="d-flex justify-content-end">
                                     <button type="submit" id="save" class="btn btn-primary" style="display: none;">Save</button>
                                     <button type="button" id="cancel" class="btn btn-secondary ml-2" style="display: none;">Cancel</button>
@@ -95,51 +167,9 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </section>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const editButton = document.getElementById('editButton');
-            const save = document.getElementById('save');
-            const cancel = document.getElementById('cancel');
-            const formElements = document.querySelectorAll('#profileForm input, #profileForm textarea');
-            const originalValues = {};
-    
-            editButton.addEventListener('click', function () {
-                editButton.style.display = 'none';
-                save.style.display = 'inline-block';
-                cancel.style.display = 'inline-block';
-    
-                formElements.forEach(function (element) {
-                    element.removeAttribute('readonly');
-                    originalValues[element.id] = element.value;
-                });
-            });
-    
-            cancel.addEventListener('click', function () {
-                editButton.style.display = 'inline-block';
-                save.style.display = 'none';
-                cancel.style.display = 'none';
-    
-                formElements.forEach(function (element) {
-                    element.setAttribute('readonly', true);
-                    element.value = originalValues[element.id];
-                });
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-        const scheduleButton = document.getElementById('scheduleButton');
-
-        scheduleButton.addEventListener('click', function () {
-            window.location.href = '/availabilityData';
-        });
-    });
-    </script>    
 
     <script src="/js/editProfile.js"></script>
     <%- include("templates/footer") %>
