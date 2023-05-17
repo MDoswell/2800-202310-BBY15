@@ -57,19 +57,18 @@
                 <div class="col-lg-8">
                     <div class="card mb-4 bg-dark" >
                         <div class="card-body">
-                            <form id="profileForm" class="needs-validation bg-dark">
+                            <form action="/profileUpdate" method="post" id="profileForm" class="bg-dark">
                                 <div class="row mb-3">
                                     <label for="name" class="col-sm-3 col-form-label">Name</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="name" value="<%= name %>" readonly>
+                                        <input type="text" class="form-control" name="name" id="name" value="<%= name %>" readonly>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row mb-3">
                                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                                     <div class="col-sm-9">
-                                        <input type="email" class="form-control" id="email" value="<%= email%>"
-                                            readonly>
+                                        <input type="email" class="form-control" name="email" id="email" value="<%= email%>" readonly>
                                     </div>
                                 </div>
                                 <hr>
@@ -81,16 +80,16 @@
                                 </div>
                                 <hr>
                                 <div class="row mb-3">
-                                    <label for="exercise-preference" class="col-sm-3 col-form-label">Exercise
+                                    <label for="exercise-types" class="col-sm-3 col-form-label">Exercise
                                         Preference</label>
                                     <div class="col-sm-9">
-                                        <textarea class="form-control" id="exercise-preference" rows="3"
+                                        <textarea class="form-control" id="exercise-types" rows="3"
                                             readonly>Exercise Preference</textarea>
                                     </div>
                                 </div>
                                 <div id="buttonContainer" class="d-flex justify-content-end">
-                                    <button type="submit" id="saveButton" class="btn btn-primary" style="display: none;">Save</button>
-                                    <button type="button" id="cancelButton" class="btn btn-secondary ml-2" style="display: none;">Cancel</button>
+                                    <button type="submit" id="save" class="btn btn-primary" style="display: none;">Save</button>
+                                    <button type="button" id="cancel" class="btn btn-secondary ml-2" style="display: none;">Cancel</button>
                                 </div>
                             </form>
                         </div>
@@ -105,15 +104,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const editButton = document.getElementById('editButton');
-            const saveButton = document.getElementById('saveButton');
-            const cancelButton = document.getElementById('cancelButton');
+            const save = document.getElementById('save');
+            const cancel = document.getElementById('cancel');
             const formElements = document.querySelectorAll('#profileForm input, #profileForm textarea');
             const originalValues = {};
     
             editButton.addEventListener('click', function () {
                 editButton.style.display = 'none';
-                saveButton.style.display = 'inline-block';
-                cancelButton.style.display = 'inline-block';
+                save.style.display = 'inline-block';
+                cancel.style.display = 'inline-block';
     
                 formElements.forEach(function (element) {
                     element.removeAttribute('readonly');
@@ -121,10 +120,10 @@
                 });
             });
     
-            cancelButton.addEventListener('click', function () {
+            cancel.addEventListener('click', function () {
                 editButton.style.display = 'inline-block';
-                saveButton.style.display = 'none';
-                cancelButton.style.display = 'none';
+                save.style.display = 'none';
+                cancel.style.display = 'none';
     
                 formElements.forEach(function (element) {
                     element.setAttribute('readonly', true);

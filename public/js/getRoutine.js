@@ -6,11 +6,18 @@ const getRoutine = async (username) => {
     // Get the user's routine from the database.
     const result = await userCollection.find({ name: { $eq: username } }).project({ routine: 1 }).toArray();
 
-    // Check the collection for a matching user.
-    const userRoutine = result[0].routine;
-
     // Check if the array is empty.
-    if (userRoutine.length == 0) {
+    if (result.length > 0 && result[0].routine) {
+        // Get the user's routine.
+        const userRoutine = result[0].routine;
+
+        // What is the user's routine?
+        console.log(userRoutine);
+
+        // Return the user's routine.
+        return userRoutine;
+        
+    } else {
         console.log("user routine not found");
 
         // Prompt user to set up a routine
@@ -23,12 +30,6 @@ const getRoutine = async (username) => {
 
         return;
     }
-
-    // What is the user's routine?
-    console.log(userRoutine);
-
-    // Return the user's routine.
-    return userRoutine;
 };
 
 module.exports = getRoutine;

@@ -2,13 +2,13 @@
 const { router, Joi} = require('../config/dependencies');
 
 // Route below.
-router.get('/profileUpdate', async (req, res) => {
+router.post('/profileUpdate', async (req, res) => {
 
     const { userCollection } = await require('../config/databaseConnection');
-    const name = req.query.name;
+    const name = req.body.name;
 
     // Store the email in lowercase to avoid duplicate emails capitalized differently.
-    const email = req.query.email.toLowerCase();
+    const email = req.body.email.toLowerCase();
     
 
     const schema = Joi.object(
@@ -70,7 +70,7 @@ router.get('/profileUpdate', async (req, res) => {
         
 
         req.session.authenticated = true;
-        req.session.name = req.query.name;
+        req.session.name = req.body.name;
         req.session.user_type = 'user';
         
 
