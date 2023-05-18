@@ -1,30 +1,23 @@
 <%- include("templates/header") %>
-    <!-- <div class="container-fluid px-5 mt-5">
-        <h1>Hello, <%= name %>!</h1>
-        <p>Email: <%= email%></p>
-        <p>User Type: <%= user_type %></p>
-        <br>
-      
-        <input type="button" value="edit" id="edit">
-    </div>
+    <style>
+        .form-range {
+            width: 90%;
+        }
 
-    <div id="editForm" class="m-5" style="display:none">
-        <form action="/profileUpdate" method="post">
-        <label class="form-label">Username</label>
-        <input class="form-control" type="text" name="name" id="name" value="<%= name %>">
-        <br>
-        <label class="form-label">Email address</label>
-        <input type="email" class="form-control" name="email" id="email" value="<%= email%>">
-
-        <input class="mt-5" type="button" id="save" value="save">
-    </form>
-    </div> -->
+        .form-range-value {
+            width: 20px;
+            text-align: center;
+            margin-left: 10px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
     <section style="background-color: #1B2021;">
         <div class="container py-5">
             <div class="row">
                 <div class="col">
                     <nav aria-label="breadcrumb" class="bg-dark rounded-3 p-3 mb-4">
-                        <ol class="breadcrumb mb-0 bg-dark" >
+                        <ol class="breadcrumb mb-0 bg-dark">
                             <li class="breadcrumb-item text-light">
                                 <%= name %>'s User Profile
                             </li>
@@ -55,113 +48,138 @@
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div class="card mb-4 bg-dark" >
+                    <div class="card mb-4 bg-dark">
                         <div class="card-body">
                             <form action="/profileUpdate" method="post" id="profileForm" class="bg-dark">
                                 <div class="row mb-3">
                                     <label for="name" class="col-sm-3 col-form-label">Name</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="name" id="name" value="<%= name %>" readonly>
+                                        <input type="text" class="form-control" name="name" id="name"
+                                            value="<%= name %>" readonly>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row mb-3">
                                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                                     <div class="col-sm-9">
-                                        <input type="email" class="form-control" name="email" id="email" value="<%= email%>" readonly>
+                                        <input type="email" class="form-control" name="email" id="email"
+                                            value="<%= email%>" readonly>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row mb-3">
                                     <label for="availability" class="col-sm-3 col-form-label">Availability</label>
                                     <div class="col-sm-9">
-                                        <button type="button" id="scheduleButton" class="btn btn-outline-info">Check Out Schedule</button>
+                                        <button type="button" id="scheduleButton" class="btn btn-outline-info">Check Out
+                                            Schedule</button>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row mb-3">
-                                    <label for="exercise-types" class="col-sm-3 col-form-label">Exercise Preference</label>
+                                    <label for="exercise-types" class="col-sm-3 col-form-label">Exercise
+                                        Preference</label>
                                     <div class="col-sm-9">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="cardiovascular-exercise">
-                                            <label class="form-check-label" for="cardiovascular-exercise">
-                                                Cardiovascular exercises
-                                            </label>
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="cardio" id="cardio" <% if
+                                                (exerciseTypes.includes('cardio')) { %>checked<% } %>>
+                                                <label class="form-check-label" for="cardio">
+                                                    Cardiovascular exercises
+                                                </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="strength-training-exercise">
-                                            <label class="form-check-label" for="strength-training-exercise">
-                                                Strength training exercises
-                                            </label>
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="strength training" id="strength training" <% if
+                                                (exerciseTypes.includes('strength training')) { %>checked<% } %>>
+                                                <label class="form-check-label" for="strength training">
+                                                    Strength training exercises
+                                                </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="flexibility-exercise">
-                                            <label class="form-check-label" for="flexibility-exercise">
-                                                Flexibility exercises
-                                            </label>
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="flexibility" id="flexibility" <% if
+                                                (exerciseTypes.includes('flexibility')) { %>checked<% } %>>
+                                                <label class="form-check-label" for="flexibility">
+                                                    Flexibility exercises
+                                                </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="balance-exercise">
-                                            <label class="form-check-label" for="balance-exercise">
-                                                Balance exercises
-                                            </label>
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="balance" id="balance" <% if
+                                                (exerciseTypes.includes('balance')) { %>checked<% } %>>
+                                                <label class="form-check-label" for="balance">
+                                                    Balance exercises
+                                                </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="hiit-exercise">
-                                            <label class="form-check-label" for="hiit-exercise">
-                                                High-Intensity Interval Training (HIIT)
-                                            </label>
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="high-intensity" id="high-intensity" <% if
+                                                (exerciseTypes.includes('high-intensity')) { %>checked<% } %>>
+                                                <label class="form-check-label" for="high-intensity">
+                                                    High-Intensity Interval Training (HIIT)
+                                                </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="low-impact-exercise">
-                                            <label class="form-check-label" for="low-impact-exercise">
-                                                Low-impact exercises
-                                            </label>
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="low-impact" id="low-impact" <% if
+                                                (exerciseTypes.includes('low-impact')) { %>checked<% } %>>
+                                                <label class="form-check-label" for="low-impact">
+                                                    Low-impact exercises
+                                                </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="sports-specific-exercise">
-                                            <label class="form-check-label" for="sports-specific-exercise">
-                                                Sports-specific exercises
-                                            </label>
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="Sports-specific" id="sport specific" <% if
+                                                (exerciseTypes.includes('sport specific')) { %>checked<% } %>>
+                                                <label class="form-check-label" for="sport specific">
+                                                    Sports-specific exercises
+                                                </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="functional-training-exercise">
-                                            <label class="form-check-label" for="functional-training-exercise">
-                                                Functional training exercises
-                                            </label>
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="functional" id="functional" <% if
+                                                (exerciseTypes.includes('functional')) { %>checked<% } %>>
+                                                <label class="form-check-label" for="functional">
+                                                    Functional training exercises
+                                                </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="bodyweight-exercise">
-                                            <label class="form-check-label" for="bodyweight-exercise">
-                                                Bodyweight exercises
-                                            </label>
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="bodyweight" id="bodyweight" <% if
+                                                (exerciseTypes.includes('bodyweight')) { %>checked<% } %>>
+                                                <label class="form-check-label" for="bodyweight">
+                                                    Bodyweight exercises
+                                                </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="endurance-exercise">
-                                            <label class="form-check-label" for="endurance-exercise">
-                                                Endurance exercises
-                                            </label>
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="endurance" id="endurance" <% if
+                                                (exerciseTypes.includes('endurance')) { %>checked<% } %>>
+                                                <label class="form-check-label" for="endurance">
+                                                    Endurance exercises
+                                                </label>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row mb-3">
-                                    <label for="weight" class="col-sm-3 col-form-label">Weight (lbs)</label>
+                                    <label for="weight" class="col-sm-3 col-form-label">Weight</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="weight" id="weight" value="<%=weight%>" readonly>
+                                        <select class="form-control" name="weight" id="weight" readonly>
+                                            <% for (let i=1; i <=999; i++) { %>
+                                                <option value="<%= i %>" <% if (i==weight) { %>selected<% } %>><%= i %>
+                                                            lbs</option>
+                                                <% } %>
+                                        </select>
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="row mb-3">
-                                    <label for="experience" class="col-sm-3 col-form-label">Experience Level (1-10)</label>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="experience" class="col-sm-3 col-form-label">Experience Level</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="experience" id="experience" value="<%= experience%>" readonly>
+                                        <input type="range" class="form-range" name="experience" id="experience" min="1"
+                                            max="10" value="<%= experience %>" readonly>
+                                        <output class="form-range-value" id="experienceValue">
+                                            <%= experience %>
+                                        </output>
                                     </div>
                                 </div>
-                                
+
                                 <div id="buttonContainer" class="d-flex justify-content-end">
-                                    <button type="submit" id="save" class="btn btn-primary" style="display: none;">Save</button>
-                                    <button type="button" id="cancel" class="btn btn-secondary ml-2" style="display: none;">Cancel</button>
+                                    <button type="submit" id="save" class="btn btn-primary"
+                                        style="display: none;">Save</button>
+                                    <button type="button" id="cancel" class="btn btn-secondary ml-2"
+                                        style="display: none;">Cancel</button>
                                 </div>
                             </form>
                         </div>

@@ -11,6 +11,7 @@ router.post('/profileUpdate', async (req, res) => {
     const email = req.body.email.toLowerCase();
     const experience = req.body.experience;
     const weight = req.body.weight;
+    const exerciseTypes = req.body.exerciseTypes;
     
 
     const schema = Joi.object(
@@ -63,7 +64,7 @@ router.post('/profileUpdate', async (req, res) => {
     }
 
         //updating currently logged in user with new name and email.
-        await userCollection.findOneAndUpdate({ name: req.session.name}, { $set: { name: name, email: email, experience: experience, weight: weight }});
+        await userCollection.findOneAndUpdate({ name: req.session.name}, { $set: { name: name, email: email, experience: experience, weight: weight, exerciseTypes: exerciseTypes }});
         
 
         req.session.authenticated = true;

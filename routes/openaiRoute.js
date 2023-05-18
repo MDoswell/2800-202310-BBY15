@@ -5,8 +5,8 @@ const { router } = require('../config/dependencies');
 
 
 // Route below.
-router.get('/openai', async(req, res) => {
-  
+router.post('/openai', async(req, res) => {
+    const userPrompt = req.body.str;
     try {
         // const response = await openai.createCompletion({
         //   engine: 'text-davinci-003',
@@ -18,14 +18,14 @@ router.get('/openai', async(req, res) => {
         // });
         const response = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: "do you ever feel like a plastic bag",
-            max_tokens: 50,
+            prompt: userPrompt,
+            max_tokens: 500,
             temperature: 0,
           });
           console.log("response" + response);
           const summary = response.data.choices[0].text.trim();
-          console.log(summary);
-    res.render("openaiTest", {response: response});
+          console.log("summary: " + summary);
+          res.send(summary)
     
     } catch (error) {
             console.log(error);
