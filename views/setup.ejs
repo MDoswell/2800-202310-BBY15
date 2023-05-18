@@ -44,8 +44,32 @@
           </div>
           
             <div class="my-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Please state your goals for using this app</label>
-                <textarea name="goals" id="goals" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              
+              <template id="goalTemplate">
+                <div id="parent" style="display:flex;">
+                <button id="close" type="button" style="border:0px; background-color: #1B2021; display:flex;">
+                    <img src="/img/close.png" style="height: 10px; width: 10px;">
+                </button>
+                <p id="goal" style> action is coming
+
+                </p>
+            </div>
+          </template>
+
+              <label class="form-label" for="goals">Choose the goals that are closest to yours</label>
+              <div class="dropdown">
+                <button name="goals"class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                  Goals List
+                </button>
+                <ul id="goalList" class="dropdown-menu">
+                  <li><a class="dropdown-item" id="weightLoss">Weight Loss</a></li>
+                  <li><a class="dropdown-item" id="muscle">Build Muscle</a></li>
+                  <li><a class="dropdown-item" id="health">Improve health</a></li>
+                  <li><a class="dropdown-item" id="fitness">Improve fitness</a></li>
+                </ul>
+              </div>
+              <div name="selectedGoals" id="selectedGoals"> </div>
+              
             </div>
 
             <div class="py-3">
@@ -55,11 +79,11 @@
                 <output id="experience">5</output>
             </div>
             <!-- <div class="py-3"><label for="equipment" class="form-label">What kind of equipment is available to you? (include gym equipment if applicable)</label>
-              <select id="equipment" class="form-select" aria-label="Default select example">
+              <select id="equipment" name="equipment" class="form-select" aria-label="Default select example">
                 <option selected>Equipment</option>
-                <option value="Only bodyweight">One</option>
-                <option value="dumbell">Two</option>
-                <option value="3">Three</option>
+                <option name="equipment" value="bodyweight">I can only do bodyweight exercises</option>
+                <option name="equipment" value="dumbell">I have access to dumbbells</option>
+                <option name="equipment" value="cable-machines">I have access to cable machines</option>
               </select>
             </div> -->
             

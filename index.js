@@ -67,7 +67,7 @@ app.use('/', (req, res, next) => {
 
 
 app.use("/js", express.static("./public/js"));
-
+app.use("/img", express.static("./public/img"));
 // Modular route paths declared below.
 app.use('/', require('./routes/home'));
 app.use('/signup', require('./routes/signup'));
