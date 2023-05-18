@@ -18,10 +18,23 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label class="label" for="password">Password</label>
-                                <input class="form-control" autocomplete="off" name='password' type='password'>
+                                <!-- <input class="form-control" autocomplete="off" name='password' type='password'> -->
+                                <div class="input-group mb-3">
+                                    <input id="passwordId" name="password" type="password" class="form-control">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" style="padding-bottom: 0; padding-left: 10px;">
+                                            <span class="material-symbols-outlined">
+                                                visibility
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
+
+
                             <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary rounded submit px-3" id="login-button">Sign
+                                <button type="submit" class="form-control btn btn-primary rounded submit px-3"
+                                    id="login-button">Sign
                                     In</button>
                             </div>
                             <div class="form-group d-md-flex">
@@ -42,5 +55,5 @@
             </div>
         </div>
     </div>
-<%- include("templates/footer") %>
-<script src="/js/loginValidation.js"></script>
+    <%- include("templates/footer") %>
+        <script src="/js/loginValidation.js"></script>
