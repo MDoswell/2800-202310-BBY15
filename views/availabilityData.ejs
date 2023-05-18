@@ -11,6 +11,7 @@
       </tr>
     </thead>
     <tbody>
+      <% if (!availabilityData.includes(null))  { %>
       <% availabilityData.forEach(function(data) { %>
         <tr>
           <td><%= data.dayOfWeek %></td>
@@ -18,13 +19,13 @@
           <td><%= data.startTime %></td>
           <td><%= data.endTime %></td>
         </tr>
-      <% }); %>
+      <% })}; %>
     </tbody>
   </table>
   <a href="/timeForm" class="btn btn-primary">Update Time Form</a>
     <!-- Text box for displaying availability data as a string -->
-    <div class="form-group">
-        <label for="availabilityDataTextBox">Availability Data:</label>
+    <div class="form-group" style="display: none;">
+        <label for="availabilityDataTextBox" >Availability Data:</label>
         <textarea id="availabilityDataTextBox" class="form-control" rows="5" readonly><%= JSON.stringify(availabilityData) %></textarea>
       </div>
 </div>

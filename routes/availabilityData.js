@@ -11,7 +11,12 @@ router.get('/availabilityData', sessionValidation, async (req, res) => {
     // Fetch availability data for the user from the database
     const user = await userCollection.findOne({ name: req.session.name });
 
-    res.render("availabilityData", { availabilityData: user.availabilityData });
+    if (user.availabilityData && !user.availabilityData.includes(null)) {
+      res.render("availabilityData", { availabilityData: user.availabilityData });
+    } else {
+      // Redirect to '/timeform' if availabilityData doesn't exist
+      res.redirect('/timeform');
+    }
   } catch (error) {
     console.error(error);
     res.render('error', { message: 'Error retrieving availability data.' });

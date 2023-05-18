@@ -4,5 +4,5 @@
 .--allPageTransitions {
     --transition__duration: 1s;
     --transition__easing: ease-in-out;
-    animation-name: circle-in-center;
+    animation-name: wipe-in-right;
 }

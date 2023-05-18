@@ -12,8 +12,8 @@
         </div>
 
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3 pr-5"><a class="text-body-secondary" href="/"><i class="material-icons"
-                        style=color:white;>github</i></a></li>
+            <li class="ms-3 pr-5"><a id="easterEgg" class="text-body-secondary"><i class="material-icons"
+                        style=color:white;>fitness_center</i></a></li>
         </ul>
     </footer>
 </div>
@@ -30,4 +30,13 @@
 
 <!-- Axios -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    var dumbbellClicks = 0;
+    document.getElementById("easterEgg").addEventListener("click", () => {
+        dumbbellClicks++;
+        if (dumbbellClicks > 4) {
+            window.location.href = "/liftingTime";
+        }
+    })
+</script>
 </body>
