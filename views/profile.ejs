@@ -11,6 +11,11 @@
             font-weight: bold;
             color: white;
         }
+
+        .form-check-input:disabled~.form-check-label {
+            color: #d5d5d5;
+        }
+
     </style>
     <section style="background-color: #1B2021;">
         <div class="container py-5">
@@ -80,70 +85,80 @@
                                         Preference</label>
                                     <div class="col-sm-9">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="cardio" id="cardio" <% if
-                                                (exerciseTypes.includes('cardio')) { %>checked<% } %>>
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes"
+                                                value="cardio" id="cardio" <% if (exerciseTypes.includes('cardio')) {
+                                                %>checked<% } %>>
                                                 <label class="form-check-label" for="cardio">
                                                     Cardiovascular exercises
                                                 </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="strength training" id="strength training" <% if
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes"
+                                                value="strength training" id="strength training" <% if
                                                 (exerciseTypes.includes('strength training')) { %>checked<% } %>>
                                                 <label class="form-check-label" for="strength training">
                                                     Strength training exercises
                                                 </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="flexibility" id="flexibility" <% if
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes"
+                                                value="flexibility" id="flexibility" <% if
                                                 (exerciseTypes.includes('flexibility')) { %>checked<% } %>>
                                                 <label class="form-check-label" for="flexibility">
                                                     Flexibility exercises
                                                 </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="balance" id="balance" <% if
-                                                (exerciseTypes.includes('balance')) { %>checked<% } %>>
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes"
+                                                value="balance" id="balance" <% if (exerciseTypes.includes('balance')) {
+                                                %>checked<% } %>>
                                                 <label class="form-check-label" for="balance">
                                                     Balance exercises
                                                 </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="high-intensity" id="high-intensity" <% if
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes"
+                                                value="high-intensity" id="high-intensity" <% if
                                                 (exerciseTypes.includes('high-intensity')) { %>checked<% } %>>
                                                 <label class="form-check-label" for="high-intensity">
                                                     High-Intensity Interval Training (HIIT)
                                                 </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="low-impact" id="low-impact" <% if
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes"
+                                                value="low-impact" id="low-impact" <% if
                                                 (exerciseTypes.includes('low-impact')) { %>checked<% } %>>
                                                 <label class="form-check-label" for="low-impact">
                                                     Low-impact exercises
                                                 </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="Sports-specific" id="sport specific" <% if
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes"
+                                                value="Sports-specific" id="sport specific" <% if
                                                 (exerciseTypes.includes('sport specific')) { %>checked<% } %>>
                                                 <label class="form-check-label" for="sport specific">
                                                     Sports-specific exercises
                                                 </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="functional" id="functional" <% if
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes"
+                                                value="functional" id="functional" <% if
                                                 (exerciseTypes.includes('functional')) { %>checked<% } %>>
                                                 <label class="form-check-label" for="functional">
                                                     Functional training exercises
                                                 </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="bodyweight" id="bodyweight" <% if
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes"
+                                                value="bodyweight" id="bodyweight" <% if
                                                 (exerciseTypes.includes('bodyweight')) { %>checked<% } %>>
                                                 <label class="form-check-label" for="bodyweight">
                                                     Bodyweight exercises
                                                 </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="exerciseTypes" value="endurance" id="endurance" <% if
+                                            <input class="form-check-input" type="checkbox" name="exerciseTypes"
+                                                value="endurance" id="endurance" <% if
                                                 (exerciseTypes.includes('endurance')) { %>checked<% } %>>
                                                 <label class="form-check-label" for="endurance">
                                                     Endurance exercises
