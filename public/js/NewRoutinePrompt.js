@@ -12,6 +12,6 @@ signupForm.addEventListener("submit", async (event) => {
 
   var str =  response.data;
   const aiResponse = await axios.post("/openai", {str});
-  console.log(aiResponse);
+  console.log(aiResponse.data);
   }
 );
