@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 
 <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../css/easterEgg.css" rel="stylesheet" />
 </head>
 
 <body>
 
-    <h1>Welcome</h1>
-    <!-- <img id="test" src="./img/dumbbell.png" style="width: 200px;"> -->
-    <!-- <canvas id="canvas" height="500" width="350"></canvas> -->
+    <div id="container">
+        <a id="back" href="javascript: history.back()">
+            <i class="material-icons md-light" style="color: white; width: 100%; font-size: 5vh;">
+                keyboard_backspace
+            </i>
+        </a>
+        <div id="banner"></div>
+        <div id="game-area"></div>
+    </div>
+
+
+    <!-- <h1>Welcome</h1> -->
 
     <script>
+        document.onload = console.log(document.getElementById('game-area').getBoundingClientRect());
         // set global game variables
-        var floorY = 1600;
-        var ceilingY = 300;
-        var weightX = 450;
-        var weightY = 1600;
-        var weightWidth = 600;
-        var weightHeight = 250;
+        var canvHeight = 0.86 * window.innerHeight + 5;
+        var canvWidth = window.innerWidth + 5;
+        var floorY = 0.8 * canvHeight;
+        var ceilingY = 0.12 * canvHeight;
+        var weightX = canvWidth / 2;
+        var weightY = floorY;
+        var weightWidth = 0.6 * canvWidth;
+        var weightHeight = 0.25 * canvWidth;
         var letGoTime = 0;
         var floorTime = 0;
-        var shakeOffset = [60, 48, 36, 24, 12];
+        var shakeOffset = [
+            0.04 * canvHeight,
+            0.03 * canvHeight,
+            0.02 * canvHeight,
+            0.01 * canvHeight
+        ];
         var isBouncing = false;
         var reps = 0;
         var repFinished = false;
+        var topText = document.getElementById('banner');
+        var isGold = false;
 
         // create canvas
         var canvas = document.createElement("canvas");
-        canvas.width = 900;
-        canvas.height = 2000;
+        console.log(window.innerWidth);
+        console.log(window.innerHeight);
+        canvas.width = canvWidth;
+        canvas.height = canvHeight;
 
         // get context
         var ctx = canvas.getContext("2d");
@@ -37,17 +59,17 @@
         ctx.font = "80px sans-serif";
 
         // create gradient
-        var grd = ctx.createLinearGradient(0, 1400, 0, 2000);
+        var grd = ctx.createLinearGradient(0, 0.7 * canvHeight, 0, canvHeight);
         grd.addColorStop(0, "black");
         grd.addColorStop(1, "#555");
         ctx.fillStyle = grd;
-        // ctx.fillRect(10, 10, 150, 80);
 
         // load image
         var weightImg = new Image();
         weightImg.src = "./img/dumbbell.png";
+        weightImg.style.cssText = 'hue-rotate(50)';
         weightImg.onload = function () {
-            drawImgAt(450, 1600);
+            drawImgAt(weightX, weightY);
         };
 
         function drawImgAt(x, y) {
@@ -62,7 +84,7 @@
 
         //Add Canvas
         canvas.id = "main";
-        document.body.appendChild(canvas);
+        document.getElementById('game-area').appendChild(canvas);
 
         function drawAtMouse(event) {
             console.log(
@@ -73,7 +95,7 @@
         }
 
         function lift() {
-            weightY -= 200 - 20 * reps;
+            weightY -= (0.1 * canvHeight) - (0.01 * canvHeight * reps);
             letGoTime = 0;
         }
 
@@ -81,43 +103,50 @@
 
         // start game clock
         setInterval(() => {
-            if (weightY - ceilingY < 200 & !repFinished) {
+            if (weightY - ceilingY < (0.1 * canvHeight) & !repFinished) {
                 repFinished = true;
                 reps++;
             }
 
             weightY = Math.max(weightY, ceilingY);
 
-            if (floorTime > 4) {
+            // bounce animation
+            if (floorTime > 3) {
                 isBouncing = false;
             }
 
             if (isBouncing) {
-                weightY += 10 * letGoTime * letGoTime - shakeOffset[floorTime];
+                weightY += (0.005 * canvHeight) * letGoTime * letGoTime - shakeOffset[floorTime];
                 floorTime += 1;
             } else {
-                weightY += 10 * letGoTime * letGoTime;
+                weightY += (0.005 * canvHeight) * letGoTime * letGoTime;
             }
 
+            // weight hitting floor
             if (weightY >= floorY) {
                 if (letGoTime > 5) {
                     isBouncing = true;
                     floorTime = 0;
+                }
+                if (reps > 4 && !isGold) {
+                    weightImg.src = "./img/dumbbell_gold.png";
+                    isGold = true;
                 }
                 letGoTime = 0;
                 repFinished = false;
                 weightY = floorY;
             }
 
-            ctx.fillStyle = grd;
+            // ctx.fillStyle = grd;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             drawImgAt(weightX, weightY);
 
-            ctx.fillStyle = "white";
             if (reps < 1) {
-                ctx.fillText("Tap to lift! ", 280, 80);
+                // console.log(topText);
+                topText.innerHTML = "Tap to lift!";
             } else {
-                ctx.fillText('Reps: ' + reps, 300, 80);
+                topText.innerHTML = 'Reps: ' + reps;
+                // ctx.fillText('Reps: ' + reps, 300, 80);
             }
 
             letGoTime += 1;

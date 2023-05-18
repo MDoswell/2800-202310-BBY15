@@ -1,4 +1,47 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    overflow: hidden;
+}
+
+#container {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 14vw 72vw 14vw;
+    grid-template-rows: 14vh 86vh;
+}
+
 :root {
     touch-action: pan-x pan-y;
     height: 100%
+}
+
+#back {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    /* background-color: darkblue; */
+    padding-left: 4vw;
+    padding-top: 4vw;
+}
+
+#banner {
+    grid-column: 2;
+    grid-row: 1;
+    /* background-color: brown; */
+    color: rgba(255, 255, 255, 0.681);
+    font-size: 4vh;
+    text-align: center;
+    font-family: sans-serif;
+    padding-top: 10vh;
+    /* padding-right: 7vw; */
+}
+
+#game-area {
+    grid-column: 1 / span 3;
+    grid-row: 2;
 }
