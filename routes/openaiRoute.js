@@ -43,6 +43,9 @@ router.post('/openai', async(req, res) => {
             console.log(`Exercise ${index + 1}:`, exercise);
           });
 
+          // How long is formattedSummary?
+          console.log('\nLength of formattedSummary:', formattedSummary.length);
+
           res.send(summary);
     
     } catch (error) {

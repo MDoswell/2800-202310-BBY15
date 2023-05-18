@@ -18,7 +18,7 @@ const formatRoutine = async (summary) => {
     let matchedExercise; // The database exercise object
     let exercise; // The formatted exercise object to be added to the routine array
     let routine = []; // Routine array to contain formatted exercise objects
-    
+
     // Formats the response from the OpenAI API call to remove numbered and hyphen bullet points from the start of each statement.
     let statements = summary.split('\n'); // Split the summary by newline character
 
@@ -30,26 +30,25 @@ const formatRoutine = async (summary) => {
     })
 
     // Filter out statements that are empty or contain the word 'summary:' or 'summary'.
-    statements = statements.filter(statement => (statement.trim() !== '' && !statement.toLowerCase().trim().includes('summary:' || 'summary', 0)));
+    statements = statements.filter(statement => statement.trim() !== '' && !statement.toLowerCase().trim().includes('summary:') && !statement.toLowerCase().trim().includes('summary'));
 
     const daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     const daysOfWeekAbbreviated = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
     const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july',
-                    'august', 'september', 'october', 'november', 'december'];
+        'august', 'september', 'october', 'november', 'december'];
     const monthsAbbreviated = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul',
-                                'aug', 'sep', 'oct', 'nov', 'dec'];
+        'aug', 'sep', 'oct', 'nov', 'dec'];
 
-    // Filter out statements that do not contain a day of the week.
-    // statements = statements.filter(statement => daysOfWeek.some(day => statement.toLowerCase().trim().includes(day, 0)) || daysOfWeekAbbreviated.some(day => statement.toLowerCase().trim().includes(day, 0)));
-
+    // What does the response look like in the array?
     console.log('How does the response look in the array?\n' + statements);
 
     // For each statement, determine if it is a date or an exercise.
-    statements = await Promise.all(statements.map(async (statement) => {
+    for (const statement of statements) {
         const lowerCaseStatement = statement.toLowerCase().trim();
 
         // If the statement contains a day of the week, then it is a date. Assign null if no day is found.
         if (daysOfWeek.some(day => lowerCaseStatement.includes(day || day + ':')) || daysOfWeekAbbreviated.some(day => lowerCaseStatement.includes(day || day + ':'))) {
+            // Assign the day of the week to the foundDayofWeek variable.
             foundDayofWeek = daysOfWeek.find(day => lowerCaseStatement.includes(day || day + ':')) || daysOfWeekAbbreviated.find(day => lowerCaseStatement.includes(day || day + ':')) || null;
 
             foundDayofWeek = foundDayofWeek.trim();
@@ -58,8 +57,9 @@ const formatRoutine = async (summary) => {
             console.log('Found day of week: ' + foundDayofWeek);
         }
 
+        // If the statement contains a month, then it is a date. Assign null if no month is found.
         if (months.find(month => lowerCaseStatement.includes(month)) || monthsAbbreviated.find(month => lowerCaseStatement.includes(month))) {
-            // If the statement contains a month, then it is a date. Assign null if no month is found.
+            // Assign the month to the foundMonth variable.
             foundMonth = months.find(month => lowerCaseStatement.includes(month)) || monthsAbbreviated.find(month => lowerCaseStatement.includes(month)) || null;
             foundMonth = foundMonth.trim();
 
@@ -98,7 +98,7 @@ const formatRoutine = async (summary) => {
 
             exerciseName = exerciseName.trim();
             intensity = intensity.trim();
-            
+
             // What is the exercise name?
             console.log('Exercise name: ' + exerciseName);
 
@@ -110,7 +110,7 @@ const formatRoutine = async (summary) => {
                 exerciseNameWithoutDash = exerciseName.replace('-', ' ');
 
                 // Create regex object to perform a case-insensitive search and match exercise names that can be plural, singular, or part of a larger string.
-                regexExerciseNameWithoutDash = new RegExp(exerciseNameWithoutDash, 'i');
+                regexExerciseNameWithoutDash = new RegExp(exerciseNameWithoutDash.replace(/s$|es$|'s$/i, ""));
 
                 // What is the exercise name without a dash?
                 console.log('Exercise name without dash: ' + exerciseNameWithoutDash);
@@ -118,17 +118,26 @@ const formatRoutine = async (summary) => {
 
             // Use regex in the MongoDB query to perform a case-insensitive search and match exercise names that can be plural, singular, or part of a larger string.
             // @credit https://docs.mongodb.com/manual/reference/operator/query/regex/
-            regexExerciseName = new RegExp(exerciseName, 'i');
+            regexExerciseName = new RegExp(exerciseName.replace(/s$|es$|'s$/i, ""));
 
+            console.log('\nregexExerciseName name: ' + regexExerciseName);
+            console.log('regexExerciseNameWithoutDash name: ' + regexExerciseNameWithoutDash + '\n');
+
+            // If there was no exercise name formatted without a dash, then just find the exercise in the database using the without checking for either or.
             if (regexExerciseNameWithoutDash === undefined) {
                 // Find the exercise in the database.
-                matchedExercise = await exerciseCollection.find({ name: { $regex: regexExerciseName } }).project({ name: 1, id: 1, bodyPart: 1, target: 1, equipment: 1, gifUrl: 1, instructions: 1 }).toArray();
+                matchedExercise = await exerciseCollection.find({ name: { $regex: regexExerciseName } }).project({ name: 1, id: 1, bodyPart: 1, target: 1, equipment: 1, gifUrl: 1, instructions: 1 }).limit(1).toArray();
 
             } else {
                 // Find the exercise in the database.
-                matchedExercise = await exerciseCollection.find({ name: { $in: [regexExerciseName, regexExerciseNameWithoutDash] } }).project({ name: 1, id: 1, bodyPart: 1, target: 1, equipment: 1, gifUrl: 1, instructions: 1 }).toArray();
+                matchedExercise = await exerciseCollection.find({
+                    $or: [
+                        { name: { $regex: regexExerciseName } },
+                        { name: { $regex: regexExerciseNameWithoutDash } }
+                    ]
+                }).project({ name: 1, id: 1, bodyPart: 1, target: 1, equipment: 1, gifUrl: 1, instructions: 1 }).limit(1).toArray();
             }
-    
+
             // If the exercise name is not in the database, then check the AI-generated suggestions that are formatted in formatAlternateRoutine.js
             if (matchedExercise.length === 0) {
                 // Call formatAlternateRoutine.js
@@ -137,7 +146,7 @@ const formatRoutine = async (summary) => {
                 // PLACEHOLDER
                 // PLACEHOLDER
                 // PLACEHOLDER
-                console.log('No match found in database. Call formatAlternateRoutine.js');
+                console.log('No match. Call formatAlternateRoutine.js');
             } else {
                 console.log('Match found in database.');
                 exercise = {};
@@ -160,9 +169,15 @@ const formatRoutine = async (summary) => {
 
                 // Add the newly created exercise object to the routine array.
                 routine.push(exercise);
+
+                // Reset the regexExerciseNameWithoutDash variable.
+                regexExerciseNameWithoutDash = undefined;
+
             }
         }
-    }))
+    }
+
+    console.log('\nWhat were the statements?\n' + statements);
 
     // Return the routine array containing exercise objects.
     return routine;
