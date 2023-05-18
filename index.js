@@ -90,6 +90,7 @@ app.use('/profileUpdate', require('./routes/profileUpdate'));
 app.use('/timeForm', require('./routes/timeForm'));
 app.use('/timeFrom/submit', require('./routes/timeFormSubmit')); // post
 app.use('/availabilityData', require('./routes/availabilityData'));
+app.use('/liftingTime', require('./routes/easterEgg.js'));
 app.use('*', require('./routes/error404'));
 // Once connectDB is resolved by connecting to the MongoDB databases, start the server.
 connectDB.then(() => {

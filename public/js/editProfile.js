@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Disable experience range initially
     experienceRange.disabled = true;
 
+    emailInput.disabled = true;
+
     editButton.addEventListener('click', function () {
         editButton.style.display = 'none';
         save.style.display = 'inline-block';
@@ -29,14 +31,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         document.getElementById('email').removeAttribute('readonly');
 
-        formElements.forEach(function (element) {
-            element.removeAttribute('readonly');
-            originalValues[element.id] = element.value;
-        });
+        // formElements.forEach(function (element) {
+        //     element.removeAttribute('readonly');
+        //     originalValues[element.id] = element.value;
+        // });
 
-        // Capture the original value for the email field
-        originalValues[emailInput.id] = emailInput.value;
-        emailInput.removeAttribute('readonly');
+        // // Capture the original value for the email field
+        // originalValues[emailInput.id] = emailInput.value;
+        // emailInput.removeAttribute('readonly');
 
         // Capture the original checkbox values
         checkboxes.forEach(function (checkbox) {
@@ -73,14 +75,14 @@ document.addEventListener('DOMContentLoaded', function () {
         save.style.display = 'none';
         cancel.style.display = 'none';
 
-        formElements.forEach(function (element) {
-            element.setAttribute('readonly', true);
-            element.value = originalValues[element.id];
-        });
+        // formElements.forEach(function (element) {
+        //     element.setAttribute('readonly', true);
+        //     element.value = originalValues[element.id];
+        // });
 
-        // Reset email field to its original value and set it to readonly
-        emailInput.value = originalValues[emailInput.id];
-        emailInput.setAttribute('readonly', true);
+        // // Reset email field to its original value and set it to readonly
+        // emailInput.value = originalValues[emailInput.id];
+        // emailInput.setAttribute('readonly', true);
 
         // Reset checkboxes to their original values
         checkboxes.forEach(function (checkbox) {
