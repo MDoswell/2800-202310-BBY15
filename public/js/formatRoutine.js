@@ -167,16 +167,39 @@ const formatRoutine = async (summary) => {
                 console.log('Scheduled date: ' + foundDate);
                 exercise.date = foundDate;
 
-                // Add the newly created exercise object to the routine array.
-                routine.push(exercise);
+                // Check if any of the exercise object properties are null.
+                // Only break at the last case (exercise.date) to not execute 'default' case.
+                switch (exercise) {
+                    case exercise.exerciseName.includes(null):
+                        console.log('No exercise name found.');
 
-                // Reset the regexExerciseNameWithoutDash variable.
-                regexExerciseNameWithoutDash = undefined;
+                    case exercise.exerciseId.includes(null):
+                        console.log('No exercise id found.');
 
+                    case exercise.intensity.includes(null):
+                        console.log('No intensity found.');
+
+                    case exercise.day.includes(null):
+                        console.log('No day found.');
+
+                    case exercise.date.includes(null):
+                        console.log('No date found.');
+                        break;
+
+                    default:
+                        console.log('Exercise object created.');
+                        
+                        // Add the newly created exercise object to the routine array.
+                        routine.push(exercise);
+
+                        // Reset the regexExerciseNameWithoutDash variable.
+                        regexExerciseNameWithoutDash = undefined;
+                }
             }
         }
     }
 
+    // What were the statements?
     console.log('\nWhat were the statements?\n' + statements);
 
     // Return the routine array containing exercise objects.
