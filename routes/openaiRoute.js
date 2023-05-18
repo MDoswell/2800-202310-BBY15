@@ -1,5 +1,6 @@
 const openai = require('../config/openaiConnection')
 const { router } = require('../config/dependencies');
+const formatRoutine = require('../public/js/formatRoutine');
 
 
 // Used in first time setup. See setup.js and setup.ejs files for first time setup of the app.
@@ -22,7 +23,7 @@ router.post('/openai', async(req, res) => {
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: userPrompt,
-            max_tokens: 1000,
+            max_tokens: 500,
             temperature: 0,
             n: 2,
           });
@@ -34,23 +35,15 @@ router.post('/openai', async(req, res) => {
           // Split the summary by newline character.
           console.log("summary: " + summary);
 
-          // Formats the response from the OpenAI API call to remove numbered and hyphen bullet points from the start of each statement.
-          let statements = summary.split('\n'); // Split the summary by newline character
+          // Format the routine with the formatRoutine function.
+          const formattedSummary = await formatRoutine(summary);
 
-          // Remove numbered and hyphen bullet points from start of each statement.
-          statements = statements.map(statement => {
-              // Matches numbered bullet points and hyphen bullet points at the start of each line.
-              const regex = /^\s*(?:\d+\.|-)\s*/g;
-              return statement.trim().replace(regex, '').trim();
-          })
+          console.log('\nFormatted summary:');
+          formattedSummary.forEach((exercise, index) => {
+            console.log(`Exercise ${index + 1}:`, exercise);
+          });
 
-          if (statements.filter(statement => !statement.includes('summary', 0))) {
-            statements = statements.slice(1, statements.length);
-          }
-
-          console.log("statements: " + statements);
-
-          res.send(statements);
+          res.send(summary);
     
     } catch (error) {
             console.log(error);

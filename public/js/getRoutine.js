@@ -1,4 +1,5 @@
 // This function gets the routine of the user from the database
+// If no routine, redirect user to /setup (see home.js) 
 const getRoutine = async (username) => {
     // Load modules below.
     const { userCollection } = await require('../../config/databaseConnection');
