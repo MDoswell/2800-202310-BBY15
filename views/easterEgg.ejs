@@ -6,7 +6,7 @@
 
 <body>
 
-    <!-- <p>Welcome</p> -->
+    <h1>Welcome</h1>
     <!-- <img id="test" src="./img/dumbbell.png" style="width: 200px;"> -->
     <!-- <canvas id="canvas" height="500" width="350"></canvas> -->
 
@@ -22,6 +22,8 @@
         var floorTime = 0;
         var shakeOffset = [60, 48, 36, 24, 12];
         var isBouncing = false;
+        var reps = 0;
+        var repFinished = false;
 
         // create canvas
         var canvas = document.createElement("canvas");
@@ -33,6 +35,13 @@
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.font = "80px sans-serif";
+
+        // create gradient
+        var grd = ctx.createLinearGradient(0, 1400, 0, 2000);
+        grd.addColorStop(0, "black");
+        grd.addColorStop(1, "#555");
+        ctx.fillStyle = grd;
+        // ctx.fillRect(10, 10, 150, 80);
 
         // load image
         var weightImg = new Image();
@@ -64,7 +73,7 @@
         }
 
         function lift() {
-            weightY -= 100;
+            weightY -= 200 - 20 * reps;
             letGoTime = 0;
         }
 
@@ -72,6 +81,11 @@
 
         // start game clock
         setInterval(() => {
+            if (weightY - ceilingY < 200 & !repFinished) {
+                repFinished = true;
+                reps++;
+            }
+
             weightY = Math.max(weightY, ceilingY);
 
             if (floorTime > 4) {
@@ -91,15 +105,21 @@
                     floorTime = 0;
                 }
                 letGoTime = 0;
+                repFinished = false;
                 weightY = floorY;
             }
 
-            ctx.fillStyle = "black";
+            ctx.fillStyle = grd;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             drawImgAt(weightX, weightY);
 
             ctx.fillStyle = "white";
-            ctx.fillText("Tap to lift!", 280, 80);
+            if (reps < 1) {
+                ctx.fillText("Tap to lift! ", 280, 80);
+            } else {
+                ctx.fillText('Reps: ' + reps, 300, 80);
+            }
+
             letGoTime += 1;
         }, 100)
     </script>
