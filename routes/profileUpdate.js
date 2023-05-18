@@ -2,13 +2,16 @@
 const { router, Joi} = require('../config/dependencies');
 
 // Route below.
-router.get('/profileUpdate', async (req, res) => {
+router.post('/profileUpdate', async (req, res) => {
 
     const { userCollection } = await require('../config/databaseConnection');
-    const name = req.query.name;
+    const name = req.body.name;
 
     // Store the email in lowercase to avoid duplicate emails capitalized differently.
-    const email = req.query.email.toLowerCase();
+    const email = req.body.email.toLowerCase();
+    const experience = req.body.experience;
+    const weight = req.body.weight;
+    const exerciseTypes = req.body.exerciseTypes;
     
 
     const schema = Joi.object(
@@ -60,17 +63,12 @@ router.get('/profileUpdate', async (req, res) => {
         return;
     }
 
-    
-        
-
-        
-
         //updating currently logged in user with new name and email.
-        await userCollection.findOneAndUpdate({ name: req.session.name}, { $set: { name: name, email: email }});
+        await userCollection.findOneAndUpdate({ name: req.session.name}, { $set: { name: name, email: email, experience: experience, weight: weight, exerciseTypes: exerciseTypes }});
         
 
         req.session.authenticated = true;
-        req.session.name = req.query.name;
+        req.session.name = req.body.name;
         req.session.user_type = 'user';
         
 
