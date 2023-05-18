@@ -100,7 +100,7 @@ const formatRoutine = async (summary) => {
             intensity = intensity.trim();
 
             // What is the exercise name?
-            console.log('Exercise name: ' + exerciseName);
+            console.log('\nExercise name: ' + exerciseName);
 
             // What is the intensity?
             console.log('Intensity: ' + intensity);

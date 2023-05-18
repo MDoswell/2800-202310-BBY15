@@ -12,14 +12,6 @@ router.post('/openai', async(req, res) => {
     console.log('User entered: ' + userPrompt);
 
     try {
-        // const response = await openai.createCompletion({
-        //   engine: 'text-davinci-003',
-        //   prompt: "give me a book name",
-        //   maxTokens: 10,
-        //   temperature: 0.5,
-        //   n: 2,
-        //   stop: '\n ',
-        // });
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: userPrompt,
@@ -52,10 +44,6 @@ router.post('/openai', async(req, res) => {
             console.log(error);
             res.status(500).json({ message: 'Internal server error' });
           };
-
-   
-    
-
 });
 
 module.exports = router;

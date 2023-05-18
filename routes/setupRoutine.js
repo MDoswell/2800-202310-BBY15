@@ -55,7 +55,7 @@ router.post('/setup/routine', async(req, res) => {
                 str += e.dayOfWeek + ", " + e.date + ", from " + e.startTime + " to " + e.endTime + ", "
             })
 
-             str += ". With that profile what kind of exercise routine would you recomend me? only respond with a list of exercise names and the workload measurement (reps and sets) I will do. Do not respond with anything else other that the list of exercises with the workload measurement (reps and sets), while making sure to categorize each exercise according to the availability I've given you. Make sure the response is always formatted as follows: 'summary:\nday:\nexercise name: workload measurement'.\n\n###\n\n";
+             str += ". With that profile what kind of exercise routine would you recomend me? only respond with a list of exercise names and the workload measurement (reps and sets) I will do. Do not respond with anything else other that the list of exercises with the workload measurement (reps and sets), while making sure to categorize each exercise according to the availability I've given you. Only respond in the format of (exercise name): (number of sets) sets of (number of reps) reps. Do not deviate from the format I just gave and do not have any other words in the response such as the exercise type (e.g., cardio, strength, balance, etc.).\n\n###\n\n";
 
             res.json(str);
 
