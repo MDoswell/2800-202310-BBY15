@@ -29,8 +29,8 @@
         var ceilingY = 0.12 * canvHeight;
         var weightX = canvWidth / 2;
         var weightY = floorY;
-        var weightWidth = 0.6 * canvWidth;
-        var weightHeight = 0.25 * canvWidth;
+        var weightHeight = 0.15 * canvHeight;
+        var weightWidth = 2.38 * weightHeight;
         var letGoTime = 0;
         var floorTime = 0;
         var shakeOffset = [
@@ -103,11 +103,11 @@
 
         // start game clock
         setInterval(() => {
+            // weight reached top
             if (weightY - ceilingY < (0.1 * canvHeight) & !repFinished) {
                 repFinished = true;
                 reps++;
             }
-
             weightY = Math.max(weightY, ceilingY);
 
             // bounce animation
