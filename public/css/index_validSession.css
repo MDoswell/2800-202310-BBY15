@@ -37,6 +37,29 @@ day-title */
     margin-top: 5px;
 }
 
+.date-title {
+    margin-left: 10px;
+    /* margin-top: 5px; */
+}
+
+#modalBodyPart{
+    font-style: italic;
+}
+
+#modalIntensity{
+    font-weight: 600;
+}
+
+#instruction-title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#modalInstructions {
+    padding-right: 20px;
+}
+
 .exercise-card {
     background-color: white;
     border-radius: 5px;
