@@ -4,6 +4,10 @@ nav {
     animation-duration: 1s;
 }
 
+#navHamburger {
+    color: white;
+}
+
 
 /* Standard CSS styling */
 .navbar-brand {
@@ -12,7 +16,7 @@ nav {
 }
 
 .nav-link {
-    color: grey !important;
+    color: lightgrey !important;
     transition: ease-in-out 0.3s;
 }
 
@@ -20,3 +24,7 @@ nav {
     color: white !important;
     transition: ease-in-out 0.3s;
 }
+
+#navContainer {
+    margin-bottom: 100px;
+} 

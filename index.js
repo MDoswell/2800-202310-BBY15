@@ -51,6 +51,7 @@ app.use('/', (req, res, next) => {
             [
                 { route: "Home", link: "/", materialIcon: "home" },
                 { route: "Profile", link: "/profile", materialIcon: "account_circle" },
+                { route: "Schedule", link: "/availabilityData", materialIcon: "schedule" },
                 { route: "Logout", link: "/logout", materialIcon: "logout"}
             ]
             : [ // Else, user not logged in (invalid session)
@@ -62,6 +63,7 @@ app.use('/', (req, res, next) => {
     app.locals.currentURL = url.parse(req.url).pathname;
     next();
 });
+
 
 
 app.use("/js", express.static("./public/js"));
@@ -79,11 +81,16 @@ app.use('/changePassword/begin/submit', require('./routes/changePasswordEmailSub
 app.use('/changePassword', require('./routes/changePassword'));
 app.use('/changePassword/submit', require('./routes/changePasswordSubmit'));
 app.use('/openai', require('./routes/openaiRoute'));
-app.use('/dbExercises', require('./routes/dbExercises'));
-app.use('/setup', require('./routes/firstTimeSetup'));
+app.use('/setup', require('./routes/setup'));
+app.use('/openai/get', require('./routes/openaiGetRoute'));
+app.use('/openai/submit', require('./routes/openaiSubmitRoute'));
+app.use('/setupSubmit', require('./routes/setupSubmit'));
+app.use('/setup/routine', require('./routes/setupRoutine'));
 app.use('/profileUpdate', require('./routes/profileUpdate'));
 app.use('/timeForm', require('./routes/timeForm'));
 app.use('/timeFrom/submit', require('./routes/timeFormSubmit')); // post
+app.use('/availabilityData', require('./routes/availabilityData'));
+app.use('/liftingTime', require('./routes/easterEgg.js'));
 app.use('*', require('./routes/error404'));
 // Once connectDB is resolved by connecting to the MongoDB databases, start the server.
 connectDB.then(() => {

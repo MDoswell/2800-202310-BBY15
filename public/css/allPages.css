@@ -8,6 +8,29 @@ body::-webkit-scrollbar {
     height: 0;
 }
 
-h1, h2, h3, h4, p, label {
+h1,
+h2,
+h3,
+h4,
+p,
+label {
     color: white;
+}
+
+#easterEgg {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+
+    touch-action: manipulation;
+
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    padding: 1.5em;
+    margin: -1.5em;
 }

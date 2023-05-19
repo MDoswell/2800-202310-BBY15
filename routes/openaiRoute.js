@@ -1,53 +1,49 @@
-
 const openai = require('../config/openaiConnection')
 const { router } = require('../config/dependencies');
+const formatRoutine = require('../public/js/formatRoutine');
 
 
-
+// Used in first time setup. See setup.js and setup.ejs files for first time setup of the app.
 // Route below.
-router.get('/openai', async (req, res) => {
+router.post('/openai', async(req, res) => {
+    console.log("running generatePrompt");
 
-  const { exerciseCollection } = await require('../config/databaseConnection');
-  const exercises = exerciseCollection.find({});
+    const userPrompt = req.body.str;
+    console.log('User entered: ' + userPrompt);
 
-  var exerciseArray = await exercises.toArray();
+    try {
+        const response = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: userPrompt,
+            max_tokens: 500,
+            temperature: 0,
+            n: 2,
+          });
+          // What is the best exercise routine for me?
+          console.log("response" + response);
 
-  // console.log(test[0]);
+          const summary = response.data.choices[0].text.trim();
 
-  // await exercises.forEach(console.log('a'));
+          // Split the summary by newline character.
+          console.log("summary: " + summary);
 
-  var prompts = [];
-  prompts.push({ role: 'user', content: 'Make an exercise routine suitable for begginers, using only exercises from the following list. Please include the id for each exercise. Here is the list:' });
+          // Format the routine with the formatRoutine function.
+          const formattedSummary = await formatRoutine(summary);
 
-  // exerciseArray.forEach(exercise => console.log(exercise.name));
-  for (var i = 0; i < 10; i++) {
-    prompts.push({ role: 'user', content: exerciseArray[i].name + ' (id: ' + exerciseArray[i].id + '),'});
-  }
+          console.log('\nFormatted summary:');
+          formattedSummary.forEach((exercise, index) => {
+            console.log(`Exercise ${index + 1}:`, exercise);
+          });
 
-  // console.log(prompts);
+          // How long is formattedSummary?
+          console.log('\nLength of formattedSummary:', formattedSummary.length);
 
-  // res.send("Complete");
-
-  try {
-    const response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: prompts,
-      max_tokens: 4096,
-      temperature: 0.5,
-    });
-    console.log("response: " + response);
-    const summary = response.data.choices[0].message.content;
-    console.log(summary);
-    res.render("openaiTest", { response: summary });
-
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'Internal server error' });
-  };
-
-
-
-
+          res.send(summary);
+    
+    } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: 'Internal server error' });
+          };
 });
 
 module.exports = router;

@@ -12,14 +12,11 @@
         </div>
 
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3 pr-5"><a class="text-body-secondary" href="/"><i class="material-icons"
-                        style=color:white;>github</i></a></li>
+            <li class="ms-3 pr-5"><button id="easterEgg" class="text-body-secondary"><i class="material-icons"
+                        style=color:white;>fitness_center</i></button></li>
         </ul>
     </footer>
 </div>
-<!-- FOR SWUP </main> -->
-</body>
-
 <!-- Require jQuery, Popper.js, and other Bootstrap JS plugins -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -33,3 +30,14 @@
 
 <!-- Axios -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    var dumbbellClicks = 0;
+    document.getElementById("easterEgg").addEventListener("click", () => {
+        dumbbellClicks++;
+        if (dumbbellClicks > 4) {
+            window.location.href = "/liftingTime";
+            dumbbellClicks = 0;
+        }
+    })
+</script>
+</body>
