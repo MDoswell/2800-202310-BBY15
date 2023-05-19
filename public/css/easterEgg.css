@@ -12,7 +12,7 @@ html, body {
     padding: 0;
     display: grid;
     grid-template-columns: 14vw 72vw 14vw;
-    grid-template-rows: 14vh 86vh;
+    grid-template-rows: 15vh 85vh;
 }
 
 :root {

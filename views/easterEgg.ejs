@@ -23,7 +23,7 @@
     <script>
         document.onload = console.log(document.getElementById('game-area').getBoundingClientRect());
         // set global game variables
-        var canvHeight = 0.86 * window.innerHeight + 5;
+        var canvHeight = 0.85 * window.innerHeight + 5;
         var canvWidth = window.innerWidth + 5;
         var floorY = 0.8 * canvHeight;
         var ceilingY = 0.12 * canvHeight;
@@ -64,13 +64,17 @@
         grd.addColorStop(1, "#555");
         ctx.fillStyle = grd;
 
-        // load image
+        // load images
         var weightImg = new Image();
         weightImg.src = "./img/dumbbell.png";
-        weightImg.style.cssText = 'hue-rotate(50)';
         weightImg.onload = function () {
             drawImgAt(weightX, weightY);
         };
+        var weightImgGold = new Image();
+        weightImgGold.src = "./img/dumbbell_gold.png";
+        var weightImgDiamond = new Image();
+        weightImgDiamond.src = "./img/dumbbell_diamond.png";
+        
 
         function drawImgAt(x, y) {
             ctx.drawImage(
@@ -129,8 +133,11 @@
                     floorTime = 0;
                 }
                 if (reps > 4 && !isGold) {
-                    weightImg.src = "./img/dumbbell_gold.png";
+                    weightImg = weightImgGold;
                     isGold = true;
+                } else if (reps == 10) {
+                    topText.innerHTML = 'Nicely done!';
+                    weightImg = weightImgDiamond;
                 }
                 letGoTime = 0;
                 repFinished = false;
@@ -144,7 +151,7 @@
             if (reps < 1) {
                 // console.log(topText);
                 topText.innerHTML = "Tap to lift!";
-            } else {
+            } else if (reps < 10) {
                 topText.innerHTML = 'Reps: ' + reps;
                 // ctx.fillText('Reps: ' + reps, 300, 80);
             }
