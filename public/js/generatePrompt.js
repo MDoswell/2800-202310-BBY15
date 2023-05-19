@@ -14,6 +14,8 @@ async function generatePrompt(e) {
         // Send request to '/openai' route to generate the routine
         const response = await axios.post("/openai", { str });
 
+        // ${}
+
         const firstSetupRoutine = response.data;
 
         console.log('generatePrompt.js firstSetupRoutine:', firstSetupRoutine);
