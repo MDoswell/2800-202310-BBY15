@@ -1,22 +1,4 @@
 <%- include("templates/header") %>
-    <style>
-        .form-range {
-            width: 90%;
-        }
-
-        .form-range-value {
-            width: 20px;
-            text-align: center;
-            margin-left: 10px;
-            font-weight: bold;
-            color: white;
-        }
-
-        .form-check-input:disabled~.form-check-label {
-            color: #d5d5d5;
-        }
-
-    </style>
     <section style="background-color: #1B2021;">
         <div class="container py-5">
             <div class="row">
@@ -33,9 +15,9 @@
 
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="card mb-4">
+                    <div class="mb-4">
                         <div class="card-body text-center bg-dark text-light">
-                            <img src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png" alt="avatar"
+                            <img src="/img/profile.png" alt="avatar"
                                 class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
                             <h5 class="my-3">
                                 <%= name %>
@@ -62,6 +44,9 @@
                                         <input type="text" class="form-control" name="name" id="name"
                                             value="<%= name %>" readonly>
                                     </div>
+                                    <div id="nameChangeNotAllowed" class="text-danger col-sm-9" style="display: none;">
+                                        *Name cannot be changed
+                                      </div>
                                 </div>
                                 <hr>
                                 <div class="row mb-3">
@@ -70,6 +55,9 @@
                                         <input type="email" class="form-control" name="email" id="email"
                                             value="<%= email%>" readonly>
                                     </div>
+                                    <div id="emailChangeNotAllowed" class="text-danger col-sm-9" style="display: none;">
+                                        *Email cannot be changed
+                                      </div>
                                 </div>
                                 <hr>
                                 <div class="row mb-3">
