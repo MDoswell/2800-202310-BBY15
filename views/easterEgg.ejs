@@ -74,7 +74,7 @@
         weightImgGold.src = "./img/dumbbell_gold.png";
         var weightImgDiamond = new Image();
         weightImgDiamond.src = "./img/dumbbell_diamond.png";
-        
+
 
         function drawImgAt(x, y) {
             ctx.drawImage(
@@ -90,14 +90,6 @@
         canvas.id = "main";
         document.getElementById('game-area').appendChild(canvas);
 
-        function drawAtMouse(event) {
-            console.log(
-                "clientX: " + event.clientX +
-                " - clientY: " + event.clientY
-            );
-            drawImgAt(event.clientX, event.clientY);
-        }
-
         function lift() {
             weightY -= (0.1 * canvHeight) - (0.01 * canvHeight * reps);
             letGoTime = 0;
@@ -111,6 +103,7 @@
             if (weightY - ceilingY < (0.1 * canvHeight) & !repFinished) {
                 repFinished = true;
                 reps++;
+                topText.innerHTML = 'Reps: ' + reps;
             }
             weightY = Math.max(weightY, ceilingY);
 
@@ -144,18 +137,12 @@
                 weightY = floorY;
             }
 
-            // ctx.fillStyle = grd;
+            // draw page
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            drawImgAt(weightX, weightY);
-
             if (reps < 1) {
-                // console.log(topText);
                 topText.innerHTML = "Tap to lift!";
-            } else if (reps < 10) {
-                topText.innerHTML = 'Reps: ' + reps;
-                // ctx.fillText('Reps: ' + reps, 300, 80);
             }
-
+            drawImgAt(weightX, weightY);
             letGoTime += 1;
         }, 100)
     </script>

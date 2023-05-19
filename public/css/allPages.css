@@ -11,3 +11,13 @@ body::-webkit-scrollbar {
 h1, h2, h3, h4, p, label {
     color: white;
 }
+
+#easterEgg {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
