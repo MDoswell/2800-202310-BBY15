@@ -29,11 +29,16 @@ router.get('/', async (req, res) => {
                     // console.log('details: ' + exerciseDetails);
                     
                     const formatExerciseName = exercise.exerciseName.slice(0, 1).toUpperCase() + exercise.exerciseName.slice(1).toLowerCase();
+                    const formatExerciseTarget = exercise.exerciseBodyPart.slice(0, 1).toUpperCase() 
+                        + exercise.exerciseBodyPart.slice(1).toLowerCase()
+                        + ' - '
+                        + exercise.exerciseTarget.slice(0, 1).toUpperCase() 
+                        + exercise.exerciseTarget.slice(1).toLowerCase();
 
                     // Create a card and modal for the current exercise.
-                    return `<div class='exercise-card' exerciseName='${formatExerciseName}' exerciseTarget='${exercise.target}' 
-                                exerciseIntensity='${exercise.intensity}' exerciseAnimation='${exercise.gifUrl}' 
-                                exerciseInstructions='${exercise.instructions}'>
+                    return `<div class='exercise-card' exerciseName='${formatExerciseName}' exerciseTarget='${formatExerciseTarget}' 
+                                exerciseIntensity='${exercise.intensity}' exerciseAnimation='${exercise.exerciseAnimation}' 
+                                exerciseInstructions='${exercise.exerciseInstructions}'>
                                 <div class='exercise-content'>
                                     <h4 class='exercise-title' id='${formatExerciseName}'>${formatExerciseName}</h3>
                                     <p class='exercise-intensity' id='${formatExerciseName}-intensity'>${exercise.intensity}</p>

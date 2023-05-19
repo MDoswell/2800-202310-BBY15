@@ -53,6 +53,7 @@
     exercises.forEach(exercise => {
         let link = exercise.querySelector('.info-link');
         link.addEventListener("click", () => {
+            console.log(exercise.getAttribute('exerciseTarget'))
             showExerciseInfo(
                 exercise.getAttribute('exerciseName'),
                 exercise.getAttribute('exerciseTarget'),
