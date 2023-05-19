@@ -20,9 +20,10 @@
                                 <label class="label" for="password">Password</label>
                                 <!-- <input class="form-control" autocomplete="off" name='password' type='password'> -->
                                 <div class="input-group mb-3">
-                                    <input id="passwordId" name="password" type="password" class="form-control">
+                                    <input id="password-field" name="password" type="password" class="form-control">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" style="padding-bottom: 0; padding-left: 10px;">
+                                        <button class="btn btn-outline-secondary" type="button" id="password-vis"
+                                            style="padding-bottom: 0; padding-left: 10px;">
                                             <span class="material-symbols-outlined">
                                                 visibility
                                             </span>
@@ -55,5 +56,19 @@
             </div>
         </div>
     </div>
+    <script src="/js/loginValidation.js"></script>
+    <script>
+        document.getElementById('password-vis').addEventListener("click", () => {
+            togglePassVisibility('password-field');
+        });
+        function togglePassVisibility(elemId) {
+            let passField = document.getElementById(elemId);
+            if (passField.type == 'password') {
+                passField.type = 'text'
+            } else if (passField.type == 'text') {
+                passField.type = 'password'
+            }
+        }
+    </script>
     <%- include("templates/footer") %>
-        <script src="/js/loginValidation.js"></script>
+        
