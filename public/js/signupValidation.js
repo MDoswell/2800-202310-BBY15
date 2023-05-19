@@ -20,7 +20,7 @@ signupForm.addEventListener("submit", async (event) => {
     $('#success-message').show();
 
     setTimeout(() => {
-        document.location.href = "/setup";
+        document.location.href = "/timeForm";
       }, 3000);
       
   } else {

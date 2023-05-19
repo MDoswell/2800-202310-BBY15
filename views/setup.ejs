@@ -2,7 +2,7 @@
 <div class="">
     <h1 class="fw-bold text-center my-3">Thanks for choosing mytrAIner</h1>
     <h4 class="fw-bold text-center my-3">To get started simply fill out the form below with your information!</h4>
-    <form id="setupForm" class="setup-form" action="/setupSubmit" method="post">
+    <div id="container"><form id="setupForm" class="setup-form" action="/setupSubmit" method="post">
     <div class="card-body" style="width:60vw; margin:0 auto;">
         <div class="row grid">
             <div class="col-2 g-start-8" style="margin: 0 auto">
@@ -52,7 +52,7 @@
                 <p class="fw-bold">on a scale of 1 through 10 with 10 being very experience and 1 being no experienced, how experienced are you in exercise?</p>
 
                 <input name="experience"  type="range" value="5" min="1" max="10" oninput="this.nextElementSibling.value = this.value">
-                <output id="experience">5</output>
+                <output id="experience" style="color:whitesmoke">5</output>
             </div>
             <!-- <div class="py-3"><label for="equipment" class="form-label">What kind of equipment is available to you? (include gym equipment if applicable)</label>
               <select id="equipment" class="form-select" aria-label="Default select example">
@@ -144,11 +144,15 @@
          
         <div class="card-footer text-end">
           <button type="button" onclick="generatePrompt()">Generate a routine</button>
+          <div id="loader"></div>
           <button type="submit">submit</button>
         </div>
       </form>
-      <div id="generatedRoutine"></div>
+    </div>
+    
+    
     </div>
   </div>
+
   <script src="js/generatePrompt.js"></script>
 <%- include("templates/footer")%>
