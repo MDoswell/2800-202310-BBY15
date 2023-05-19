@@ -8,3 +8,7 @@
 th, td, .form-text {
     color: white;
 }
+
+.btn-success {
+    font-weight: bold;
+}
