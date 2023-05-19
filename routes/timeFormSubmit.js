@@ -1,6 +1,7 @@
 const { router } = require('../config/dependencies');
 const { sessionValidation } = require('../public/js/sessionValidation');
 
+// Server file
 router.post('/timeForm/submit', sessionValidation, async (req, res) => {
   const { userCollection } = await require('../config/databaseConnection');
 
@@ -12,10 +13,13 @@ router.post('/timeForm/submit', sessionValidation, async (req, res) => {
       { $set: { availabilityData: availabilityData } }
     );
 
-    res.status(200).json({ message: 'Availability data saved successfully.' });
+    // Redirect to the availability data page after successful submission with success=true query parameter
+    res.redirect('/');
   } catch (error) {
-    res.status(500).json({ message: 'Error saving availability data.' });
+    console.error(error);
+    res.render('timeForm', { showSuccessMessage: false, showErrorMessage: true, errorMessage: 'Error saving availability data.' });
   }
 });
+
 
 module.exports = router;

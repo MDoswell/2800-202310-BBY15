@@ -1,0 +1,34 @@
+<%- include("templates/header") %>
+<div class="container mt-5">
+  <h2>Your Availability Data</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Day of the Week</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (!availabilityData.includes(null))  { %>
+      <% availabilityData.forEach(function(data) { %>
+        <tr>
+          <td><%= data.dayOfWeek %></td>
+          <td><%= data.date %></td>
+          <td><%= data.startTime %></td>
+          <td><%= data.endTime %></td>
+        </tr>
+      <% })}; %>
+    </tbody>
+  </table>
+  <div class="card-footer text-center">
+  <a href="/timeForm" class="btn btn-primary">Update Time Form</a>
+  </div>
+    <!-- Text box for displaying availability data as a string -->
+    <div class="form-group" style="display: none;">
+        <label for="availabilityDataTextBox" >Availability Data:</label>
+        <textarea id="availabilityDataTextBox" class="form-control" rows="5" readonly><%= JSON.stringify(availabilityData) %></textarea>
+      </div>
+</div>
+<%- include("templates/footer") %>

@@ -1,0 +1,72 @@
+/* exercise-card
+exercise-content
+exercise-title
+exercise-intensity  
+day-card
+day-title */
+
+/* NOTE: CSS applied as a script in index.ejs because of different layouts for home page with and without session (see index.ejs for more details) */
+
+/* Animations.css here (for animating elements; docs: https://animate.style/) */
+.day-card {
+    animation: slideInLeft;
+    animation-duration: 1s;
+}
+
+
+/* Standard CSS styling */
+/* #valid-session-home-container {
+    padding-left: 100px !important;
+    padding-right: 100px !important;
+    padding-bottom: 100px !important;
+} */
+
+.day-title, .exercise-card, .exercise-title, .exercise-intensity {
+    color: black;
+}
+
+.day-card {
+    background-color: lightgrey;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 15px;
+}
+
+.day-title {
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.date-title {
+    margin-left: 10px;
+    /* margin-top: 5px; */
+}
+
+#modalBodyPart{
+    font-style: italic;
+}
+
+#modalIntensity{
+    font-weight: 600;
+}
+
+#instruction-title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#modalInstructions {
+    padding-right: 20px;
+}
+
+.exercise-card {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 15px;
+}   
+
+.modal-body {
+    padding-top: 3px;
+}
