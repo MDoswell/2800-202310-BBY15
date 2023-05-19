@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
         save.style.display = 'inline-block';
         cancel.style.display = 'inline-block';
 
+        document.getElementById('nameChangeNotAllowed').style.display = 'block';
+        document.getElementById('emailChangeNotAllowed').style.display = 'block';
+
         document.getElementById('email').removeAttribute('readonly');
 
         // formElements.forEach(function (element) {
@@ -60,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         originalValues[experienceRange.id] = experienceRange.value;
         // Enable experience range when edit button is clicked
         experienceRange.disabled = false;
-        
+
         // Capture the original value for the experience level range
         originalValues[experienceRange.id] = experienceRange.value;
 
@@ -74,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
         editButton.style.display = 'inline-block';
         save.style.display = 'none';
         cancel.style.display = 'none';
+        document.getElementById('nameChangeNotAllowed').style.display = 'none';
+        document.getElementById('emailChangeNotAllowed').style.display = 'none';
 
         // formElements.forEach(function (element) {
         //     element.setAttribute('readonly', true);
