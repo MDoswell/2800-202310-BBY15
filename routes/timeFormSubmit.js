@@ -14,7 +14,7 @@ router.post('/timeForm/submit', sessionValidation, async (req, res) => {
     );
 
     // Redirect to the availability data page after successful submission with success=true query parameter
-    res.redirect('/availabilityData?success=true');
+    res.redirect('/');
   } catch (error) {
     console.error(error);
     res.render('timeForm', { showSuccessMessage: false, showErrorMessage: true, errorMessage: 'Error saving availability data.' });
