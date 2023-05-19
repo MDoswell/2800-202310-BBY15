@@ -22,13 +22,19 @@ router.get('/', async (req, res) => {
                 cardContent = exercisesForDay.map(exercise => {
                     const formatExerciseName = exercise.exerciseName.slice(0, 1).toUpperCase() + exercise.exerciseName.slice(1).toLowerCase();
     
-                    // Create a card for the current exercise.
-                    return `<div class='exercise-card'>
+                    // Create a card and modal for the current exercise.
+                    return `<div class='exercise-card' exerciseName='${formatExerciseName}' exerciseTarget='${"something"}' 
+                                exerciseIntensity='${exercise.intensity}' exerciseAnimation='${'./img/dumbbell.png'}' 
+                                exerciseInstructions='${'<ol><li>one</li><li>two</li></ol>'}'>
                                 <div class='exercise-content'>
                                     <h4 class='exercise-title' id='${formatExerciseName}'>${formatExerciseName}</h3>
                                     <p class='exercise-intensity' id='${formatExerciseName}-intensity'>${exercise.intensity}</p>
+                                    <a href="#" class="info-link" data-toggle="modal" data-target="#exerciseModal">
+                                        More info
+                                    </a>
                                 </div>
-                            </div>`;
+                            </div>
+                            `;
                 });
     
                 // Join the cards for the current day into a single card. Add each day card to the dayCards String.

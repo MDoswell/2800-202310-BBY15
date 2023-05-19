@@ -1,5 +1,31 @@
 <%- include("templates/header") %>
-    <div id="valid-session-home-container" class="container-fluid px-5 mt-5">
+    <!-- Info modal -->
+    <div class="modal fade" id="exerciseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exerciseModalTitle">Exercise name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button><br>
+                </div>
+                <div class="modal-body">
+                    <p id="modalBodyPart" style="color: black;">Target area</p>
+                    <p id="modalIntensity" style="color: black;">Intensty</p>
+                    <img id="modalAnimation" src="" width="80%">
+                    <p style="color: black;">Instructions</p>
+                    <div id="modalInstructions"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exercise feed -->
+    <div id="valid-session-home-container" class="container-fluid px-4 mt-5">
         <h1>Hello, <%= name %>!</h1>
         <div class="row mx-auto mt-5">
             <div id="userRoutine">
@@ -19,4 +45,29 @@
     link.href = 'css/index_validSession.css';
 
     head.appendChild(link);
+</script>
+<script src="./js/showExerciseInfo.js"></script>
+<script>
+    let exercises = document.querySelectorAll('.exercise-card');
+
+    exercises.forEach(exercise => {
+        let link = exercise.querySelector('.info-link');
+        link.addEventListener("click", () => {
+            showExerciseInfo(
+                exercise.getAttribute('exerciseName'),
+                exercise.getAttribute('exerciseTarget'),
+                exercise.getAttribute('exerciseIntensity'),
+                exercise.getAttribute('exerciseAnimation'),
+                exercise.getAttribute('exerciseInstructions')
+            )
+        })
+        console.log(exercise.attributes.exerciseName);
+    });
+
+    // let populateModal = addExerciseInfo(
+    //                     formatExerciseName, 
+    //                     "something", 
+    //                     exercise.intensity,
+    //                     './img/dumbbell.png',
+    //                     '<ol><li>one</li><li>two</li></ol>');
 </script>
