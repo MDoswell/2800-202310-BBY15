@@ -332,12 +332,14 @@ const formatValidate = (summary, username) => {
           };
           
         routine.push(exercise);
-        console.log('Exercise object added to routine array.', routine);
-        if (routine.length === jsonArray.length) {
-          resolve(routine);
-        }            
+        console.log('Exercise object added to routine array.', routine);          
       }
-    } catch (error) {
+
+      // Return the routine array after iterating all the elements in the jsonArray.
+      console.log('Routine resolved:', routine);
+      resolve(routine);
+
+    } catch (error) { // Catch any errors and return to the route.
       console.error('Invalid JSON:', error);
       reject(error);
     }
