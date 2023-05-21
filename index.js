@@ -89,6 +89,8 @@ app.use('/setup/routine', require('./routes/setupRoutine'));
 app.use('/profileUpdate', require('./routes/profileUpdate'));
 app.use('/timeForm', require('./routes/timeForm'));
 app.use('/timeFrom/submit', require('./routes/timeFormSubmit')); // post
+app.use('/newRoutine', require('./routes/newRoutine'));
+app.use('/newRoutine/submit', require('./routes/newRoutineSubmit'));
 app.use('/availabilityData', require('./routes/availabilityData'));
 app.use('/liftingTime', require('./routes/easterEgg.js'));
 app.use('*', require('./routes/error404'));

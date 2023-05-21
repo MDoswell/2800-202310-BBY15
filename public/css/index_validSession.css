@@ -15,11 +15,11 @@ day-title */
 
 
 /* Standard CSS styling */
-#valid-session-home-container {
+/* #valid-session-home-container {
     padding-left: 100px !important;
     padding-right: 100px !important;
     padding-bottom: 100px !important;
-}
+} */
 
 .day-title, .exercise-card, .exercise-title, .exercise-intensity {
     color: black;
@@ -29,12 +29,35 @@ day-title */
     background-color: lightgrey;
     border-radius: 5px;
     padding: 5px;
-    margin: 15px;
+    margin-top: 15px;
 }
 
 .day-title {
     margin-left: 10px;
     margin-top: 5px;
+}
+
+.date-title {
+    margin-left: 10px;
+    /* margin-top: 5px; */
+}
+
+#modalBodyPart{
+    font-style: italic;
+}
+
+#modalIntensity{
+    font-weight: 600;
+}
+
+#instruction-title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#modalInstructions {
+    padding-right: 20px;
 }
 
 .exercise-card {
@@ -44,3 +67,6 @@ day-title */
     margin: 15px;
 }   
 
+.modal-body {
+    padding-top: 3px;
+}

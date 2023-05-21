@@ -1,0 +1,32 @@
+.form-range {
+    width: 90%;
+}
+
+.form-range-value {
+    width: 20px;
+    text-align: center;
+    margin-left: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-outline-success,
+.btn-outline-info {
+    border-width: 3px;
+    font-weight: bold;
+}
+
+.btn-primary,
+.btn-secondary {
+    font-weight: bold;
+}
+
+.form-check-input[type="checkbox"] {
+    width: 18 px;
+
+    height: 18 px;
+}
+
+.form-check-input:disabled+.form-check-label {
+    color: #ffffff;
+}
