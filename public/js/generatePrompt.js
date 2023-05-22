@@ -28,6 +28,16 @@ async function generatePrompt(e) {
             inches: formData.get('inches'),
             goals: formData.get('goals'),
             experience: formData.get('experience'),
+            cardio: formData.get('cardio'),
+            strength: formData.get('strength'),
+            flexibility: formData.get('flexibility'),
+            balance: formData.get('balance'),
+            high: formData.get('high'),
+            low: formData.get('low'),
+            sport: formData.get('sport'),
+            functional: formData.get('functional'),
+            bodyweight: formData.get('bodyweight'),
+            endurance: formData.get('endurance'),
             firstSetupRoutine: firstSetupRoutine
         });
 
