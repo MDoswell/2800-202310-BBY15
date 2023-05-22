@@ -5,7 +5,7 @@ router.post('/setupSubmit', async(req, res) => {
     console.log('inside setup/submit')
     //importing usercollection connection
     const { userCollection } = await require('../config/databaseConnection');
-    console.log("req.body", req.body);
+    // console.log("req.body", req.body);
     //grabbing user input from form
     let age = req.body.age
 
@@ -100,7 +100,7 @@ router.post('/setupSubmit', async(req, res) => {
 
     // What does the user's first routine look like?
     const { firstSetupRoutine } = req.body;
-    console.log("User's new routine:", firstSetupRoutine);
+    // console.log("User's new routine:", firstSetupRoutine);
 
 
     await userCollection.findOneAndUpdate({ name: req.session.name}, { $set: { age: age, gender: gender, weight: weight, heightFeet: heightFeet, heightInches: heightInches, goals: goals, experience:experience, exerciseTypes: selectedExercises, routine: firstSetupRoutine }});
