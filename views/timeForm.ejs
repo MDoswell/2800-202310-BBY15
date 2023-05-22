@@ -137,9 +137,18 @@
                             startTimeCell.innerText = startTime;
                             endTimeCell.innerText = endTime;
 
+                            const currentAvailability = {
+                                dayOfWeek: dayOfWeek,
+                                date: formattedDate,
+                                startTime: startTime,
+                                endTime: endTime
+                            }
+
                             deleteButton.innerText = 'Delete';
                             deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
                             deleteButton.onclick = function () {
+                                let idx = availabilityArray.indexOf(currentAvailability);
+                                availabilityArray.splice(idx, 1);
                                 tableRow.remove();
                             };
 
@@ -152,12 +161,7 @@
                             selectedDates.querySelector('tbody').appendChild(tableRow);
 
                             // Push the availability data to the array
-                            availabilityArray.push({
-                                dayOfWeek: dayOfWeek,
-                                date: formattedDate,
-                                startTime: startTime,
-                                endTime: endTime
-                            });
+                            availabilityArray.push(currentAvailability);
 
                             // Clear the Bootstrap alert
                             var alertContainer = document.getElementById('alertContainer');
