@@ -13,7 +13,7 @@ router.post('/openai', async (req, res) => {
   console.log('User name: ' + username);
 
   // User's prompt.
-  const userPrompt = req.body.str;
+  const userPrompt = req.body.fullPrompt;
   console.log('User entered: ' + userPrompt);
 
   // Retry loop variables for correcting AI error.

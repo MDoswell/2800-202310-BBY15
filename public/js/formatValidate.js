@@ -204,7 +204,7 @@ const validateDayOfWeek = async (dayOfWeek, date) => {
  * @param {String} exerciseName - The name of the AI-generated exercise to match to a DB exercise.
  * @returns Object matchedExerciseObject - The DB exercise object that was matched with all Kaggle dataset attributes.
  */
-const matchExercise = async (exercise) => {
+const matchExercise = async (exercise, prefix) => {
     let regexExerciseNameWithoutDash;
 
     // Convert the exercise name to lowercase and trim whitespace.
@@ -275,7 +275,7 @@ const matchExercise = async (exercise) => {
         // What is the length of the matched exercise array?
         console.log('Matched exercise array length:', matchedExercise.length);
 
-        const matchedExerciseObject = await chooseExerciseFromDbMatches(matchedExercise); //matchedExercise[0];
+        const matchedExerciseObject = await chooseExerciseFromDbMatches(matchedExercise, prefix); //matchedExercise[0];
 
         console.log('Mathced exercise (inside match): ' + matchedExerciseObject);
 
@@ -290,7 +290,7 @@ const matchExercise = async (exercise) => {
 };
 
 
-const chooseExerciseFromDbMatches = async (exerciseObjectArray) => {
+const chooseExerciseFromDbMatches = async (exerciseObjectArray, prefix) => {
     const openai = require('../../config/openaiConnection');
 
     console.log('First exercise match: ' + exerciseObjectArray[0].name);
@@ -302,7 +302,7 @@ const chooseExerciseFromDbMatches = async (exerciseObjectArray) => {
 
     console.log(exerciseArray);
 
-    var singleExercisePrompt = `I am a fitness beginner. My goals are to lose weight and increase strength. I need to include one
+    var singleExercisePrompt = prefix + `I need to include one
         exercise from this list in my fitness routine:\n${exerciseArray.join()}\nYour response should only be the name of one
         exercise in the list, spelled exactly as it appears in the list. The exercise I should include is:`
 
@@ -337,7 +337,7 @@ const chooseExerciseFromDbMatches = async (exerciseObjectArray) => {
  * @param {Array} summary - The array summary returned from the OpenAI API call. 
  * @returns {Array} routine - The array of exercise objects with attributes (e.g., exerciseName, intensity, date, etc.).
  */
-const formatValidate = (summary, username) => {
+const formatValidate = (summary, username, prefix) => {
   return new Promise(async (resolve, reject) => {
     let jsonArray = [];
     let routine = [];
@@ -359,7 +359,7 @@ const formatValidate = (summary, username) => {
         const date = jsonObject.date;
         const formattedDate = await formatDate(date, username);
         const dayOfWeek = await validateDayOfWeek(jsonObject.dayOfWeek, formattedDate);
-        const matchedExercise = await matchExercise(jsonObject.exerciseName);
+        const matchedExercise = await matchExercise(jsonObject.exerciseName, prefix);
         const intensity = jsonObject.intensity;
         let exercise = {};
 
