@@ -54,140 +54,162 @@
                                 </table>
                             </div>
                             <div class="card-footer text-center">
-                            <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </form>
                     </div>
                     <%- include("templates/footer") %>
-                    <script>
-                        var availabilityArray = []; // Array to store the availability data
-                        function addAvailability() {
-                            var startDate = new Date(document.getElementById('startDate').value + 'T00:00:00Z');
-                            var selectedDates = document.getElementById('selectedDates');
-                            var tableRow = document.createElement('tr');
-                            var dayOfWeekCell = document.createElement('td');
-                            var dateCell = document.createElement('td');
-                            var startTimeCell = document.createElement('td');
-                            var endTimeCell = document.createElement('td');
-                            var actionsCell = document.createElement('td');
-                            var deleteButton = document.createElement('button');
+                        <script>
+                            // Get availabilities from timeForm.js. VS Code shows an error here because of ejs syntax, but it runs fine.
+                            var availabilities = <%- JSON.stringify(availabilities) %>;
+                            console.log(availabilities);
+                            var availabilityArray = []; // Array to store the availability data
 
-                            var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                            var dayOfWeek = daysOfWeek[startDate.getUTCDay()];
-
-                            // Convert the date to UTC before formatting
-                            var utcDate = new Date(startDate.getTime() + startDate.getTimezoneOffset() * 60000);
-                            var formattedDate = utcDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-
-                            dayOfWeekCell.innerText = dayOfWeek;
-                            dateCell.innerText = formattedDate;
-
-                            var startTimeInput = document.getElementById('startTime');
-                            var endTimeInput = document.getElementById('endTime');
-                            var startTime = startTimeInput.value;
-                            var endTime = endTimeInput.value;
-
-                            // Clear the Bootstrap alert
-                            var alertContainer = document.getElementById('alertContainer');
-                            alertContainer.innerHTML = '';
-
-                            if (startTime === '' || endTime === '') {
-                                // Show Bootstrap alert for empty time fields
-                                var alertDiv = document.createElement('div');
-                                alertDiv.classList.add('alert', 'alert-danger');
-                                alertDiv.innerText = 'Please enter a start and end time.';
-                                alertContainer.appendChild(alertDiv);
-                                return;
+                            for (let i = 0; i < availabilities.length; i++) {
+                                // Add availabilities already in user profile.
+                                addAvailability(availabilities[i]);
                             }
 
-                            // Prevent negative time
-                            var startTimeStamp = new Date('1970-01-01T' + startTime + 'Z').getTime();
-                            var endTimeStamp = new Date('1970-01-01T' + endTime + 'Z').getTime();
+                            function addAvailability(availabilityObj) {
+                                var selectedDates = document.getElementById('selectedDates');
+                                var tableRow = document.createElement('tr');
+                                var dayOfWeekCell = document.createElement('td');
+                                var dateCell = document.createElement('td');
+                                var startTimeCell = document.createElement('td');
+                                var endTimeCell = document.createElement('td');
+                                var actionsCell = document.createElement('td');
+                                var deleteButton = document.createElement('button');
 
-                            if (startTimeStamp >= endTimeStamp) {
-                                // Show Bootstrap alert for empty time fields
-                                var alertDiv = document.createElement('div');
-                                alertDiv.classList.add('alert', 'alert-danger');
-                                alertDiv.innerText = 'End time must be greater than start time.';
-                                alertContainer.appendChild(alertDiv);
-                                return;
-                            }
+                                if (!availabilityObj) {
+                                    console.log('no avail obj');
+                                    var startDate = new Date(document.getElementById('startDate').value + 'T00:00:00Z');
+                                    var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                                    var dayOfWeek = daysOfWeek[startDate.getUTCDay()];
 
-                            // Check for overlapping time blocks
-                            for (var i = 0; i < availabilityArray.length; i++) {
-                                var existingStartTime = new Date('1970-01-01T' + availabilityArray[i].startTime + 'Z').getTime();
-                                var existingEndTime = new Date('1970-01-01T' + availabilityArray[i].endTime + 'Z').getTime();
+                                    // Convert the date to UTC before formatting
+                                    var utcDate = new Date(startDate.getTime() + startDate.getTimezoneOffset() * 60000);
+                                    var formattedDate = utcDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-                                // Exclude overlapping time blocks on different days
-                                if (formattedDate === availabilityArray[i].date) {
-                                    if (
-                                        (startTimeStamp >= existingStartTime && startTimeStamp < existingEndTime) ||
-                                        (endTimeStamp > existingStartTime && endTimeStamp <= existingEndTime)
-                                    ) {
-                                        // Show Bootstrap alert for overlapping time blocks
-                                        var alertDiv = document.createElement('div');
-                                        alertDiv.classList.add('alert', 'alert-danger');
-                                        alertDiv.innerText = 'Time block overlaps with an existing entry.';
-                                        alertContainer.appendChild(alertDiv);
-                                        return;
+                                    var startTimeInput = document.getElementById('startTime');
+                                    var endTimeInput = document.getElementById('endTime');
+                                    var startTime = startTimeInput.value;
+                                    var endTime = endTimeInput.value;
+                                } else {
+                                    console.log('avail obj');
+                                    var dayOfWeek = availabilityObj.dayOfWeek;
+                                    var formattedDate = availabilityObj.date;
+                                    var startTime = availabilityObj.startTime;
+                                    var endTime = availabilityObj.endTime;
+                                }
+
+                                dayOfWeekCell.innerText = dayOfWeek;
+                                dateCell.innerText = formattedDate;
+
+                                // Clear the Bootstrap alert
+                                var alertContainer = document.getElementById('alertContainer');
+                                alertContainer.innerHTML = '';
+
+                                if (startTime === '' || endTime === '') {
+                                    // Show Bootstrap alert for empty time fields
+                                    var alertDiv = document.createElement('div');
+                                    alertDiv.classList.add('alert', 'alert-danger');
+                                    alertDiv.innerText = 'Please enter a start and end time.';
+                                    alertContainer.appendChild(alertDiv);
+                                    return;
+                                }
+
+                                // Prevent negative time
+                                var startTimeStamp = new Date('1970-01-01T' + startTime + 'Z').getTime();
+                                var endTimeStamp = new Date('1970-01-01T' + endTime + 'Z').getTime();
+
+                                if (startTimeStamp >= endTimeStamp) {
+                                    // Show Bootstrap alert for empty time fields
+                                    var alertDiv = document.createElement('div');
+                                    alertDiv.classList.add('alert', 'alert-danger');
+                                    alertDiv.innerText = 'End time must be greater than start time.';
+                                    alertContainer.appendChild(alertDiv);
+                                    return;
+                                }
+
+                                // Check for overlapping time blocks
+                                for (var i = 0; i < availabilityArray.length; i++) {
+                                    var existingStartTime = new Date('1970-01-01T' + availabilityArray[i].startTime + 'Z').getTime();
+                                    var existingEndTime = new Date('1970-01-01T' + availabilityArray[i].endTime + 'Z').getTime();
+
+                                    // Exclude overlapping time blocks on different days
+                                    if (formattedDate === availabilityArray[i].date) {
+                                        if (
+                                            (startTimeStamp >= existingStartTime && startTimeStamp < existingEndTime) ||
+                                            (endTimeStamp > existingStartTime && endTimeStamp <= existingEndTime)
+                                        ) {
+                                            // Show Bootstrap alert for overlapping time blocks
+                                            var alertDiv = document.createElement('div');
+                                            alertDiv.classList.add('alert', 'alert-danger');
+                                            alertDiv.innerText = 'Time block overlaps with an existing entry.';
+                                            alertContainer.appendChild(alertDiv);
+                                            return;
+                                        }
                                     }
                                 }
+
+                                startTimeCell.innerText = startTime;
+                                endTimeCell.innerText = endTime;
+
+                                const currentAvailability = {
+                                    dayOfWeek: dayOfWeek,
+                                    date: formattedDate,
+                                    startTime: startTime,
+                                    endTime: endTime
+                                }
+
+                                deleteButton.innerText = 'Delete';
+                                deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
+                                deleteButton.onclick = function () {
+                                    let idx = availabilityArray.indexOf(currentAvailability);
+                                    availabilityArray.splice(idx, 1);
+                                    tableRow.remove();
+                                };
+
+                                tableRow.appendChild(dayOfWeekCell);
+                                tableRow.appendChild(dateCell);
+                                tableRow.appendChild(startTimeCell);
+                                tableRow.appendChild(endTimeCell);
+                                tableRow.appendChild(actionsCell);
+                                actionsCell.appendChild(deleteButton);
+                                selectedDates.querySelector('tbody').appendChild(tableRow);
+
+                                // Push the availability data to the array
+                                availabilityArray.push(currentAvailability);
+
+                                // Clear the Bootstrap alert
+                                var alertContainer = document.getElementById('alertContainer');
+                                alertContainer.innerHTML = '';
                             }
 
-                            startTimeCell.innerText = startTime;
-                            endTimeCell.innerText = endTime;
+                            $(document).ready(function () {
+                                // Form submission event handler
+                                $('form[name="availabilityForm"]').on('submit', function (event) {
+                                    event.preventDefault();
 
-                            deleteButton.innerText = 'Delete';
-                            deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
-                            deleteButton.onclick = function () {
-                                tableRow.remove();
-                            };
+                                    // Assign the availability array to a hidden input field
+                                    $('input[name="availabilityData"]').val(JSON.stringify(availabilityArray));
 
-                            tableRow.appendChild(dayOfWeekCell);
-                            tableRow.appendChild(dateCell);
-                            tableRow.appendChild(startTimeCell);
-                            tableRow.appendChild(endTimeCell);
-                            tableRow.appendChild(actionsCell);
-                            actionsCell.appendChild(deleteButton);
-                            selectedDates.querySelector('tbody').appendChild(tableRow);
+                                    // Create a new form with only the availability data
+                                    var form = $('<form></form>');
+                                    form.attr('method', 'POST');
+                                    form.attr('action', '/timeForm/submit');
 
-                            // Push the availability data to the array
-                            availabilityArray.push({
-                                dayOfWeek: dayOfWeek,
-                                date: formattedDate,
-                                startTime: startTime,
-                                endTime: endTime
+                                    // Create an input field for the availability data
+                                    var input = $('<input />');
+                                    input.attr('type', 'hidden');
+                                    input.attr('name', 'availabilityData');
+                                    input.attr('value', JSON.stringify(availabilityArray));
+
+                                    // Append the input field to the form
+                                    form.append(input);
+
+                                    // Submit the new form
+                                    form.appendTo('body').submit();
+                                });
                             });
-
-                            // Clear the Bootstrap alert
-                            var alertContainer = document.getElementById('alertContainer');
-                            alertContainer.innerHTML = '';
-                        }
-
-                        $(document).ready(function () {
-                            // Form submission event handler
-                            $('form[name="availabilityForm"]').on('submit', function (event) {
-                                event.preventDefault();
-
-                                // Assign the availability array to a hidden input field
-                                $('input[name="availabilityData"]').val(JSON.stringify(availabilityArray));
-
-                                // Create a new form with only the availability data
-                                var form = $('<form></form>');
-                                form.attr('method', 'POST');
-                                form.attr('action', '/timeForm/submit');
-
-                                // Create an input field for the availability data
-                                var input = $('<input />');
-                                input.attr('type', 'hidden');
-                                input.attr('name', 'availabilityData');
-                                input.attr('value', JSON.stringify(availabilityArray));
-
-                                // Append the input field to the form
-                                form.append(input);
-
-                                // Submit the new form
-                                form.appendTo('body').submit();
-                            });
-                        });
-                    </script>
+                        </script>
