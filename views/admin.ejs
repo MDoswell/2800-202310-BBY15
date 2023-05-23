@@ -1,0 +1,26 @@
+<%- include("templates/header") %>
+<style>
+    h5 {
+        color: white;
+    }
+
+    ul{
+        color: white;
+    }
+</style>
+<main class="py-5 px-4">
+    <div class="container">
+        <br>
+        <h5>Users:</h5>
+        <ul>
+            <% let i=0; %>
+            <% for(i=0; i < users.length; i++) { %>
+                <%- include('templates/user', {user: users[i]}) %> 
+                <br>
+            <% } %>
+        </ul>
+    </div>
+    <div id="paginate"></div>
+</main>
+
+<%- include("templates/footer") %>
