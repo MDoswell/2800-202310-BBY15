@@ -10,18 +10,22 @@ router.get('/', async (req, res) => {
 
     if (req.session.authenticated) {
         if (userRoutine != null) {
-            const uniqueDates = Array.from(new Set(userRoutine.map(exercise => exercise.date)));
+            const uniqueDates = Array.from(new Set(userRoutine.map(exercise => exercise.date))).sort((a, b) => {
+                return new Date(a) - new Date(b);
+            });
             console.log(uniqueDates);
-            // const today = new Date('May 24, 2023'); 
-            const today = new Date.now();
+            // const today = new Date('May 22, 2023'); 
+            var today = new Date(Date.now());
+            console.log(today.getTimezoneOffset());
+            today.setHours(today.getHours() - today.getTimezoneOffset() / 60);
+            console.log(today.getHours());
             let cardContent;
             let dayCards = '';
 
             // For each unique day, create a card of exercises for that day.
              uniqueDates.map(date => {
                 var fullDate = new Date(date);
-                console.log('date: ', fullDate, ' before', today, '? ', fullDate < today);
-                if (fullDate < today) {
+                if (fullDate.getDate() < today.getDate()) {
                     return;
                 }
                 var day = '';
