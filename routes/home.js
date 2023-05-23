@@ -10,15 +10,17 @@ router.get('/', async (req, res) => {
 
     if (req.session.authenticated) {
         if (userRoutine != null) {
-            const uniqueDays = Array.from(new Set(userRoutine.map(exercise => exercise.day)));
+            const uniqueDates = Array.from(new Set(userRoutine.map(exercise => exercise.date)));
+            console.log(uniqueDates);
+            // const today;
             let cardContent;
             let dayCards = '';
 
             // For each unique day, create a card of exercises for that day.
-             uniqueDays.map(day => {
-                var date = '';
+             uniqueDates.map(date => {
+                var day = '';
                 // Filter the user's routine for the current day.
-                const exercisesForDay = userRoutine.filter(exercise => exercise.day === day);
+                const exercisesForDay = userRoutine.filter(exercise => exercise.date === date);
 
                 // For each exercise in the user's routine for the current day, create a card.
 
@@ -28,8 +30,8 @@ router.get('/', async (req, res) => {
                     //     { id: exercise.id },
                     //     { projection: { name: 1, bodyPart: 1, target: 1, gifUrl: 1, instructions: 1 } }).then(console.log(this));
                     // console.log('details: ' + exerciseDetails);
-                    if (date === '') {
-                        date = exercise.date;
+                    if (day === '') {
+                        day = exercise.day;
                     }
                     
                     const formatExerciseName = exercise.exerciseName.slice(0, 1).toUpperCase() + exercise.exerciseName.slice(1).toLowerCase();
