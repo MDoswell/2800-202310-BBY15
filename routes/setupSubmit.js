@@ -13,14 +13,10 @@ router.post('/setupSubmit', async(req, res) => {
 
     var gender = "Undisclosed";
 
-    if (req.body.male != null){
-        gender = "Male";
+    if(req.body.gender != null){
+        gender = req.body.gender;
     }
-
-    if(req.body.female != null){
-        gender = "Female";
-    }
-
+    console.log("gender: " + gender)
     let weight = req.body.weight
 
     console.log("weight: " + weight)
