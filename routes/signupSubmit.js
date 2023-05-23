@@ -124,7 +124,7 @@ router.post('/signup/submit', async (req, res) => {
 
         // Set user_type to 'user' by default on sign-up (NOTE: No need to sanitize a hard-coded explicit literal).
         await userCollection.insertOne({ name: name, email: email, password: hashedPassword, question: question,
-            answer: hashedAnswer, user_type: 'user' });
+            answer: hashedAnswer, user_type: 'user', availabilityData: [] });
 
         console.log("Inserted user");
 
