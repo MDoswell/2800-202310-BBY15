@@ -76,8 +76,13 @@
                     </div>
                     <%- include("templates/footer") %>
                         <script>
+                            async function test(){
+                                const response = await axios.get('/newAvialabilityNewRoutine')
+                                console.log(response);
+                            }
+
                             // Get availabilities from timeForm.js. VS Code shows an error here because of ejs syntax, but it runs fine.
-                            var availabilities = <%- JSON.stringify(availabilities) %>;
+                            var availabilities = <%- JSON.stringify(availabilities) %>
                             console.log(availabilities);
                             var availabilityArray = []; // Array to store the availability data
 

@@ -63,7 +63,7 @@ router.get('/newAvialabilityNewRoutine', async (req, res) => {
     The JSON object:\n\n`;
 
     str = jsonPrompt;
-    console.log(str)
+    res.send(str)
 });
 
 module.exports = router;
