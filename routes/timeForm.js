@@ -15,10 +15,10 @@ router.get('/timeForm', sessionValidation, async (req, res) => {
         }
     const { success } = req.query; // Check if 'success' query parameter is present
 
-    const showSuccessMessage = success === 'true';
-    const showErrorMessage = success === 'false';
+        const showSuccessMessage = success === 'true';
+        const showErrorMessage = success === 'false';
 
-    res.render("timeForm", { showSuccessMessage, showErrorMessage, routine }); // Pass showSuccessMessage and showErrorMessage parameters to the template
+    res.render("timeForm", { showSuccessMessage, showErrorMessage }); // Pass showSuccessMessage and showErrorMessage parameters to the template
 });
 
 module.exports = router;

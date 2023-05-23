@@ -50,6 +50,9 @@ router.post('/setup/routine', async (req, res) => {
     // if (req.body.endurance != null) {
     //     str += ', endurance';
     // }
+
+    const strPrefix = str;
+
     str += ". My availability is as follows: "
     availabilityData.forEach((e) => {
         str += e.dayOfWeek + ", " + e.date + ", from " + e.startTime + " to " + e.endTime + ", "
@@ -68,7 +71,7 @@ router.post('/setup/routine', async (req, res) => {
 
     str = jsonPrompt;
 
-    res.send(str);
+    res.send({ fullPrompt: str, promptPrefix: strPrefix});
 
 });
 

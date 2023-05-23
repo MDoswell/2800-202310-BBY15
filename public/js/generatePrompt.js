@@ -8,11 +8,14 @@ async function generatePrompt(e) {
     const serializedFormData = new URLSearchParams(formData);
 
     const response = await axios.post("/setup/routine", serializedFormData);
-    const str = response.data;
+
+    console.log(response.data);
+    const str = response.data.fullPrompt;
+    const promptPrefix = response.data.promptPrefix;
 
     try {
         // Send request to '/openai' route to generate the routine
-        const response = await axios.post("/openai", { str });
+        const response = await axios.post("/openai", { fullPrompt: str, promptPrefix: promptPrefix });
 
         const firstSetupRoutine = response.data;
 
