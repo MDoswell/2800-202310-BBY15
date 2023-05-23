@@ -16,7 +16,7 @@ router.post('/timeForm/submit', sessionValidation, async (req, res) => {
  
  if (req.body.option == "new"){
     console.log("new routine requeseted in timeformsubmit.js")
-    await axios.post('/newAvialabilityNewRoutine')
+    await axios.post('/newAvailabilityNewRoutine');
   } else if (req.body.option == "old"){
     console.log("old routine requested  to be in new availability")
     //add old routine to new availability
