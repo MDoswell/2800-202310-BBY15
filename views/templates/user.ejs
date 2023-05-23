@@ -1,5 +1,5 @@
 <li>
-    <%= user.email %> (<%= user.user_type %>)
-    <a href="/admin/promote?user=<%= user.username %>" class="btn btn-success btn-sm me-1">Promote to Admin</a>
-    <a href="/admin/demote?user=<%= user.username %>" class="btn btn-danger btn-sm">Demote to User</a>
+    (<%= user.name %>)(<%= user.email %>) (<%= user.user_type %>)
+    <a href="/admin/promote?user=<%= user.email %>" class="btn btn-success btn-sm me-1">Promote to Admin</a>
+    <a href="/admin/demote?user=<%= user.email %>" class="btn btn-danger btn-sm">Demote to User</a>
 </li>

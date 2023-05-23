@@ -2,60 +2,33 @@
 require('dotenv').config();
 const { router } = require('../config/dependencies');
 const { sessionValidation } = require('../public/js/sessionValidation');
-
-function isAdmin(req) {
-  if (req.session.user_type === 'admin') {
-    return true;
-  }
-  return false;
-}
-
-function adminAuthorization(req, res, next) {
-  if (!isAdmin(req)) {
-    res.status(403);
-    res.render("403", { error: "Not Authorized" });
-    return;
-  }
-  next();
-}
+const { adminAuthorization } = require('../public/js/adminAuthorization');
+const PAGE_SIZE = 10;
 
 // Route to admin page
 router.get('/admin', sessionValidation, adminAuthorization, async (req, res) => {
-  const { userCollection } = await require('../config/databaseConnection');
+    const { userCollection } = await require('../config/databaseConnection');
 
-  try {
-    const result = await userCollection.find({}, { projection: { username: 1, user_type: 1 } }).toArray();
-    res.render("admin", { users: result });
-  } catch (error) {
-    console.error(error);
-    res.render('error', { message: 'Error retrieving user data.' });
-  }
-});
+    try {
+        const currentPage = parseInt(req.query.page) || 1;
+        const totalUsers = await userCollection.find({}, { projection: { name: 1, email: 1, user_type: 1 } }).toArray();
+        const totalUserCount = totalUsers.length;
 
-router.get('/admin/demote', sessionValidation, adminAuthorization, async (req, res) => {
-  const { userCollection } = await require('../config/databaseConnection');
-  const { user } = req.query;
+        const startIndex = (currentPage - 1) * PAGE_SIZE;
+        const endIndex = startIndex + PAGE_SIZE;
 
-  try {
-    await userCollection.updateOne({ username: user }, { $set: { user_type: "user" } });
-    res.redirect("/admin");
-  } catch (error) {
-    console.error(error);
-    res.render('error', { message: 'Error demoting user.' });
-  }
-});
+        const paginatedUsers = totalUsers.slice(startIndex, endIndex);
+        const totalPages = Math.ceil(totalUserCount / PAGE_SIZE);
 
-router.get('/admin/promote', sessionValidation, adminAuthorization, async (req, res) => {
-  const { userCollection } = await require('../config/databaseConnection');
-  const { user } = req.query;
-
-  try {
-    await userCollection.updateOne({ username: user }, { $set: { user_type: "admin" } });
-    res.redirect("/admin");
-  } catch (error) {
-    console.error(error);
-    res.render('error', { message: 'Error promoting user.' });
-  }
+        res.render("admin", {
+            users: paginatedUsers,
+            currentPage,
+            totalPages
+        });
+    } catch (error) {
+        console.error(error);
+        res.render('error', { message: 'Error retrieving user data.' });
+    }
 });
 
 module.exports = router;
