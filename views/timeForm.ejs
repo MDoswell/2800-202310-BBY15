@@ -54,23 +54,24 @@
                                 </table>
                             </div>
                             <div class="card-footer text-center">
-                            <button type="submit" class="btn btn-success">Submit</button>
-                            </div>
-                            <% if (routine) { %>
+                                <% if (routine) { %>
                                 <h6 style="color:whitesmoke">For the new routine that you've input, select new for a new routine, select old to have you old routine, or select update to simply update your avialability</h6>
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                     
                                     <label class="btn btn-secondary active">
-                                      <input type="radio" name="new" id="option1" autocomplete="off" checked> New
+                                      <input type="radio" name="new" id="new" value="true" autocomplete="off"> New
                                     </label>
                                     <label class="btn btn-secondary">
-                                      <input type="radio" name="old" id="option2" autocomplete="off"> Old
+                                      <input type="radio" name="old" id="old" value="true" autocomplete="off"> Old
                                     </label>
                                     <label class="btn btn-secondary">
-                                      <input type="radio" name="update" id="option3" autocomplete="off"> Update
+                                      <input type="radio" name="update" id="update" value="" autocomplete="off"> Update
                                     </label>
                                   </div>
                                 <% } %>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                            
                         </form>
                     </div>
                     <%- include("templates/footer") %>
@@ -191,7 +192,15 @@
                                 var form = $('<form></form>');
                                 form.attr('method', 'POST');
                                 form.attr('action', '/timeForm/submit');
-
+                                var option = $('<input />');
+                                option.attr('type', 'hidden');
+                                option.attr('name', 'option')
+                                if(document.getElementById("new").checked){
+                                    option.attr('value', 'new');
+                                } else if (document.getElementById("old").checked){
+                                    option.attr('value', 'old');
+                                }
+                                form.append(option);
                                 // Create an input field for the availability data
                                 var input = $('<input />');
                                 input.attr('type', 'hidden');

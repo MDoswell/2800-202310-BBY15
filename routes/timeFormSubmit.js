@@ -1,16 +1,10 @@
 const { router } = require('../config/dependencies');
 const { sessionValidation } = require('../public/js/sessionValidation');
-
+const axios = require('axios').default;
 // Server file
 router.post('/timeForm/submit', sessionValidation, async (req, res) => {
   const { userCollection } = await require('../config/databaseConnection');
-  if (req.body.new != null){
-    // add new routine to new avialability
-  } else if (req.body.old != null){
-    //add old routine to new availability
-  }
-
-  try {
+ try {
     const availabilityData = JSON.parse(req.body.availabilityData); // Parse the availabilityData from the request body
 
     await userCollection.findOneAndUpdate(
@@ -18,6 +12,15 @@ router.post('/timeForm/submit', sessionValidation, async (req, res) => {
       { $set: { availabilityData: availabilityData } }
     );
 
+  console.log(req.body.option);
+ 
+ if (req.body.option == "new"){
+    console.log("new routine requeseted in timeformsubmit.js")
+    await axios.post('/newAvialabilityNewRoutine')
+  } else if (req.body.option == "old"){
+    console.log("old routine requested  to be in new availability")
+    //add old routine to new availability
+  }
     // Redirect to the availability data page after successful submission with success=true query parameter
     res.redirect('/');
   } catch (error) {

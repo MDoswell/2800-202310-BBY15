@@ -13,7 +13,7 @@ const getRoutine = async (username) => {
         const userRoutine = result[0].routine;
 
         // What is the user's routine?
-        console.log(userRoutine);
+        // console.log(userRoutine);
 
         // Return the user's routine.
         return userRoutine;
