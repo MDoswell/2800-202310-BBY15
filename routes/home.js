@@ -12,12 +12,18 @@ router.get('/', async (req, res) => {
         if (userRoutine != null) {
             const uniqueDates = Array.from(new Set(userRoutine.map(exercise => exercise.date)));
             console.log(uniqueDates);
-            // const today;
+            // const today = new Date('May 24, 2023'); 
+            const today = new Date.now();
             let cardContent;
             let dayCards = '';
 
             // For each unique day, create a card of exercises for that day.
              uniqueDates.map(date => {
+                var fullDate = new Date(date);
+                console.log('date: ', fullDate, ' before', today, '? ', fullDate < today);
+                if (fullDate < today) {
+                    return;
+                }
                 var day = '';
                 // Filter the user's routine for the current day.
                 const exercisesForDay = userRoutine.filter(exercise => exercise.date === date);
