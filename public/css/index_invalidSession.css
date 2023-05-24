@@ -1,12 +1,18 @@
+@font-face {
+    font-family: retroica;
+    src: url(../fonts/Retroica.ttf);
+}
+
 /* NOTE: CSS applied as a script in index.ejs because of different layouts for home page with and without session (see index.ejs for more details) */
 
 /* Animations.css here (for animating elements; docs: https://animate.style/) */
 #homeWelcome {
     animation: fadeInDown;
     animation-duration: 1.3s;
-  }
+}
 
-#loginButton, #signupButton {
+#loginButton,
+#signupButton {
     animation: fadeInUp;
     animation-duration: 1.3s;
 }
@@ -43,4 +49,26 @@
 
 #navContainer {
     margin-bottom: 0;
-} 
+}
+
+#myTrainerAIColor {
+    color: #59cbe9;
+}
+
+#homeWelcome {
+    font-family: retroica, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#loginButton,
+#signupButton {
+    background: linear-gradient(180deg, #4b76d4, transparent) #59cbe9;
+    border: none;
+    color: white;
+    transition: background-color 0.5s;
+}
+
+#loginButton:hover,
+#signupButton:hover {
+    background-color: #2028be;
+}

@@ -27,16 +27,19 @@
     </div>
 
     <!-- Exercise feed -->
-    <div id="valid-session-home-container" class="container-fluid px-4 mt-5">
-        <h1 id="HelloTitle" data-username='<%= name %>'>Hello, <%= name %>!</h1>
-        <div class="row mx-auto mt-5">
-            <div id="userRoutine">
-                <h2>Your Routine</h2>
-                <%- dayCards %>
+    <div class="container">
+        <div id="valid-session-home-container" class="container-fluid col-lg-6 col-md-8 col-sm-10 align-self-center px-4 mt-5">
+          <h1 id="HelloTitle" class="ml-3" data-username='<%= name %>'>Hello, <%= name %>!</h1>
+          <div class="row mx-auto mt-5">
+            <div class="col" id="userRoutine">
+              <h2>Your Routine</h2>
+              <%- dayCards %>
             </div>
+          </div>
+          <br>
         </div>
-        <br>
-    </div>
+      </div>
+      
 <%- include("templates/footer") %>
 
 <script>

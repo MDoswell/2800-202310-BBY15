@@ -6,10 +6,39 @@
     animation-duration: 1s;
   }
 
-#signupSkeleton {
+.signup-card {
     animation: fadeInLeft;
     animation-duration: 1s;
 }
 
 
 /* Standard CSS styling */
+#signup-button {
+    background: linear-gradient(180deg, #4b76d4, transparent) #59cbe9;
+    border: none;
+    color: white;
+    transition: background-color 0.5s;
+}
+
+#signup-button:hover {
+    background-color: #2028be;
+}
+
+#signupTitle {
+  font-family: retroica, sans-serif;
+}
+
+.login-wrap {
+  background: linear-gradient(135deg, #27262e, transparent) #4a4750;
+  border-radius: 10px;
+  margin-top: 25px;
+  margin-bottom: 50px;
+}
+
+#password-vis {
+  background-color: #343a40;
+}
+
+a {
+  color: #59cbe9;
+}
