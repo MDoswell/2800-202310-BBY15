@@ -27,6 +27,15 @@
                             </p>
                             <p class="text mb-4">User Type: <%= user_type %>
                             </p>
+                            <% if (user_type === "admin") { %>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="d-flex justify-content-center mb-3">
+                                            <a href="/admin" class="btn btn-primary">Admin Page</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% } %>
                             <div class="d-flex justify-content-center mb-2">
                                 <button type="button" id="editButton" class="btn btn-outline-success">Edit
                                     Profile</button>

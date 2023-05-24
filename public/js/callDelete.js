@@ -5,61 +5,73 @@ const successMessage = document.getElementById("success-message");
 // Loop through the collection of elements and add the event listener to each button
 for (let i = 0; i < deleteExerciseButtons.length; i++) {
   const deleteExerciseButton = deleteExerciseButtons[i];
-  
+
   deleteExerciseButton.addEventListener('click', async function () {
     console.log('replaceExerciseButton clicked');
-    const exerciseName = this.getAttribute('data-exercise-name'); // Get the exercise name from the data attribute
-    const username = document.getElementById('HelloTitle').getAttribute('data-username');
 
-    console.log('exerciseName:', exerciseName);
-    console.log('username:', username);
+    swal({
+      title: "Delete Exercise?",
+      text: "Are you sure you want to delete this exercise?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then(async (willDelete) => {
+        if (willDelete) {
+          const exerciseName = this.getAttribute('data-exercise-name'); // Get the exercise name from the data attribute
+          const username = document.getElementById('HelloTitle').getAttribute('data-username');
 
-    $('#success-message').hide();
-    $('#error-message').hide();
-    
-    // authentication success handling here
-    const actionDialog = `Deleting '${exerciseName}'. Please wait...`; 
-    successMessage.textContent = actionDialog;
-    $('#success-message').show();
+          console.log('exerciseName:', exerciseName);
+          console.log('username:', username);
 
-    setTimeout(() => {
-        $('#success-message').hide();
-      }, 15000);
+          $('#success-message').hide();
+          $('#error-message').hide();
 
-    try {
-      const response = await axios.post('/deleteExercise', {
-        oldExercise: exerciseName, // Include exerciseName in the request body
-        name: username, // Include username in the request body
-    });
+          // authentication success handling here
+          const actionDialog = `Deleting '${exerciseName}'. Please wait...`;
+          successMessage.textContent = actionDialog;
+          $('#success-message').show();
 
-    console.log('response from callDelete:', response);
+          setTimeout(() => {
+            $('#success-message').hide();
+          }, 15000);
 
-    $('#success-message').hide();
-    $('#error-message').hide();
-    
-    // authentication success handling here
-    const successMessageText = 'Exercise deleted from your routine.'
-    successMessage.textContent = successMessageText;
-    $('#success-message').show();
+          try {
+            const response = await axios.post('/deleteExercise', {
+              oldExercise: exerciseName, // Include exerciseName in the request body
+              name: username, // Include username in the request body
+            });
 
-    setTimeout(() => {
-        location.reload();
-      }, 3000);
+            console.log('response from callDelete:', response);
 
-    } catch (error) {
-      console.log('error:', error);
-      $('#success-message').hide();
-      $('#error-message').hide();
+            $('#success-message').hide();
+            $('#error-message').hide();
 
-      const errorMessageText = 'Unable to delete exercise. Please try again.';
-  
-      // authentication error handling here
-      errorMessage.textContent = errorMessageText;
-      $('#error-message').show();
+            // authentication success handling here
+            const successMessageText = 'Exercise deleted from your routine.'
+            successMessage.textContent = successMessageText;
+            $('#success-message').show();
 
-      setTimeout(() => {
-        location.reload();
-      }, 3000);
-    }
+            setTimeout(() => {
+              location.reload();
+            }, 3000);
+
+          } catch (error) {
+            console.log('error:', error);
+            $('#success-message').hide();
+            $('#error-message').hide();
+
+            const errorMessageText = 'Unable to delete exercise. Please try again.';
+
+            // authentication error handling here
+            errorMessage.textContent = errorMessageText;
+            $('#error-message').show();
+
+            setTimeout(() => {
+              location.reload();
+            }, 3000);
+          }
+        }
+      });
   });
 }
