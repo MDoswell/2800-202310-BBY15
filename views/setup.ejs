@@ -17,13 +17,13 @@
             <div class="form-group">
               <div class="grid">
                 <div class="col text-left">
-                  <label for="age">Age:</label>
-                  <input type="number" name="age" id="age" class="form-control" placeholder="Age" aria-label="Age">
+                  <label for="age">*Age:</label>
+                  <input type="number" name="age" id="age" min="16" max="99" class="form-control" placeholder="Age" aria-label="Age" required>
                 </div>
 
                 <div class="col text-left mt-2">
                   <fieldset id="gender"><div>
-                    <label for="gender">Gender:</label>
+                    <label for="gender">*Gender:</label>
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="radio" id="male" name="gender" value="male">
@@ -34,7 +34,7 @@
                     <label class="form-check-label" for="female">Female</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" id="undisclosed" name="gender" value="undisclosed">
+                    <input class="form-check-input" type="radio" id="undisclosed" name="gender" value="undisclosed" checked>
                     <label class="form-check-label" for="undisclosed">Rather not say</label>
                   </div></fieldset>
                   
@@ -45,27 +45,27 @@
 
             <div class="grid my-3">
               <div class="col text-left">
-                <label class="form-label">Weight (lbs):</label>
-                <input name="weight" id="weight" type="number" class="form-control" placeholder="Weight">
+                <label class="form-label">*Weight (lbs):</label>
+                <input name="weight" id="weight" min="0" type="number" class="form-control" placeholder="Weight" required>
               </div>
               <div class="col text-left mt-2">
-                <label class="form-label">Height:</label>
+                <label class="form-label">*Height:</label>
                 <div class="row">
                   <div class="col">
-                    <input name="feet" id="feet" type="number" class="form-control" placeholder="Feet">
+                    <input name="feet" id="feet" min="0" type="number" class="form-control" placeholder="Feet" required>
                   </div>
                   <div class="col">
-                    <input name="inches" id="inches" type="number" class="form-control" placeholder="Inches">
+                    <input name="inches" id="inches" min="0" type="number" class="form-control" placeholder="Inches" required>
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="my-3 mx-3">
-              <label for="exampleFormControlTextarea1" class="form-label">Please state your goals for using this
+              <label for="exampleFormControlTextarea1" class="form-label">*Please state your goals for using this
                 app</label>
               <textarea name="goals" id="goals" class="form-control" id="exampleFormControlTextarea1"
-                rows="3"></textarea>
+                rows="3" required></textarea >
             </div>
 
             <div class="py-3">
@@ -194,12 +194,28 @@
     const submitButton = document.getElementById('submitButton');
     const loaderAnimation = document.getElementById('loaderAnimation');
     const fullPage = document.getElementById('fullPage');
-
+    let age = document.getElementById('age');
+    let weight = document.getElementById('weight');
+    let heightFeet = document.getElementById('feet');
+    let heightInches = document.getElementById('inches');
+    let goals = document.getElementById('goals');
     loaderAnimation.style.display = 'none';
     fullPage.style.display = 'block';
 
     // If the submit button is clicked, display the loader animation.
     submitButton.addEventListener('click', function () {
+      
+      if (age.value < 16 ||
+          age.value > 99 ||
+          weight.value == "" ||
+          weight.value < 0 ||
+          heightFeet.value == "" ||
+          heightFeet.value < 0 ||
+          heightInches.value == "" ||
+          heightInches.value < 0 ||
+          goals.value == ""){
+        return;
+      }
       // Actions to perform when the button is clicked
       console.log('Submit button clicked');
 
