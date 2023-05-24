@@ -94,6 +94,8 @@ app.use('/newRoutine/submit', require('./routes/newRoutineSubmit'));
 app.use('/availabilityData', require('./routes/availabilityData'));
 app.use('/liftingTime', require('./routes/easterEgg.js'));
 app.use('*', require('./routes/error404'));
+app.use('/suggestExercises', require('./routes/suggestExercises'));
+app.use('/replaceExercise', require('./routes/replaceExerciseRoute'));
 // Once connectDB is resolved by connecting to the MongoDB databases, start the server.
 connectDB.then(() => {
     app.listen(port, () => {

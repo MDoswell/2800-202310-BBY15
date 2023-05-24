@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
             let dayCards = '';
 
             // For each unique day, create a card of exercises for that day.
-             uniqueDays.map(day => {
+            uniqueDays.map(day => {
                 var date = '';
                 // Filter the user's routine for the current day.
                 const exercisesForDay = userRoutine.filter(exercise => exercise.day === day);
@@ -31,12 +31,12 @@ router.get('/', async (req, res) => {
                     if (date === '') {
                         date = exercise.date;
                     }
-                    
+
                     const formatExerciseName = exercise.exerciseName.slice(0, 1).toUpperCase() + exercise.exerciseName.slice(1).toLowerCase();
-                    const formatExerciseTarget = exercise.exerciseBodyPart.slice(0, 1).toUpperCase() 
+                    const formatExerciseTarget = exercise.exerciseBodyPart.slice(0, 1).toUpperCase()
                         + exercise.exerciseBodyPart.slice(1).toLowerCase()
                         + ' - '
-                        + exercise.exerciseTarget.slice(0, 1).toUpperCase() 
+                        + exercise.exerciseTarget.slice(0, 1).toUpperCase()
                         + exercise.exerciseTarget.slice(1).toLowerCase();
 
                     // Create a card and modal for the current exercise.
@@ -49,6 +49,11 @@ router.get('/', async (req, res) => {
                                     <a href="#" class="info-link" data-toggle="modal" data-target="#exerciseModal">
                                         More info
                                     </a>
+                                    <div class='hideMenuButton'><span class='arrow'><span></span><span></span></span></div>
+                                    <div id="cardControls">
+                                        <button class="btn btn-primary replaceExerciseButton" data-exercise-name='${exercise.exerciseName}'>Replace</button>
+                                        <button class="btn btn-danger deleteExerciseButton" data-exercise-name='${exercise.exerciseName}'>Delete</button>
+                                    </div>
                                 </div>
                             </div>
                             `;
