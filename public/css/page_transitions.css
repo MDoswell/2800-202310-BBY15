@@ -2,7 +2,7 @@
 
 /* Transitions.css here (for animating page transitions; docs: https://www.transition.style/) */
 .--allPageTransitions {
-    --transition__duration: 1s;
+    --transition__duration: 0.5s;
     --transition__easing: ease-in-out;
     animation-name: wipe-in-right;
 }

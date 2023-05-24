@@ -10,6 +10,16 @@ nav {
 
 
 /* Standard CSS styling */
+@font-face {
+    font-family: cardium;
+    src: url(../fonts/Cardium.otf);
+}
+
+body {
+    font-family: cardium, sans-serif;
+    font-weight:lighter !important;
+}
+
 .navbar-brand {
     color: white !important;
     font-size: 25pt;

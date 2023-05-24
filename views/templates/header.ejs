@@ -63,7 +63,11 @@
             <% } else { %>
                 <div class="col-lg-6 col-6 d-flex">
             <% } %>
-                <a class="navbar-brand mx-auto" href="/">mytrAIner</a>
+            <a class="navbar-brand mx-auto" href="/">
+                <span id="myTrainerLogo" class="d-flex align-items-center">
+                    <img src="img/myTrainerLogo.png" alt="myTrainerLogo" class="img-fluid" style="max-width: 150px;">
+            </span>
+              </a>              
             </div>
             <div class="col-3 d-flex align-items-center justify-content-end">
                 <% if (locals.authenticated && locals.currentURL !='/logout' ) { %>
@@ -81,7 +85,7 @@
                                 <!-- Add d-flex and align-items-center so icon and link name are vertically aligned -->
                                 <a class="nav-link d-flex align-items-center" href="<%= locals.navLinks[i].link %>">
                                     <i class="material-icons" <%=locals.navLinks[i].link===locals.currentURL
-                                        ? "style=color:green;" : "" %>>
+                                        ? "style=color:#59cbe9;" : "" %>>
                                         <%= locals.navLinks[i].materialIcon %>
                                     </i>
                                     <span class="d-inline d-lg-none pl-2">
