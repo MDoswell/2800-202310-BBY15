@@ -21,6 +21,10 @@ day-title */
     padding-bottom: 100px !important;
 } */
 
+/* #userRoutine {
+    max-width: 50vmax;
+} */
+
 .day-title, .date-title, .exercise-card, .modal-title, .exercise-title, .exercise-intensity {
     color: black;
 }

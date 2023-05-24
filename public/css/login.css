@@ -13,3 +13,42 @@
 
 
 /* Standard CSS styling */
+@font-face {
+  font-family: retroica;
+  src: url(../fonts/Retroica.ttf);
+}
+
+#forgotPassword {
+  align-items: center;
+}
+
+#signinTitle {
+  font-family: retroica, sans-serif;
+}
+
+#login-button {
+  background: linear-gradient(180deg, #4b76d4, transparent) #59cbe9;
+  border: none;
+  color: white;
+  transition: background-color 0.5s;
+}
+
+#login-button:hover {
+  background-color: #2028be;
+}
+
+.login-wrap {
+  background: linear-gradient(135deg, #27262e, transparent) #4a4750;
+  border-radius: 10px;
+  margin-top: 25px;
+  margin-bottom: 50px;
+}
+
+#password-vis {
+  background-color: #343a40;
+}
+
+a {
+  color: #59cbe9;
+}
+

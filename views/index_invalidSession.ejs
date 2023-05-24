@@ -5,15 +5,14 @@
         </video>
         <div class="overlay">
             <div class="container px-5 mt-5">
-                <h1 class="text-start mb-5" id="homeWelcome">Welcome to mytrAIner!</h1>
+                <h1 class="text-start mb-5" id="homeWelcome">Welcome to myTR<span id="myTrainerAIColor">AI</span>NER!</h1>
                 <button class="p-2 m-2 col-sm-2 btn btn-primary"
-                    id="loginButton" onclick="location.href = window.location.origin + '/login'">Login</button>
+                    id="loginButton" onclick="location.href = window.location.origin + '/login'"><span id='loginText'>Login</span></button>
                 <button class="p-2 m-2 col-sm-2 btn btn-primary"
-                    id="signupButton" onclick="location.href = window.location.origin + '/signup'">Sign Up</button>
+                    id="signupButton" onclick="location.href = window.location.origin + '/signup'"><span id='signupText'>Sign Up</span></button>
             </div>
         </div>
     </div>
-<%- include("templates/footer") %>
 
 <!-- Scripts for home page when user is not logged in. -->
 <script>
