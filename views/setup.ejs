@@ -3,18 +3,6 @@
     hr {
       border-color: white;
     }
-
-    .range-container {
-      width: 100%;
-    }
-
-    .range-input {
-      width: 90%;
-    }
-
-    .range-output {
-      color: white;
-    }
   </style>
   <div id="loaderAnimation"><img id="loaderimg" src="./img/loading.gif" alt="loader animation"></div>
   <div id="fullPage">
@@ -81,11 +69,11 @@
             </div>
 
             <div class="py-3">
-              <p class="fw-bold">on a scale of 1 through 10 with 10 being very experience and 1 being no experienced,
+              <p class="fw-bold">On a scale of 1 through 10 with 10 being very experience and 1 being no experienced,
                 how experienced are you in exercise?</p>
 
               <input name="experience" type="range" value="5" min="1" max="10"
-                oninput="this.nextElementSibling.value = this.value">
+                oninput="this.nextElementSibling.value = this.value" style="width: 90%;">
               <output id="experience" style="color:whitesmoke">5</output>
             </div>
             <!-- <div class="py-3"><label for="equipment" class="form-label">What kind of equipment is available to you? (include gym equipment if applicable)</label>

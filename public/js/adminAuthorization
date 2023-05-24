@@ -1,0 +1,17 @@
+function isAdmin(req) {
+    if (req.session.user_type === 'admin') {
+        return true;
+    }
+    return false;
+}
+
+function adminAuthorization(req, res, next) {
+    if (!isAdmin(req)) {
+        res.status(403);
+        res.render("403", { error: "Not Authorized" });
+        return;
+    }
+    next();
+}
+
+module.exports = { isAdmin, adminAuthorization };
