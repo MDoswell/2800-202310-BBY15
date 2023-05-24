@@ -21,7 +21,7 @@ day-title */
     padding-bottom: 100px !important;
 } */
 
-.day-title, .exercise-card, .exercise-title, .exercise-intensity {
+.day-title, .date-title, .exercise-card, .exercise-title, .exercise-intensity {
     color: black;
 }
 

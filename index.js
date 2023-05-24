@@ -96,6 +96,7 @@ app.use('/liftingTime', require('./routes/easterEgg.js'));
 app.use('/admin', require('./routes/admin.js')); 
 app.use('/admin/promote', require('./routes/adminPromote.js')); 
 app.use('/admin/demote', require('./routes/adminDemote.js')); 
+app.use('/addTime', require('./routes/addTime.js'));
 app.use('*', require('./routes/error404'));
 app.use('/suggestExercises', require('./routes/suggestExercises'));
 app.use('/replaceExercise', require('./routes/replaceExerciseRoute'));

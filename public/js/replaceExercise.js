@@ -48,7 +48,8 @@ const replaceExercise = async (username, exerciseToReplace, newExercise) => {
         exerciseInstructions: newExercise.instructions,
         intensity: userRoutine[index].intensity,
         day: userRoutine[index].day,
-        date: userRoutine[index].date
+        date: userRoutine[index].date,
+        routineDay: userRoutine[index].routineDay
     };
 
     userRoutine[index] = newFormattedExercise;
