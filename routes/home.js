@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     if (req.session.authenticated) {
-        if (userRoutine != null) {
+        if (userRoutine != null && userAvailability != null) {
 
 
             // Check that first time setup complete (routine days added)
@@ -55,25 +55,6 @@ router.get('/', async (req, res) => {
                     })
                     dayNum++;
                 });
-
-
-
-                // for (let i = 0; i < routineDays.length; i++) {
-                //     let exercises = userRoutine.filter(exercise => {
-                //         return exercise.date == routineDays[i];
-                //     })
-
-                //     for (let j = 0; j < exercises.length; j++) {
-                //         console.log(exercises[j].exerciseName);
-                //         await userCollection.findOneAndUpdate(
-                //             { name: username, 'routine.exerciseName': exercises[j].exerciseName },
-                //             {
-                //                 $set: {
-                //                     'routine.$.routineDay': i
-                //                 }
-                //             })
-                //     }
-                // }
             }
 
             // Check that workouts complete exists
@@ -119,17 +100,6 @@ router.get('/', async (req, res) => {
                 { $set: { availabilityData: newAvailabilities, workoutsComplete: workoutsComplete } }
             )
             // console.log(test);
-
-
-
-            // Populate days in availability using routine days, starting from workoutsComplete % numRoutineDays
-            // var newAvail = await getAvailability(username);
-            // console.log(newAvail);
-
-            // const uniqueDates = Array.from(new Set(newAvail.map(avail => avail.date))).sort((a, b) => {
-            //     return new Date(a) - new Date(b);
-            // });
-            // console.log(uniqueDates);
 
             var routineDays = [];
             userRoutine.forEach(exercise => {
@@ -211,7 +181,7 @@ router.get('/', async (req, res) => {
             res.render("index_validSession", { dayCards: dayCards, name: username });
 
         } else {
-            res.render("setup");
+            res.redirect("/setup");
         }
 
     } else {
