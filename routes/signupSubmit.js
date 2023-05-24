@@ -39,35 +39,35 @@ router.post('/signup/submit', async (req, res) => {
                     if (name.trim() == "") {
                         errorMessage = "Name required.";
                     } else {
-                        errorMessage = "Name must be 20 characters or less and not contain any illegal characters.";
+                        errorMessage = "Name must be 20 characters or less and only contain alphanumeric characters.";
                     }
                     break;
                 case "email":
                     if (email.trim() == "") {
                         errorMessage = "Email required.";
                     } else {
-                        errorMessage = "Email must be 50 characters or less and not contain any illegal characters.";
+                        errorMessage = "Email must be 50 characters or less and only contain alphanumeric characters and ''. and '@'.";
                     }
                     break;
                 case "password":
                     if (password.trim() == "") {
                         errorMessage = "Password required.";
                     } else {
-                        errorMessage = "Password must be 20 characters or less and not contain any illegal characters.";
+                        errorMessage = "Password must be 20 characters or less and only contain alphanumeric characters.";
                     }
                     break;
                 case "question":
                     if (question.trim() == "") {
                         errorMessage = "Security question required.";
                     } else {
-                        errorMessage = "Security question must be 80 characters or less and not contain any illegal characters.";
+                        errorMessage = "Security question must be 80 characters or less and only contain alphanumeric characters and '?'.";
                     }
                     break;
                 case "answer":
                     if (answer.trim() == "") {
                         errorMessage = "Security question answer required.";
                     } else {
-                        errorMessage = "Security question answer must be 30 characters or less and not contain any illegal characters.";
+                        errorMessage = "Security question answer must be 30 characters or less and only contain alphanumeric characters.";
                     }
                     break;
                 default:
