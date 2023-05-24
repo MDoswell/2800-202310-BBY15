@@ -1,43 +1,32 @@
 <%- include("templates/header") %>
-<style>
-    h5 {
-        color: white;
-    }
 
-    ul {
-        color: white;
-    }
-
-    body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-
-    main {
-        flex-grow: 1;
-        position: relative;
-    }
-
-    .pagination-container {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: #1B2021;
-        padding: 10px;
-    }
-</style>
-<main class="py-5 px-4">
-    <br>
-    <h5>Users:</h5>
-    <ul>
-        <% let i=0; %>
-        <% for(i=0; i < users.length; i++) { %>
-            <%- include('templates/user', {user: users[i]}) %> 
-            <br>
-        <% } %>
-    </ul>
+<main class="py-5 px-4 mb-3">
+    <h5>User List</h5>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>User Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i=0; i < users.length; i++) { %>
+                    <tr>
+                        <td><%= users[i].name %></td>
+                        <td><%= users[i].email %></td>
+                        <td><%= users[i].user_type %></td>
+                        <td>
+                            <a href="/admin/promote?user=<%= users[i].email %>" class="btn btn-success btn-sm me-1">Promote to Admin</a>
+                            <a href="/admin/demote?user=<%= users[i].email %>" class="btn btn-danger btn-sm">Demote to User</a>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
 </main>
 <div class="pagination-container">
     <nav aria-label="Page navigation">
@@ -62,4 +51,5 @@
         </ul>
     </nav>
 </div>
+
 <%- include("templates/footer") %>
