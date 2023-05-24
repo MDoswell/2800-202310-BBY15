@@ -24,8 +24,7 @@ async function generatePrompt(e) {
         // Send request to '/setupSubmit' route to update the user's routine
         await axios.post("/setupSubmit", {
             age: formData.get('age'),
-            male: formData.get('male'),
-            female: formData.get('female'),
+            gender: formData.get('gender'),
             weight: formData.get('weight'),
             feet: formData.get('feet'),
             inches: formData.get('inches'),

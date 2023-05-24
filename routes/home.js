@@ -152,12 +152,8 @@ router.get('/', async (req, res) => {
             let dayCards = '';
 
             // For each unique day, create a card of exercises for that day.
-            uniqueDates.map(date => {
-                var fullDate = new Date(date);
-                if (fullDate < today && fullDate.getDate() < today.getDate()) {
-                    return;
-                }
-                var day = '';
+             uniqueDays.map(day => {
+                var date = '';
                 // Filter the user's routine for the current day.
                 const exercisesForDay = userRoutine.filter(exercise => exercise.date === date);
 
@@ -190,6 +186,11 @@ router.get('/', async (req, res) => {
                                     <a href="#" class="info-link" data-toggle="modal" data-target="#exerciseModal">
                                         More info
                                     </a>
+                                    <div class='hideMenuButton'><span class='arrow'><span></span><span></span></span></div>
+                                    <div id="cardControls">
+                                        <button class="btn btn-primary replaceExerciseButton" data-exercise-name='${exercise.exerciseName}'>Replace</button>
+                                        <button class="btn btn-danger deleteExerciseButton" data-exercise-name='${exercise.exerciseName}'>Delete</button>
+                                    </div>
                                 </div>
                             </div>
                             `;
