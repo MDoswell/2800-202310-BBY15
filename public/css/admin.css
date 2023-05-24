@@ -59,7 +59,7 @@ main {
         white-space: nowrap;
     }
 
-    .table td:first-child {
+    .table td:first-child th:first-child {
         display: none;
     }
 
