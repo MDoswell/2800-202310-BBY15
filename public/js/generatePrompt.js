@@ -2,6 +2,7 @@ const generatedRoutine = document.getElementById("generatedRoutine");
 const setupForm = document.getElementById('setupForm');
 
 async function generatePrompt(e) {
+    document.getElementById('navContainer').setAttribute("style", "display:none");
     e.preventDefault(); // Prevent the default form submission
 
     const formData = new FormData(setupForm);
