@@ -50,7 +50,7 @@ for (let i = 0; i < replaceExerciseButtons.length; i++) {
         $('#error-message').hide();
         
         // authentication success handling here
-        const successMessageText = 'Exercise deleted from your routine.'
+        const successMessageText = 'Exercise replaced from your routine.'
         successMessage.textContent = successMessageText;
         $('#success-message').show();
     

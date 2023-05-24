@@ -18,7 +18,7 @@ for (let i = 0; i < deleteExerciseButtons.length; i++) {
     $('#error-message').hide();
     
     // authentication success handling here
-    const actionDialog = `Deleting ${exerciseName}. Please wait...`; 
+    const actionDialog = `Deleting '${exerciseName}'. Please wait...`; 
     successMessage.textContent = actionDialog;
     $('#success-message').show();
 
