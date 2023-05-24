@@ -3,6 +3,7 @@ const { router } = require('../config/dependencies');
 // const fillEmptyDays = require('../public/js/fillEmptyDays');
 const getAvailability = require('../public/js/getAvailability');
 const getRoutine = require('../public/js/getRoutine');
+const getRoutineTemplate = require('../public/js/getRoutineTemplate');
 
 // Route below.
 router.get('/', async (req, res) => {
@@ -11,6 +12,7 @@ router.get('/', async (req, res) => {
     // const thisUser = userCollection.findOne({ name: username });
     var userRoutine = await getRoutine(username);
     const userAvailability = await getAvailability(username);
+    const routineTemplate = await getRoutineTemplate(username);
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     if (req.session.authenticated) {
@@ -20,76 +22,126 @@ router.get('/', async (req, res) => {
             });
             console.log(uniqueDates);
 
-            var routineDays = [];
-            var missingDays = [];
-            uniqueDates.forEach(date => {
-                // console.log(date);
-                let inRoutine = userRoutine.some(exercise => {
-                    return exercise.date === date;
-                });
-                if (inRoutine) {
-                    console.log('in routine');
-                    routineDays.push(date);
-                } else {
-                    missingDays.push(date);
-                }
-            });
+            console.log('template null: ', routineTemplate == null);
+            if (routineTemplate == null) {
+                let newRoutineTemplate = [];
+                uniqueDates.forEach((date, idx) => {
+                    console.log(date);
+                    userRoutine.forEach(exercise => {
+                        if (exercise.date == date) {
+                            console.log(exercise.exerciseName)
+                            let templateExercise = { ...exercise };
+                            templateExercise.routineDay = idx;
+                            console.log(templateExercise.routineDay);
+                            newRoutineTemplate.push(templateExercise);
+                        }
+                    });
+                })
 
-            if (userRoutine.some(exercise => {
-                console.log(exercise.exerciseName)
-                console.log(exercise.routineDay == null);
-                return exercise.routineDay == null;
-            })) {
-                console.log('adding routine days')
-                for (let i = 0; i < routineDays.length; i++) {
-                    let exercises = userRoutine.filter(exercise => {
-                        return exercise.date == routineDays[i];
-                    })
-
-                    for (let j = 0; j < exercises.length; j++) {
-                        console.log(exercises[j].exerciseName);
-                        await userCollection.findOneAndUpdate(
-                            { name: username, 'routine.exerciseName': exercises[j].exerciseName },
-                            {
-                                $set: {
-                                    'routine.$.routineDay': i
-                                }
-                            })
-                    }
-                }
+                await userCollection.findOneAndUpdate(
+                    { name: username },
+                    { $set: { routineTemplate: newRoutineTemplate } }
+                )
             }
 
-            console.log(missingDays);
+            // var routineDays = [];
+            // var missingDays = [];
+            // var lastRoutineDate;
+            // var lastRoutineDay;
+            // uniqueDates.forEach(date => {
+            //     // console.log(date);
+            //     let inRoutine = userRoutine.some(exercise => {
+            //         return exercise.date === date;
+            //     });
+            //     if (inRoutine) {
+            //         console.log('in routine');
+            //         lastRoutineDate = date;
+            //         routineDays.push(date);
+            //     } else {
+            //         missingDays.push(date);
+            //     }
+            // });
 
-            if (missingDays.length > 0) {
-                console.log('in missing days');
-                var fillInExercises = [];
-                missingDays.forEach((day, idx) => {
-                    let fullDate = new Date(day);
-                    let routineDay = idx % routineDays.length;
-                    let exercises = userRoutine.filter(exercise => {
-                        return exercise.routineDay == routineDay;
-                    })
-                    exercises.forEach(routineExercise => {
-                        let exercise = { ...routineExercise };
-                        exercise.date = day;
-                        exercise.day = daysOfWeek[fullDate.getDay()];
-                        fillInExercises.push(exercise);
-                    })
-                });
+            // userRoutine.some(exercise => {
+            //     if (exercise.date == lastRoutineDate) {
+            //         lastRoutineDay = exercise.routineDay;
+            //         return true;
+            //     } else {
+            //         return false;
+            //     }
+            // })
 
-                // console.log(fillInExercises);
+            // console.log('last date: ', lastRoutineDate);
+            // console.log('last day: ', lastRoutineDay);
 
-                if (fillInExercises.length > 0) {
-                    console.log('days to fill');
-                    userRoutine = userRoutine.concat(fillInExercises);
-                    userCollection.findOneAndUpdate(
-                        { name: username },
-                        { $push: { routine: { $each: fillInExercises } } }
-                    )
-                }
-                // fillEmptyDays(username, fillInExercises);
-            }
+            // if (userRoutine.some(exercise => {
+            //     return exercise.routineDay == null;
+            // })) {
+            //     console.log('adding routine days')
+            //     for (let i = 0; i < routineDays.length; i++) {
+            //         let exercises = userRoutine.filter(exercise => {
+            //             return exercise.date == routineDays[i];
+            //         })
+
+            //         for (let j = 0; j < exercises.length; j++) {
+            //             console.log(exercises[j].exerciseName);
+            //             await userCollection.findOneAndUpdate(
+            //                 { name: username, 'routine.exerciseName': exercises[j].exerciseName },
+            //                 {
+            //                     $set: {
+            //                         'routine.$.routineDay': i
+            //                     }
+            //                 })
+            //         }
+            //     }
+            // }
+
+            // console.log(missingDays);
+
+            // if (missingDays.length > 0) {
+            //     console.log('missing length: ', missingDays.length);
+            //     var fillInExercises = [];
+            //     missingDays.forEach((day, idx) => {
+            //         let fullDate = new Date(day);
+            //         let uniqueRoutineDays = [];
+            //         userRoutine.forEach(exercise => {
+            //             if (!uniqueRoutineDays.includes(exercise.routineDay)) {
+            //                 uniqueRoutineDays.push(exercise.routineDay)
+            //             }
+            //         }) 
+            //         console.log('num routine days: ', uniqueRoutineDays.length)
+            //         let routineDay = (lastRoutineDay + 1 + idx) % uniqueRoutineDays.length;
+            //         console.log('next routine day: ', routineDay);
+            //         let includedNames = [];
+            //         let exercises = userRoutine.filter(exercise => {
+            //             if (exercise.routineDay == routineDay && !includedNames.includes(exercise.exerciseName)) {
+            //                 includedNames.push(exercise.exerciseName);
+            //                 return true;
+            //             } else {
+            //                 return false;
+            //             }
+            //         })
+            //         exercises.forEach(routineExercise => {
+            //             let exercise = { ...routineExercise };
+            //             console.log(exercise.exerciseName);
+            //             exercise.date = day;
+            //             exercise.day = daysOfWeek[fullDate.getDay()];
+            //             fillInExercises.push(exercise);
+            //         })
+            //     });
+
+            //     // console.log(fillInExercises);
+
+            //     if (fillInExercises.length > 0) {
+            //         console.log('days to fill');
+            //         console.log('fillin length: ', fillInExercises.length);
+            //         userRoutine = userRoutine.concat(fillInExercises);
+            //         userCollection.findOneAndUpdate(
+            //             { name: username },
+            //             { $push: { routine: { $each: fillInExercises } } }
+            //         )
+            //     }
+            // }
 
 
 
