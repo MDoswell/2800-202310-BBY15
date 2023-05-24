@@ -96,6 +96,7 @@ app.use('/liftingTime', require('./routes/easterEgg.js'));
 app.use('*', require('./routes/error404'));
 app.use('/suggestExercises', require('./routes/suggestExercises'));
 app.use('/replaceExercise', require('./routes/replaceExerciseRoute'));
+app.use('/deleteExercise', require('./routes/deleteExerciseRoute'));
 // Once connectDB is resolved by connecting to the MongoDB databases, start the server.
 connectDB.then(() => {
     app.listen(port, () => {

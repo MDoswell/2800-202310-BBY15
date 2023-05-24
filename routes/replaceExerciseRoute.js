@@ -16,7 +16,10 @@ router.post('/replaceExercise', async (req, res) => {
 
     console.log('What is the new exercise?', newExercise);
 
-    res.sendStatus(200);
+    const successMessage = `Replaced ${exerciseToReplace} with ${newExercise} in your routine.`;
+    const authentication = true;
+
+    res.json({ successMessage, authentication });
 });
 
 module.exports = router;
