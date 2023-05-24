@@ -15,9 +15,10 @@ for (let i = 0; i < deleteExerciseButtons.length; i++) {
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    })
-      .then(async (willDelete) => {
+    }).then(async (willDelete) => {
         if (willDelete) {
+          deleteExerciseButtons.disabled = true;
+
           const exerciseName = this.getAttribute('data-exercise-name'); // Get the exercise name from the data attribute
           const username = document.getElementById('HelloTitle').getAttribute('data-username');
 
@@ -52,6 +53,8 @@ for (let i = 0; i < deleteExerciseButtons.length; i++) {
             successMessage.textContent = successMessageText;
             $('#success-message').show();
 
+            deleteExerciseButtons.disabled = true;
+
             setTimeout(() => {
               location.reload();
             }, 3000);
@@ -66,6 +69,8 @@ for (let i = 0; i < deleteExerciseButtons.length; i++) {
             // authentication error handling here
             errorMessage.textContent = errorMessageText;
             $('#error-message').show();
+
+            deleteExerciseButtons.disabled = true;
 
             setTimeout(() => {
               location.reload();
