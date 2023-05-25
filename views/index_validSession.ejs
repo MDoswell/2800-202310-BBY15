@@ -27,12 +27,12 @@
     </div>
 
     <!-- Exercise feed -->
-    <div class="container">
-        <div id="valid-session-home-container" class="container-fluid col-lg-6 col-md-8 col-sm-10 align-self-center px-4 mt-5">
+    <div id='homeContainer' class="container pt-2">
+        <div id="valid-session-home-container" class="container-fluid col-xl-6 col-lg-7 col-md-9 col-sm-12 col-12 mt-5">
           <h1 id="HelloTitle" class="ml-3" data-username='<%= name %>'>Hello, <%= name %>!</h1>
           <div class="row mx-auto mt-5">
             <div class="col" id="userRoutine">
-              <h2>Your Routine</h2>
+              <h2 id="routineTitle">Your Routine</h2>
               <%- dayCards %>
             </div>
           </div>
@@ -59,6 +59,8 @@
 
     exercises.forEach(exercise => {
         let link = exercise.querySelector('.info-link');
+        let arrow = exercise.querySelector('.arrow');
+
         link.addEventListener("click", () => {
             console.log(exercise.getAttribute('exerciseTarget'))
             showExerciseInfo(
@@ -69,6 +71,12 @@
                 exercise.getAttribute('exerciseInstructions')
             )
         })
+
+        exercise.addEventListener("click", (event) => {
+            if (!arrow.contains(event.target) && !event.target.classList.contains('btn')) {
+                link.click();
+            }
+        });
         // console.log(exercise.attributes.exerciseName);
     });
 
@@ -78,4 +86,14 @@
     //                     exercise.intensity,
     //                     './img/dumbbell.png',
     //                     '<ol><li>one</li><li>two</li></ol>');
+</script>
+<script>
+    // Add an event listener to the hide menu button.
+    $('.hideMenuButton .arrow').click(function() {
+        $(this).toggleClass('active');
+        let cardControls = $(this).parent().siblings('.cardControls');
+        cardControls.toggleClass('hidden');
+    });
+
+    $('.hideMenuButton .arrow').click();
 </script>

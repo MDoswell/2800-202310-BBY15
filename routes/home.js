@@ -185,16 +185,18 @@ router.get('/', async (req, res) => {
                                 exerciseIntensity='${exercise.intensity}' exerciseAnimation='${exercise.exerciseAnimation}' 
                                 exerciseInstructions='${exercise.exerciseInstructions}'>
                                 <div class='exercise-content'>
-                                    <h4 class='exercise-title' id='${formatExerciseName}'>${formatExerciseName}</h3>
+                                    <div class='d-flex justify-content-between align-items-start'>
+                                        <h3 class='exercise-title' id='${formatExerciseName}'>${formatExerciseName}</h3>
+                                        <a href="#" class="info-link" data-toggle="modal" data-target="#exerciseModal">
+                                            <i class="material-icons">more_horiz</i>
+                                        </a>
+                                    </div>
                                     <p class='exercise-intensity' id='${formatExerciseName}-intensity'>${exercise.intensity}</p>
-                                    <a href="#" class="info-link" data-toggle="modal" data-target="#exerciseModal">
-                                        More info
-                                    </a>
-                                    <div class='hideMenuButton'><span class='arrow'><span></span><span></span></span></div>
-                                    <div id="cardControls" class="pt-3">
+                                    <div class="cardControls" class="pt-3">
                                         <button class="btn btn-primary replaceExerciseButton" data-exercise-name='${exercise.exerciseName}'>Replace</button>
                                         <button class="btn btn-danger deleteExerciseButton" data-exercise-name='${exercise.exerciseName}'>Delete</button>
                                     </div>
+                                    <div class='hideMenuButton'><span class='arrow'><span></span><span></span></span></div>
                                 </div>
                             </div>
                             `;

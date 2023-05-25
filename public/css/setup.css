@@ -32,7 +32,48 @@
   transform: translate(-50%, -50%);
 }
 
+
+/* Standard CSS styling */
+@font-face {
+  font-family: retroica;
+  src: url(../fonts/Retroica.ttf);
+}
+
 #fullPage {
   background-color: #1b2021 !important;
   z-index: 9998 !important;
+}
+
+.setupTitles,
+.exerciseTypes {
+  font-family: retroica, sans-serif;
+}
+
+/* Exercise descriptions fade in on hover only on desktop view */
+@media only screen and (min-width: 780px) {
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .exerciseTypeDesc {
+    display: none;
+  }
+
+  .exerciseTypes:hover+.exerciseTypeDesc {
+    display: block;
+    animation: fade-in 0.5s ease;
+  }
+
+  #setupFormContainer {
+    padding-bottom: 100px;
+  }
+
+  #fullPage {
+    margin-top: 150px;
+  }
 }
