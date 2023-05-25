@@ -103,12 +103,13 @@ Animated arrow that pulls down game menu on-click
 }
 
 .replaceExerciseButton {
-    background: linear-gradient(180deg, #4b76d4, transparent) #59cbe9;
+    background: linear-gradient(180deg, #4b76d4, transparent) #0d93b8;
     border: none;
     color: white;
     transition: background-color 0.5s;
     margin-bottom: 10px;
     width: 100px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .replaceExerciseButton:hover {
@@ -122,6 +123,7 @@ Animated arrow that pulls down game menu on-click
     transition: background-color 0.5s;
     margin-bottom: 10px;
     width: 100px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .deleteExerciseButton:hover {
@@ -181,17 +183,18 @@ Animated arrow that pulls down game menu on-click
 }
 
 .exercise-card {
-    background: linear-gradient(135deg, #6c6c7ca9, transparent) #d7dfe3b0;
+    background: linear-gradient(180deg, #6c6c7ca9, transparent) #d7dfe3b0;
+    color:#27262e;
     border-radius: 10px;
     padding: 10px;
     margin: 15px;
     transform: scale(1);
-    transition: transform 0.5s;
+    transition: background-color 0.5s, transform 0.5s;
 }
 
 .exercise-card:hover {
+    background-color: #74e0ead5;
     transform: scale(1.05);
-    transition: transform 0.5s;
 }
 
 .modal-body {
@@ -212,4 +215,8 @@ Animated arrow that pulls down game menu on-click
 .info-link:focus {
     border: none !important;
     outline: none !important;
+}
+
+.info-link:hover {
+    color: #4b76d4;
 }
