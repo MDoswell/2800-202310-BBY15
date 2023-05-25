@@ -94,6 +94,10 @@ router.get('/', async (req, res) => {
                 }
             });
 
+            newAvailabilities = newAvailabilities.sort((a, b) => {
+                return new Date(a.date) - new Date(b.date);
+            });
+
             var routineDays = [];
             userRoutine.forEach(exercise => {
                 if (!routineDays.includes(exercise.routineDay)) {
@@ -112,10 +116,6 @@ router.get('/', async (req, res) => {
                 { $set: { availabilityData: newAvailabilities, workoutsComplete: (workoutsComplete % routineDays.length) } }
             )
             // console.log(test);
-
-            newAvailabilities = newAvailabilities.sort((a, b) => {
-                return new Date(a.date) - new Date(b.date);
-            });
 
             let cardContent;
             let dayCards = '';
