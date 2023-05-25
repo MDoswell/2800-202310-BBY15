@@ -208,12 +208,32 @@ To deploy this web app to Qoddi hosting, please follow these steps:
 	5. Deploy the application using the Qoddi platform. Qoddi will automatically build and deploy the web app. 
 	6. Once the deployment is successful you can access the web app from the provided Qoddi deployment URL.
 
-## Features:
+<br>
+
+## 6. Features:
 - TBD
 
 <br>
 
-## Resources
+## 7. Credits, References, and Licenses
 - **[TBD](LINK)** by TBD (AUTHOR)
 	- TBD (DESCRIPTION)
 <br>
+
+## 8. 
+<br>
+
+## 9. Contact Information
+
+Mike Doswell:
+	
+	Email:
+	Github:
+	
+Steven Lai:
+	
+Jeffery Lee:
+	
+Ebod Shojaei:
+	
+	
