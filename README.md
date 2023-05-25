@@ -214,6 +214,7 @@ To deploy this web app to Qoddi hosting, please follow these steps:
 ### User Account Creation and Personal Data Input
 
 **User Registration:** Users can create an account by providing their email address and choosing a secure password. This allows them to securely access and manage their workout information.
+
 **Personal Data Input:** Users can input their personal information, such as age, weight, height, and fitness goals. This data helps the AI algorithm generate personalized workout routines.
 
 ### Exercise Preference Input
