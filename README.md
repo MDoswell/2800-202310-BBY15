@@ -245,6 +245,11 @@ To deploy this web app to Qoddi hosting, please follow these steps:
 
 **Profile Preferences:** Users can view their personal information and manage exercise preferences, availability data, weight, and experience level. This feature allows users to update their details and adapt their fitness goals over time.
 
+### Admin Functionality
+**User Management:** The admin has access to view all user accounts and their associated information.
+
+**Promote and Demote Users:** The admin can promote regular users to admin status, granting them the additional privileges to manage user accounts. Similarly, the admin can demote admin users back to regular user status if needed.
+
 ### Secret Easter Egg Minigame
 
 **Hidden Surprise:** Discover an exciting secret easter egg minigame within the app! Engage in a fun and interactive experience that adds an simulates the challenges of working out.
