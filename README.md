@@ -261,20 +261,36 @@ To deploy this web app to Qoddi hosting, please follow these steps:
 	- TBD (DESCRIPTION)
 <br>
 
-## 8. 
+## 8. How We Used AI for Our App
+
+For development specifically AI was mainly used for debugging. We would ask the ai for ideas as to why we’re getting this error or why this result was happening when we were expecting this result.
+
+The data set that we got off of kaggle had exercises that didn’t have instructions of how to do those exercises. So one of us had the AI write instructions for each of the 1300+ exercises.
+
+In the app itself, the AI comes up in three places. First is when the initial routine is generated after the setup form has been submitted. Second is after the initial exercises have been selected and similar exercises have been matched from the database, we ask the AI to choose the most relevant exercise from that list of matched exercises based on your personal profile. The third is replacing an exercise in a routine with a new exercise that is based on their personal profile and type of exercise it is replacing.
+
 <br>
 
 ## 9. Contact Information
 
-Mike Doswell:
+Mike Doswell
 	
 	Email:
-	Github:
+	Github: MDoswell
 	
-Steven Lai:
+Steven Lai
+
+	Email: tinleaves.0@gmail.com	
+	Github: TinLeaves
 	
-Jeffery Lee:
+Jeffery Lee
 	
-Ebod Shojaei:
+	Email:
+	Github: JefferyWlLee
+	
+Ebod Shojaei
+
+	Email: 
+	Github: EbodShojaei
 	
 	
