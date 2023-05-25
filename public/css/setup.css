@@ -13,6 +13,26 @@
     100% { transform: rotate(360deg); }
   } */
 
+
+
+
+/* Animations.css here (for animating elements; docs: https://animate.style/) */
+#fullPage h2 {
+  animation: fadeInDown;
+  animation-duration: 1s;
+}
+
+#fullPage h4 {
+  animation: fadeInUp;
+  animation-duration: 1.3s;
+}
+
+#setupFormContainer {
+  animation: fadeInLeft;
+  animation-duration: 1s;
+}
+
+
 /* Loading animation (CSS) */
 #loaderAnimation {
   filter: invert(100%);
@@ -47,6 +67,10 @@
 .setupTitles,
 .exerciseTypes {
   font-family: retroica, sans-serif;
+}
+
+.exerciseTypeDesc {
+  display: block;
 }
 
 /* Exercise descriptions fade in on hover only on desktop view */
