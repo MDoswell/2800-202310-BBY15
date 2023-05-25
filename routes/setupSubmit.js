@@ -30,7 +30,7 @@ router.post('/setupSubmit', async(req, res) => {
     console.log("inches:" + heightInches)
 
     let goals = req.body.goals
-
+    goals = goals.trim();
     console.log("goals: " + goals)
 
     let experience = req.body.experience

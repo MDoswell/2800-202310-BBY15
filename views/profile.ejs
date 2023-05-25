@@ -48,13 +48,13 @@
                         <div class="card-body">
                             <form action="/profileUpdate" method="post" id="profileForm" class="bg-dark">
                                 <div class="row mb-3">
-                                    <label for="name" class="col-sm-3 col-form-label">Name</label>
+                                    <label for="name" class="col-sm-3 col-form-label">Username</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" name="name" id="name"
                                             value="<%= name %>" readonly>
                                     </div>
                                     <div id="nameChangeNotAllowed" class="text-danger col-sm-9" style="display: none;">
-                                        *Name cannot be changed
+                                        *Username cannot be changed
                                       </div>
                                 </div>
                                 <hr>
