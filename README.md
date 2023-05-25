@@ -1,5 +1,5 @@
 # 1. Project Title
-mytrAIner
+	mytrAIner
 
 # 2. Project Description
 Introducing mytrAIner, a personalized fitness app utilizing AI technology to generate tailored exercise plans and provide users with instructional videos, aimed at helping individuals start their fitness journey and progress as they gain experience.
@@ -11,6 +11,7 @@ Introducing mytrAIner, a personalized fitness app utilizing AI technology to gen
 
 	 Authors: Mike Doswell, Steven Lai, Jeffery Lee, Ebod Shojaei
 	 Version: 1.0
+	 
 ## 3. Technologies and Resources Used
 	Javascript
 	EJS
@@ -40,7 +41,7 @@ Introducing mytrAIner, a personalized fitness app utilizing AI technology to gen
 	
 <br>
 
-# Listing of File Contents of folders
+# 4. Listing of File Contents of folders
 	C:.
 	|   .env
 	|   .gitignore
@@ -177,7 +178,34 @@ Introducing mytrAIner, a personalized fitness app utilizing AI technology to gen
 		    footer.ejs
 		    header.ejs
 		    user.ejs
-            
+
+<br>
+
+# 5. Installation
+To begin you will need to have:
+	- A code editor (e.g. VS Code),
+	- Node.js installed, 
+	- An OpenAPI key,
+	- A MongoDB cluster and connection URI,
+	
+To install and run this web app locally, please follow these steps:
+
+1. Clone the repository to your local machine. 
+2. Navigate to the project directory in your terminal. 
+3. Install the required dependencies using npm install. 
+4. Create a .env file in the root directory of the project and provide your necessary environmental variables (MONGODB_HOST, MONGO_USER, MONGODB_PASSWORD, MONGODB_SECRET, MONGODB_EXERCISE_DATABASE, MONGODB_SESSION_DATABASE, MONGODB_SESSION_SECRET, NODE_SESSION_SECRET, OPENAI_API_KEY)
+5. Start the application on your terminal using node index.js
+6. Open your web browser and visit 'http://localhost:8000' to access the web app.
+Note: The default port is set to 8000. If you need to change it, you can modify the PORT environment variable in index.js
+
+To deploy this web app to Qoddi hosting, please follow these steps:
+
+1. Sign up for a Qoddi account at 'qoddi.com' and create a new project.
+2. In the Qoddi dashboard, create a new deployment.
+3. Set up the deployment by adding the repository URL.
+4. Configure the environmental variables on Qoddi (The same variables mentioned in step 4 of th elocal installation instructions).
+5. Deploy the application using the Qoddi platform. Qoddi will automatically build and deploy the web app. 
+6. Once the deployment is successful you can access the web app from the provided Qoddi deployment URL.
 
 ## Features:
 - TBD
