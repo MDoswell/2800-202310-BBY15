@@ -14,7 +14,6 @@ Introducing mytrAIner, a personalized fitness app utilizing AI technology to gen
 	 
 ## 3. Technologies and Resources Used
 	Javascript
-	EJS
 	CSS
 	Bootstrap v4.3.1
 	GoogleApis (Material Icon)
@@ -210,8 +209,44 @@ To deploy this web app to Qoddi hosting, please follow these steps:
 
 <br>
 
-## 6. Features:
-- TBD
+# 6. Features:
+
+### User Account Creation and Personal Data Input
+
+**User Registration:** Users can create an account by providing their email address and choosing a secure password. This allows them to securely access and manage their workout information.
+**Personal Data Input:** Users can input their personal information, such as age, weight, height, and fitness goals. This data helps the AI algorithm generate personalized workout routines.
+
+### Exercise Preference Input
+
+**Exercise Preferences:** Users can specify their exercise preferences, including preferred workout types. 
+	
+### Availability Data Input
+
+**Availability Management:** Users can input their availability data, including the days and times when they are available to work out. This data is considered to ensure that the generated workout routines fit within the user's schedule.
+	
+### AI-Powered Workout Routine Generation
+
+**AI Workout Selection:** The app employs AI algorithms to select suitable workouts from a vast database of exercises. The AI takes into account user stats and fitness goals to curate personalized workout routines.
+
+**Routine Generation:** Based on the user's exercise preferences and availability data, the app generates a routine consisting of various exercises with appropriate sets and reps. This saves time and effort in planning workouts and ensures an optimal fitness experience.
+
+### Workout Review and Modification
+
+**Routine Review:** Users can review their generated workout routine, including details of each exercise. Users may replace workout with aid from the AI.
+
+**Routine Modification:** Users have the flexibility to modify their schedule as needed with the in app schedule form.
+
+### Completed Workout Management
+
+**Completed Workout Deletion:** Once users complete a workout, they can remove it from their active routine. This helps keep their workout list organized and focused on upcoming exercises.
+
+### Profile Preference Management
+
+**Profile Preferences:** Users can view their personal information and manage exercise preferences, availability data, weight, and experience level. This feature allows users to update their details and adapt their fitness goals over time.
+
+### Secret Easter Egg Minigame
+
+**Hidden Surprise:** Discover an exciting secret easter egg minigame within the app! Engage in a fun and interactive experience that adds an simulates the challenges of working out.
 
 <br>
 
