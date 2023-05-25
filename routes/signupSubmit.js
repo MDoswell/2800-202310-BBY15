@@ -20,8 +20,8 @@ router.post('/signup/submit', async (req, res) => {
             name: Joi.string().alphanum().max(20).required(),
             email: Joi.string().email().max(50).required(),
             password: Joi.string().max(20).required(),
-            question: Joi.string().regex(/[\w\s,.?]+/).max(80).required(),
-            answer: Joi.string().regex(/[\w\s,.?]+/).max(30).required()
+            question: Joi.string().regex(/^\S|\S\S|\S[\w\s,.?]+\S$/).max(80).required(),
+            answer: Joi.string().regex(/^\S|\S\S|\S[\w\s,.?]+\S$/).max(30).required()
         });
 
     const validationResult = schema.validate({ name, email, password, question, answer });
