@@ -24,11 +24,11 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col">
-                                        <input type="time" class="form-control" id="startTime" required>
+                                        <input type="time" class="form-control" id="startTime">
                                         <small class="form-text">Start Time</small>
                                     </div>
                                     <div class="col">
-                                        <input type="time" class="form-control" id="endTime" required>
+                                        <input type="time" class="form-control" id="endTime">
                                         <small class="form-text">End Time</small>
                                     </div>
                                     <div class="col-auto">
@@ -162,12 +162,43 @@
                                     endTime: endTime
                                 }
 
+                                deleteButton.type = 'button';
                                 deleteButton.innerText = 'Delete';
                                 deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
                                 deleteButton.onclick = function () {
-                                    let idx = availabilityArray.indexOf(currentAvailability);
-                                    availabilityArray.splice(idx, 1);
-                                    tableRow.remove();
+                                    swal({
+                                        title: "Delete Time Block?",
+                                        text: "Are you sure you want to delete this time block?",
+                                        icon: "warning",
+                                        buttons: true,
+                                        dangerMode: true,
+                                        })
+                                        .then(async (willDelete) => {
+                                            if (willDelete) {
+                                                try {
+                                                    let idx = availabilityArray.indexOf(currentAvailability);
+                                                    availabilityArray.splice(idx, 1);
+                                                    tableRow.remove();
+
+                                                    // $('#success-message').show();
+                                                } catch (error) {
+                                                    console.log('error:', error);
+                                                    // $('#success-message').hide();
+                                                    // $('#error-message').hide();
+
+                                                    // const errorMessageText = 'Unable to delete exercise. Please try again.';
+
+                                                    // // authentication error handling here
+                                                    // errorMessage.textContent = errorMessageText;
+                                                    // $('#error-message').show();
+
+                                                    setTimeout(() => {
+                                                    location.reload();
+                                                    }, 3000);
+                                                }
+                                            }
+                                        });
+                                    
                                 };
 
                                 tableRow.appendChild(dayOfWeekCell);

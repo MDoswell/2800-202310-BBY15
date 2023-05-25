@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     if (req.session.authenticated) {
-        if (userRoutine != null) {
+        if (userRoutine != null && userAvailability != null) {
 
 
             // Check that first time setup complete (routine days added)
@@ -55,25 +55,6 @@ router.get('/', async (req, res) => {
                     })
                     dayNum++;
                 });
-
-
-
-                // for (let i = 0; i < routineDays.length; i++) {
-                //     let exercises = userRoutine.filter(exercise => {
-                //         return exercise.date == routineDays[i];
-                //     })
-
-                //     for (let j = 0; j < exercises.length; j++) {
-                //         console.log(exercises[j].exerciseName);
-                //         await userCollection.findOneAndUpdate(
-                //             { name: username, 'routine.exerciseName': exercises[j].exerciseName },
-                //             {
-                //                 $set: {
-                //                     'routine.$.routineDay': i
-                //                 }
-                //             })
-                //     }
-                // }
             }
 
             // Check that workouts complete exists
@@ -112,24 +93,10 @@ router.get('/', async (req, res) => {
                     workoutsComplete++;
                 }
             });
-            // console.log(newAvailabilities)
-            console.log('workoutsComplete:', workoutsComplete);
-            await userCollection.findOneAndUpdate(
-                { name: username },
-                { $set: { availabilityData: newAvailabilities, workoutsComplete: workoutsComplete } }
-            )
-            // console.log(test);
 
-
-
-            // Populate days in availability using routine days, starting from workoutsComplete % numRoutineDays
-            // var newAvail = await getAvailability(username);
-            // console.log(newAvail);
-
-            // const uniqueDates = Array.from(new Set(newAvail.map(avail => avail.date))).sort((a, b) => {
-            //     return new Date(a) - new Date(b);
-            // });
-            // console.log(uniqueDates);
+            newAvailabilities = newAvailabilities.sort((a, b) => {
+                return new Date(a.date) - new Date(b.date);
+            });
 
             var routineDays = [];
             userRoutine.forEach(exercise => {
@@ -138,29 +105,41 @@ router.get('/', async (req, res) => {
                     routineDays.push(exercise.routineDay)
                 }
             })
+            console.log(routineDays);
+            routineDays = routineDays.sort();
+            console.log(routineDays);
 
-            newAvailabilities = newAvailabilities.sort((a, b) => {
-                return new Date(a.date) - new Date(b.date);
-            });
+            // console.log(newAvailabilities)
+            console.log('workoutsComplete:', workoutsComplete % routineDays.length);
+            await userCollection.findOneAndUpdate(
+                { name: username },
+                { $set: { availabilityData: newAvailabilities, workoutsComplete: (workoutsComplete % routineDays.length) } }
+            )
+            // console.log(test);
 
             let cardContent;
             let dayCards = '';
             var workoutNum = workoutsComplete;
             var routineDay;
 
+            // console.log(userRoutine);
             // For each unique day, create a card of exercises for that day.
             newAvailabilities.forEach(availability => {
                 console.log(availability.date);
+                console.log('workoutNum:', workoutNum);
                 console.log('routine day:', workoutNum % routineDays.length)
-                routineDay = workoutNum % routineDays.length;
+                routineDay = routineDays[workoutNum % routineDays.length];
                 workoutNum++;
 
                 // Filter the user's routine for the current day.
-                const exercisesForDay = userRoutine.filter(exercise => exercise.routineDay === routineDay);
+                var exercisesForDay = userRoutine.filter(exercise => exercise.routineDay === routineDay);
 
-                if (exercisesForDay.length == 0) {
-                    return;
-                }
+                // while (exercisesForDay.length == 0) {
+                //     // console.log('routine day missing');
+                //     routineDay = workoutNum % routineDays.length;
+                //     workoutNum++;
+                //     exercisesForDay = userRoutine.filter(exercise => exercise.routineDay === routineDay);
+                // }
 
                 // For each exercise in the user's routine for the current day, create a card.
 
@@ -211,7 +190,7 @@ router.get('/', async (req, res) => {
             res.render("index_validSession", { dayCards: dayCards, name: username });
 
         } else {
-            res.render("setup");
+            res.redirect("/setup");
         }
 
     } else {
