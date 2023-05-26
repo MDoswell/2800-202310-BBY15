@@ -1,6 +1,6 @@
 <%- include("templates/header") %>
     <div class="container-fluid video-container">
-        <video autoplay loop muted playsinline>
+        <video id="homeVideo" autoplay loop muted playsinline>
             <source src="video/login_bg.mp4" type="video/mp4">
         </video>
         <div class="overlay">
@@ -19,6 +19,11 @@
     // Disable vertical scrolling from video overflow on logged out home page.
     const body = document.querySelector('body');
     body.style.overflowY = 'hidden';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const video = document.getElementById('homeVideo');
+        video.play();
+    });
 </script>
 
 <script>
