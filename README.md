@@ -50,7 +50,6 @@ Introducing mytrAIner, a personalized fitness app utilizing AI technology to gen
 	|   package.json
 	|   Procfile
 	|   README.md
-	|   Tree.txt
 	|   
 	+---config
 	|       aiTrainer.js
