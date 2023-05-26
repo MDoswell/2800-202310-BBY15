@@ -186,7 +186,7 @@ To begin you will need to have:
 	- Node.js installed, 
 	- An OpenAPI key,
 	- A MongoDB cluster and connection URI,
-	- Fitness Exercise Dataset from Kaggle **[LINK](https://www.kaggle.com/datasets/edoardoba/fitness-exercises-with-animations)**
+	- Fitness Exercise Dataset from Kaggle 'https://www.kaggle.com/datasets/edoardoba/fitness-exercises-with-animations'
 	
 To install and run this web app locally, please follow these steps:
 
@@ -204,7 +204,7 @@ To deploy this web app to Qoddi hosting, please follow these steps:
 	1. Sign up for a Qoddi account at 'qoddi.com' and create a new project.
 	2. In the Qoddi dashboard, create a new deployment.
 	3. Set up the deployment by adding the repository URL.
-	4. Configure the environmental variables on Qoddi (The same variables mentioned in step 4 of th elocal installation instructions).
+	4. Configure the environmental variables on Qoddi (The same variables mentioned in step 4 of the local installation instructions).
 	5. Deploy the application using the Qoddi platform. Qoddi will automatically build and deploy the web app. 
 	6. Once the deployment is successful you can access the web app from the provided Qoddi deployment URL.
 
@@ -258,8 +258,9 @@ To deploy this web app to Qoddi hosting, please follow these steps:
 <br>
 
 # 7. Credits, References, and Licenses
-- **[TBD](LINK)** by TBD (AUTHOR)
-	- TBD (DESCRIPTION)
+- **[Fitness Exercise](https://www.kaggle.com/datasets/edoardoba/fitness-exercises-with-animations)** by [EDOARDO CANTAGALLO](https://www.kaggle.com/edoardoba)
+	- Dataset containing information relating to exercise and gifs for demonstration.
+
 <br>
 
 # 8. How We Used AI for Our App
