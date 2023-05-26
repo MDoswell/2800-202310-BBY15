@@ -93,8 +93,6 @@ Introducing mytrAIner, a personalized fitness app utilizing AI technology to gen
 	|   |       createRoutine.js
 	|   |       deleteExercise.js
 	|   |       editProfile.js
-	|   |       formatAlternateRoutine.js
-	|   |       formatRoutine.js
 	|   |       formatValidate.js
 	|   |       generatePrompt.js
 	|   |       getAvailability.js
