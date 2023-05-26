@@ -12,9 +12,6 @@ const getAvailability = async (username) => {
         // Get the user's availability.
         const userAvailability = result[0].availabilityData;
 
-        // What is the user's availability?
-        // console.log(userAvailability);
-
         // Return the user's availability.
         return userAvailability;
         

@@ -62,7 +62,6 @@
                         <script>
                             // Get availabilities from timeForm.js. VS Code shows an error here because of ejs syntax, but it runs as expected.
                             var availabilities = <%- JSON.stringify(availabilities) %>;
-                            console.log(availabilities);
                             var availabilityArray = []; // Array to store the availability data
 
                             for (let i = 0; i < availabilities.length; i++) {
