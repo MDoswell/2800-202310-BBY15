@@ -8,7 +8,6 @@ router.get('/timeForm', sessionValidation, async (req, res) => {
     const { userCollection } = await require('../config/databaseConnection');
 
     try {
-        console.log('trying');
         // Fetch availability data for the user from the database
         const user = await userCollection.findOne({ name: req.session.name });
 
