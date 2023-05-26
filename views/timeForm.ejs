@@ -60,7 +60,7 @@
                     </div>
                     <%- include("templates/footer") %>
                         <script>
-                            // Get availabilities from timeForm.js. VS Code shows an error here because of ejs syntax, but it runs fine.
+                            // Get availabilities from timeForm.js. VS Code shows an error here because of ejs syntax, but it runs as expected.
                             var availabilities = <%- JSON.stringify(availabilities) %>;
                             console.log(availabilities);
                             var availabilityArray = []; // Array to store the availability data
@@ -70,6 +70,8 @@
                                 addAvailability(availabilities[i]);
                             }
 
+                            // Adds the given time block to the availability table. If an availability object is provided, add it.
+                            // If no arguments passed in, get availability info from time form.
                             function addAvailability(availabilityObj) {
                                 var selectedDates = document.getElementById('selectedDates');
                                 var tableRow = document.createElement('tr');
@@ -80,8 +82,8 @@
                                 var actionsCell = document.createElement('td');
                                 var deleteButton = document.createElement('button');
 
+                                // If no arguments passed in, get data from time form
                                 if (!availabilityObj) {
-                                    console.log('no avail obj');
                                     var startDate = new Date(document.getElementById('startDate').value + 'T00:00:00Z');
                                     var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
                                     var dayOfWeek = daysOfWeek[startDate.getUTCDay()];
@@ -95,7 +97,6 @@
                                     var startTime = startTimeInput.value;
                                     var endTime = endTimeInput.value;
                                 } else {
-                                    console.log('avail obj');
                                     var dayOfWeek = availabilityObj.dayOfWeek;
                                     var formattedDate = availabilityObj.date;
                                     var startTime = availabilityObj.startTime;
@@ -155,6 +156,7 @@
                                 startTimeCell.innerText = startTime;
                                 endTimeCell.innerText = endTime;
 
+                                // Create availability object
                                 const currentAvailability = {
                                     dayOfWeek: dayOfWeek,
                                     date: formattedDate,
@@ -162,10 +164,12 @@
                                     endTime: endTime
                                 }
 
+                                // Create delete button
                                 deleteButton.type = 'button';
                                 deleteButton.innerText = 'Delete';
                                 deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
                                 deleteButton.onclick = function () {
+                                    // Deletion confirmation dialog box
                                     swal({
                                         title: "Delete Time Block?",
                                         text: "Are you sure you want to delete this time block?",
@@ -176,22 +180,12 @@
                                         .then(async (willDelete) => {
                                             if (willDelete) {
                                                 try {
+                                                    // If confirmed, availability object removed from availabilityArray and table
                                                     let idx = availabilityArray.indexOf(currentAvailability);
                                                     availabilityArray.splice(idx, 1);
                                                     tableRow.remove();
-
-                                                    // $('#success-message').show();
                                                 } catch (error) {
                                                     console.log('error:', error);
-                                                    // $('#success-message').hide();
-                                                    // $('#error-message').hide();
-
-                                                    // const errorMessageText = 'Unable to delete exercise. Please try again.';
-
-                                                    // // authentication error handling here
-                                                    // errorMessage.textContent = errorMessageText;
-                                                    // $('#error-message').show();
-
                                                     setTimeout(() => {
                                                     location.reload();
                                                     }, 3000);
@@ -201,6 +195,7 @@
                                     
                                 };
 
+                                // Add availability object to table
                                 tableRow.appendChild(dayOfWeekCell);
                                 tableRow.appendChild(dateCell);
                                 tableRow.appendChild(startTimeCell);

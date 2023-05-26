@@ -20,15 +20,6 @@ const getRoutine = async (username) => {
         
     } else {
         console.log("user routine not found");
-
-        // Prompt user to set up a routine
-        // PLACEHOLDER
-        // PLACEHOLDER
-        // PLACEHOLDER
-        // PLACEHOLDER
-        // PLACEHOLDER
-        // PLACEHOLDER
-
         return;
     }
 };

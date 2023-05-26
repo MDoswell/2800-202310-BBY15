@@ -20,15 +20,6 @@ const getAvailability = async (username) => {
         
     } else {
         console.log("user availability not found");
-
-        // Prompt user to set up a availability
-        // PLACEHOLDER
-        // PLACEHOLDER
-        // PLACEHOLDER
-        // PLACEHOLDER
-        // PLACEHOLDER
-        // PLACEHOLDER
-
         return;
     }
 };

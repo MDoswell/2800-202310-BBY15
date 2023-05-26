@@ -21,7 +21,9 @@
     <!-- <h1>Welcome</h1> -->
 
     <script>
+        // Get game area
         document.onload = console.log(document.getElementById('game-area').getBoundingClientRect());
+
         // set global game variables
         var canvHeight = 0.85 * window.innerHeight + 5;
         var canvWidth = window.innerWidth + 5;
@@ -58,13 +60,13 @@
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.font = "80px sans-serif";
 
-        // create gradient
+        // create background gradient
         var grd = ctx.createLinearGradient(0, 0.7 * canvHeight, 0, canvHeight);
         grd.addColorStop(0, "black");
         grd.addColorStop(1, "#555");
         ctx.fillStyle = grd;
 
-        // load images
+        // load dumbbell images
         var weightImg = new Image();
         weightImg.src = "./img/dumbbell.png";
         weightImg.onload = function () {
@@ -75,7 +77,7 @@
         var weightImgDiamond = new Image();
         weightImgDiamond.src = "./img/dumbbell_diamond.png";
 
-
+        // Draw first instance of dumbbell
         function drawImgAt(x, y) {
             ctx.drawImage(
                 weightImg,
@@ -86,20 +88,20 @@
             );
         }
 
-        //Add Canvas
+        //Add canvas to game area
         canvas.id = "main";
         document.getElementById('game-area').appendChild(canvas);
 
+        // Moves weight up by a distance inversely proportional to number of reps
         function lift() {
             weightY -= (0.1 * canvHeight) - (0.01 * canvHeight * reps);
             letGoTime = 0;
         }
-
         canvas.addEventListener("click", lift);
 
-        // start game clock
+        // start game clock (code runs every 100 ms)
         setInterval(() => {
-            // weight reached top
+            // handle weight reaching top of game area
             if (weightY - ceilingY < (0.1 * canvHeight) & !repFinished) {
                 repFinished = true;
                 reps++;
@@ -107,11 +109,11 @@
             }
             weightY = Math.max(weightY, ceilingY);
 
-            // bounce animation
+            // end bounce animation once complete
             if (floorTime > 3) {
                 isBouncing = false;
             }
-
+            // start bounce animation if weight hits floor from a sufficient drop
             if (isBouncing) {
                 weightY += (0.005 * canvHeight) * letGoTime * letGoTime - shakeOffset[floorTime];
                 floorTime += 1;
@@ -119,12 +121,13 @@
                 weightY += (0.005 * canvHeight) * letGoTime * letGoTime;
             }
 
-            // weight hitting floor
+            // handle weight hitting floor
             if (weightY >= floorY) {
                 if (letGoTime > 5) {
                     isBouncing = true;
                     floorTime = 0;
                 }
+                // update weight image at 5 and 10 reps
                 if (reps > 4 && !isGold) {
                     weightImg = weightImgGold;
                     isGold = true;
@@ -137,7 +140,7 @@
                 weightY = floorY;
             }
 
-            // draw page
+            // draw all game elements on page
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             if (reps < 1) {
                 topText.innerHTML = "Tap to lift!";

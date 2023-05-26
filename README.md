@@ -99,7 +99,6 @@ Introducing mytrAIner, a personalized fitness app utilizing AI technology to gen
 	|   |       generatePrompt.js
 	|   |       getAvailability.js
 	|   |       getRoutine.js
-	|   |       getRoutineTemplate.js
 	|   |       loginLimiter.js
 	|   |       loginValidation.js
 	|   |       logoutRedirect.js
@@ -115,7 +114,6 @@ Introducing mytrAIner, a personalized fitness app utilizing AI technology to gen
 	|           login_bg.mp4
 	|           
 	+---routes
-	|       addTime.js
 	|       admin.js
 	|       adminDemote.js
 	|       adminPromote.js
@@ -139,7 +137,6 @@ Introducing mytrAIner, a personalized fitness app utilizing AI technology to gen
 	|       profile.js
 	|       profileUpdate.js
 	|       replaceExerciseRoute.js
-	|       sendData.js
 	|       setup.js
 	|       setupRoutine.js
 	|       setupSubmit.js

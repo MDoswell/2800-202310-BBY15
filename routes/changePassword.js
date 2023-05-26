@@ -6,6 +6,7 @@ router.get('/changePassword', async (req, res) => {
     const { userCollection } = await require('../config/databaseConnection');
     var email = req.query.email;
 
+    // Validate email address
     const schema = Joi.object(
         {
             email: Joi.string().email().max(50).required(),
@@ -57,6 +58,7 @@ router.get('/changePassword', async (req, res) => {
         return;
     }
 
+        // If user entered an matching email, retrieve their secuirty question and render password change page.
     const securityQuestion = result[0].question;
     console.log(securityQuestion);
 

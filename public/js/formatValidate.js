@@ -289,15 +289,18 @@ const matchExercise = async (exercise, prefix) => {
     }
 };
 
-
+/**
+ * Takes an array of exercise objects from database matching one exercise in initial routine, and calls openai to choose the most
+ * one for the user based on their profile.
+ * 
+ * @param {Array} exerciseObjectArray - The array of exercise objects.
+ * @param {String} prefix - The prompt prefix containing the user's physical characteristics and goals.
+ * @returns Object - The DB exercise object chosen by AI for the user.
+ */
 const chooseExerciseFromDbMatches = async (exerciseObjectArray, prefix) => {
     const openai = require('../../config/openaiConnection');
 
     console.log('First exercise match: ' + exerciseObjectArray[0].name);
-    // for (let i = 0; i < exerciseArray[0].keys.length; i++) {
-    //     console.log(exerciseArray[0].keys[i]);
-    // }
-    
     exerciseArray = exerciseObjectArray.map(exercise => exercise.name);
 
     console.log(exerciseArray);

@@ -3,21 +3,16 @@ const { router } = require('../config/dependencies');
 // const fillEmptyDays = require('../public/js/fillEmptyDays');
 const getAvailability = require('../public/js/getAvailability');
 const getRoutine = require('../public/js/getRoutine');
-const getRoutineTemplate = require('../public/js/getRoutineTemplate');
 
 // Route below.
 router.get('/', async (req, res) => {
     const { userCollection, exerciseCollection } = await require('../config/databaseConnection');
     const username = req.session.name;
-    // const thisUser = userCollection.findOne({ name: username });
     var userRoutine = await getRoutine(username);
     const userAvailability = await getAvailability(username);
-    const routineTemplate = await getRoutineTemplate(username);
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     if (req.session.authenticated) {
         if (userRoutine != null && userAvailability != null) {
-
 
             // Check that first time setup complete (routine days added)
             if (userRoutine.some(exercise => {
@@ -27,7 +22,6 @@ router.get('/', async (req, res) => {
                 var uniqueDates = [];
                 userRoutine.forEach(exercise => {
                     if (!uniqueDates.includes(exercise.date)) {
-                        console.log(exercise.date);
                         uniqueDates.push(exercise.date);
                     }
                 });
@@ -36,13 +30,11 @@ router.get('/', async (req, res) => {
                     return new Date(a) - new Date(b);
                 });
 
-                console.log(uniqueDates);
-
+                // Add routine days to exercise and update database.
                 let dayNum = 0;
                 uniqueDates.forEach(date => {
                     userRoutine.forEach(async exercise => {
                         if (exercise.date == date && exercise.routineDay == null) {
-                            console.log(exercise);
                             exercise.routineDay = dayNum;
                             await userCollection.findOneAndUpdate(
                                 { name: username, 'routine.exerciseName': exercise.exerciseName },
@@ -57,12 +49,10 @@ router.get('/', async (req, res) => {
                 });
             }
 
-            // Check that workouts complete exists
+            // Check that workouts complete exists in database. If not, initialize to 0
             var workoutsComplete = await userCollection.find({ name: { $eq: username } }).project({ workoutsComplete: 1 }).toArray();
             workoutsComplete = workoutsComplete[0].workoutsComplete;
-            console.log('workoutsComplete: ', workoutsComplete);
             if (workoutsComplete == null) {
-                console.log('is null');
                 workoutsComplete = 0;
                 await userCollection.findOneAndUpdate(
                     { name: username },
@@ -71,25 +61,18 @@ router.get('/', async (req, res) => {
             }
 
             // Check for passed days and update workout complete
-            var availabilities = await getAvailability(username);
-            // console.log(availabilities);
-            // const today = new Date('May 24, 2023'); 
+            var availabilities = await getAvailability(username); 
             var today = new Date(Date.now());
             today.setHours(today.getHours() - today.getTimezoneOffset() / 60);
-            console.log(today);
 
             var newAvailabilities = [];
             availabilities.forEach(date => {
-                // console.log(date.date)
                 var fullDate = new Date(date.date);
-                console.log(fullDate.toDateString());
-                // console.log(fullDate >= today)
-                // console.log(fullDate.toDateString() == today.toDateString())
+                // Keep workouts happening today or in future days
                 if (fullDate > today || fullDate.toDateString() == today.toDateString()) {
-                    console.log('in')
                     newAvailabilities.push(date);
+                // Ignore workouts from past days, update workoutsComplete
                 } else {
-                    console.log('passed')
                     workoutsComplete++;
                 }
             });
@@ -98,60 +81,37 @@ router.get('/', async (req, res) => {
                 return new Date(a.date) - new Date(b.date);
             });
 
+            // Count number of routine days
             var routineDays = [];
             userRoutine.forEach(exercise => {
                 if (!routineDays.includes(exercise.routineDay)) {
-                    console.log('new routine day')
                     routineDays.push(exercise.routineDay)
                 }
             })
-            console.log(routineDays);
             routineDays = routineDays.sort();
-            console.log(routineDays);
 
-            // console.log(newAvailabilities)
-            console.log('workoutsComplete:', workoutsComplete % routineDays.length);
+            // Update user data to remove availabilities from days that have passed
             await userCollection.findOneAndUpdate(
                 { name: username },
                 { $set: { availabilityData: newAvailabilities, workoutsComplete: (workoutsComplete % routineDays.length) } }
             )
-            // console.log(test);
 
+            // For each unique day, create a card of exercises for that day.
             let cardContent;
             let dayCards = '';
             var workoutNum = workoutsComplete;
             var routineDay;
-
-            // console.log(userRoutine);
-            // For each unique day, create a card of exercises for that day.
             newAvailabilities.forEach(availability => {
-                console.log(availability.date);
-                console.log('workoutNum:', workoutNum);
-                console.log('routine day:', workoutNum % routineDays.length)
+                // Get the routine day for the next workout
                 routineDay = routineDays[workoutNum % routineDays.length];
                 workoutNum++;
 
-                // Filter the user's routine for the current day.
+                // Filter the user's routine for the current day to include only exercise from this routine day
                 var exercisesForDay = userRoutine.filter(exercise => exercise.routineDay === routineDay);
 
-                // while (exercisesForDay.length == 0) {
-                //     // console.log('routine day missing');
-                //     routineDay = workoutNum % routineDays.length;
-                //     workoutNum++;
-                //     exercisesForDay = userRoutine.filter(exercise => exercise.routineDay === routineDay);
-                // }
-
                 // For each exercise in the user's routine for the current day, create a card.
-
                 cardContent = exercisesForDay.map(exercise => {
-
-                    // var exerciseDetails;
-                    // exerciseDetails = await exerciseCollection.findOne(
-                    //     { id: exercise.id },
-                    //     { projection: { name: 1, bodyPart: 1, target: 1, gifUrl: 1, instructions: 1 } }).then(console.log(this));
-                    // console.log('details: ' + exerciseDetails);
-
-
+                    // Format exercise details
                     const formatExerciseName = exercise.exerciseName.slice(0, 1).toUpperCase() + exercise.exerciseName.slice(1).toLowerCase();
                     const formatExerciseTarget = exercise.exerciseBodyPart.slice(0, 1).toUpperCase()
                         + exercise.exerciseBodyPart.slice(1).toLowerCase()
@@ -189,8 +149,10 @@ router.get('/', async (req, res) => {
                         ${cardContent.join('')}
                     </div>`;
             });
+            // Render home feed with cards.
             res.render("index_validSession", { dayCards: dayCards, name: username });
 
+        // If user has no routine, move to setup page.
         } else {
             res.redirect("/setup");
         }
