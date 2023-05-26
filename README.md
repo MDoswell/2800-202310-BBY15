@@ -41,7 +41,7 @@ Introducing mytrAIner, a personalized fitness app utilizing AI technology to gen
 <br>
 
 # 4. Listing of File Contents of folders
-	C:.
+	2800-202310-BBY15
 	|   .env
 	|   .gitignore
 	|   exerciseJSONLData.jsonl
