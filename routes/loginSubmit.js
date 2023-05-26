@@ -58,21 +58,21 @@ router.post('/login/submit', loginLimiter, async (req, res) => {
                     if (username.trim() == "") {
                         errorMessage = "Username required.";
                     } else {
-                        errorMessage = "Username must be 20 characters or less and not contain any illegal characters.";
+                        errorMessage = "Username must be 20 characters or less and only contain alphanumeric characters.";
                     }
                     break;
                 case "email":
                     if (username.trim() == "") {
                         errorMessage = "Email required.";
                     } else {
-                        errorMessage = "Email must be 50 characters or less and not contain any illegal characters.";
+                        errorMessage = "Email must be 50 characters or less and only contain alphanumeric characters and ''. and '@'.";
                     }
                     break;
                 case "password":
                     if (password.trim() == "") {
                         errorMessage = "Password required.";
                     } else {
-                        errorMessage = "Password must be 20 characters or less and not contain any illegal characters.";
+                        errorMessage = "Password must be 20 characters or less and only contain alphanumeric characters.";
                     }
                     break;
                 default:

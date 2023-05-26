@@ -9,8 +9,7 @@ router.post('/changePassword/submit', async (req, res) => {
     var password = req.body.password;
     var confirmPassword = req.body.confirmPassword;
 
-    console.log(answer, email);
-
+    // Check that password and confirm password match
     if (password != confirmPassword) {
         let errorMessage = "Passwords do not match.";
         const authentication = false;
@@ -26,6 +25,7 @@ router.post('/changePassword/submit', async (req, res) => {
             confirmPassword: Joi.string().max(20).required()
         });
 
+    // Validate user info.
     const validationResult = schema.validate({ answer, password, confirmPassword });
 
     if (validationResult.error != null) {
@@ -73,10 +73,8 @@ router.post('/changePassword/submit', async (req, res) => {
             return;
         })
     } else {
-        const result = await userCollection.find({ email: { $eq: email } }).project({ name: 1, email: 1, answer: 1, _id: 1 }).toArray();
-
         // Check the collection for a matching email. If none, redirect.
-        console.log(result);
+        const result = await userCollection.find({ email: { $eq: email } }).project({ name: 1, email: 1, answer: 1, _id: 1 }).toArray();
 
         if (result.length != 1) {
             console.log("Email not found");
@@ -87,9 +85,8 @@ router.post('/changePassword/submit', async (req, res) => {
             return;
         }
 
+        // If all fields correct, complete password changing procedure
         if (await bcrypt.compare(answer, result[0].answer)) {
-            console.log("correct answer");
-
             var hashedPassword = await bcrypt.hash(password, saltRounds);
             userCollection.updateOne({ email: email }, { $set: { password: hashedPassword } });
 

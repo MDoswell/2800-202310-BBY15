@@ -12,23 +12,11 @@ const getRoutine = async (username) => {
         // Get the user's routine.
         const userRoutine = result[0].routine;
 
-        // What is the user's routine?
-        console.log(userRoutine);
-
         // Return the user's routine.
         return userRoutine;
         
     } else {
         console.log("user routine not found");
-
-        // Prompt user to set up a routine
-        // PLACEHOLDER
-        // PLACEHOLDER
-        // PLACEHOLDER
-        // PLACEHOLDER
-        // PLACEHOLDER
-        // PLACEHOLDER
-
         return;
     }
 };

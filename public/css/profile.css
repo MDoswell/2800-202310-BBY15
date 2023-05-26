@@ -30,3 +30,8 @@
 .form-check-input:disabled+.form-check-label {
     color: #ffffff;
 }
+
+hr{
+    background-color: #262626;
+    opacity: 70%;
+}

@@ -3,28 +3,26 @@
         <div class="alert alert-success collapse fixed-top text-center" id="success-message" role="alert"></div>
         <div class="alert alert-danger collapse fixed-top text-center" id="error-message" role="alert"></div>
         <div class="row justify-content-center">
-            <div class="col-lg-8 col-xl-8">
+            <div class="col-md-8 col-lg-6 col-xl-5">
                 <div id="signupSkeleton" class="wrap d-md-flex justify-content-center"></div>
-                    <div class="wrap">
+                    <div class="wrap signup-card">
                         <!-- <div class="col-md-4">
                             <img src="#" class="img-fluid" alt="Sign Up image">
                         </div> -->
                         <div class="login-wrap p-4 p-md-5">
                             <div class="d-flex">
-                                <div class="w-100">
+                                <div id="signupTitle" class="w-100">
                                     <h3 class="mb-4">Sign Up</h3>
                                 </div>
                             </div>
                             <form class="signup-form" id="signup-form" action='/signup/submit' method='post'>
                                 <div class="form-group mb-3">
-                                    <label class="label" for="name">Name</label>
-                                    <input class="form-control" autocomplete="off" name='name' type='text'
-                                        placeholder='name'>
+                                    <label class="label" for="name">Username</label>
+                                    <input class="form-control" autocomplete="off" name='name' type='text'>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="name">Email</label>
-                                    <input class="form-control" autocomplete="off" name='email' type='email'
-                                        placeholder='email'>
+                                    <input class="form-control" autocomplete="off" name='email' type='email'>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="password">Password</label>
@@ -47,13 +45,11 @@
                                             question.</p>
                                         <div class="form-group mb-3">
                                             <label class="label" for="question">Security question</label>
-                                            <input class="form-control" autocomplete="off" name='question'
-                                                placeholder='question'>
+                                            <input class="form-control" autocomplete="off" name='question'>
                                         </div>
                                         <div class="form-group mb-3">
                                             <label class="label" for="answer">Answer</label>
-                                            <input class="form-control" autocomplete="off" name='answer'
-                                                placeholder='answer'>
+                                            <input class="form-control" autocomplete="off" name='answer'>
                                         </div>
                                     </div>
                                 </div>

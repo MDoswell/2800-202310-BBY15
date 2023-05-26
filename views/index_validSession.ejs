@@ -1,4 +1,6 @@
 <%- include("templates/header") %>
+<div class="alert alert-success collapse fixed-top text-center" id="success-message" role="alert"></div>
+<div class="alert alert-danger collapse fixed-top text-center" id="error-message" role="alert"></div>
     <!-- Info modal -->
     <div class="modal fade" id="exerciseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -25,16 +27,20 @@
     </div>
 
     <!-- Exercise feed -->
-    <div id="valid-session-home-container" class="container-fluid px-4 mt-5">
-        <h1>Hello, <%= name %>!</h1>
-        <div class="row mx-auto mt-5">
-            <div id="userRoutine">
-                <h2>Your Routine</h2>
-                <%- dayCards %>
+    <div id='homeContainer' class="container pt-2">
+        <div id="valid-session-home-container" class="container-fluid col-xl-6 col-lg-7 col-md-9 col-sm-12 col-12 mt-5">
+          <h1 id="HelloTitle" class="ml-3" data-username='<%= name %>'>Hello, <%= name %>!</h1>
+          <div class="row mx-auto mt-5">
+            <div class="col" id="userRoutine">
+              <h2 id="routineTitle">Your Routine</h2>
+              <!-- Populate feed with routine cards from home.js -->
+              <%- dayCards %>
             </div>
+          </div>
+          <br>
         </div>
-        <br>
-    </div>
+      </div>
+      
 <%- include("templates/footer") %>
 
 <script>
@@ -46,12 +52,17 @@
 
     head.appendChild(link);
 </script>
+<script src="/js/callReplace.js"></script>
+<script src="/js/callDelete.js"></script>
 <script src="./js/showExerciseInfo.js"></script>
 <script>
     let exercises = document.querySelectorAll('.exercise-card');
 
+    // Add functionality to each exercise card to populate and display exercise details modal on click
     exercises.forEach(exercise => {
         let link = exercise.querySelector('.info-link');
+        let arrow = exercise.querySelector('.arrow');
+
         link.addEventListener("click", () => {
             console.log(exercise.getAttribute('exerciseTarget'))
             showExerciseInfo(
@@ -62,13 +73,22 @@
                 exercise.getAttribute('exerciseInstructions')
             )
         })
-        // console.log(exercise.attributes.exerciseName);
+
+        exercise.addEventListener("click", (event) => {
+            if (!arrow.contains(event.target) && !event.target.classList.contains('btn')) {
+                link.click();
+            }
+        });
     });
 
-    // let populateModal = addExerciseInfo(
-    //                     formatExerciseName, 
-    //                     "something", 
-    //                     exercise.intensity,
-    //                     './img/dumbbell.png',
-    //                     '<ol><li>one</li><li>two</li></ol>');
+</script>
+<script>
+    // Add an event listener to the hide menu button.
+    $('.hideMenuButton .arrow').click(function() {
+        $(this).toggleClass('active');
+        let cardControls = $(this).parent().siblings('.cardControls');
+        cardControls.toggleClass('hidden');
+    });
+
+    $('.hideMenuButton .arrow').click();
 </script>

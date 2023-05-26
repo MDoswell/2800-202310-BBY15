@@ -20,8 +20,8 @@ router.post('/signup/submit', async (req, res) => {
             name: Joi.string().alphanum().max(20).required(),
             email: Joi.string().email().max(50).required(),
             password: Joi.string().max(20).required(),
-            question: Joi.string().regex(/[\w\s,.?]+/).max(80).required(),
-            answer: Joi.string().regex(/[\w\s,.?]+/).max(30).required()
+            question: Joi.string().regex(/^\S|\S\S|\S[\w\s,.?]+\S$/).max(80).required(),
+            answer: Joi.string().regex(/^\S|\S\S|\S[\w\s,.?]+\S$/).max(30).required()
         });
 
     const validationResult = schema.validate({ name, email, password, question, answer });
@@ -39,35 +39,35 @@ router.post('/signup/submit', async (req, res) => {
                     if (name.trim() == "") {
                         errorMessage = "Name required.";
                     } else {
-                        errorMessage = "Name must be 20 characters or less and not contain any illegal characters.";
+                        errorMessage = "Name must be 20 characters or less and only contain alphanumeric characters.";
                     }
                     break;
                 case "email":
                     if (email.trim() == "") {
                         errorMessage = "Email required.";
                     } else {
-                        errorMessage = "Email must be 50 characters or less and not contain any illegal characters.";
+                        errorMessage = "Email must be 50 characters or less and only contain alphanumeric characters and ''. and '@'.";
                     }
                     break;
                 case "password":
                     if (password.trim() == "") {
                         errorMessage = "Password required.";
                     } else {
-                        errorMessage = "Password must be 20 characters or less and not contain any illegal characters.";
+                        errorMessage = "Password must be 20 characters or less and only contain alphanumeric characters.";
                     }
                     break;
                 case "question":
                     if (question.trim() == "") {
                         errorMessage = "Security question required.";
                     } else {
-                        errorMessage = "Security question must be 80 characters or less and not contain any illegal characters.";
+                        errorMessage = "Security question must be 80 characters or less and only contain alphanumeric characters and '?'.";
                     }
                     break;
                 case "answer":
                     if (answer.trim() == "") {
                         errorMessage = "Security question answer required.";
                     } else {
-                        errorMessage = "Security question answer must be 30 characters or less and not contain any illegal characters.";
+                        errorMessage = "Security question answer must be 30 characters or less and only contain alphanumeric characters.";
                     }
                     break;
                 default:
@@ -124,7 +124,7 @@ router.post('/signup/submit', async (req, res) => {
 
         // Set user_type to 'user' by default on sign-up (NOTE: No need to sanitize a hard-coded explicit literal).
         await userCollection.insertOne({ name: name, email: email, password: hashedPassword, question: question,
-            answer: hashedAnswer, user_type: 'user' });
+            answer: hashedAnswer, user_type: 'user', availabilityData: [] });
 
         console.log("Inserted user");
 

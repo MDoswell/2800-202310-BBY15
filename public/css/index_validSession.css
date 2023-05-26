@@ -1,3 +1,8 @@
+@font-face {
+    font-family: retroica;
+    src: url(../fonts/Retroica.ttf);
+}
+
 /* exercise-card
 exercise-content
 exercise-title
@@ -9,25 +14,142 @@ day-title */
 
 /* Animations.css here (for animating elements; docs: https://animate.style/) */
 .day-card {
+    animation: backInLeft;
+    animation-duration: 1s;
+}
+
+#routineTitle {
     animation: slideInLeft;
     animation-duration: 1s;
 }
 
+#HelloTitle {
+    animation: slideInLeft;
+    animation-duration: 1.1s;
+}
 
-/* Standard CSS styling */
-/* #valid-session-home-container {
-    padding-left: 100px !important;
-    padding-right: 100px !important;
-    padding-bottom: 100px !important;
+/* 
+Animated arrow that pulls down game menu on-click 
+@credit https://codepen.io/simonbreiter/pen/oLJrKy
+*/
+.cardControls.hidden {
+    max-height: 0;
+}
+
+.cardControls {
+    max-height: 200px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.hideMenuButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow {
+    /* background: linear-gradient(135deg, #27262e, transparent) #4a4750; */
+    background-color: #4a4750;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px #4a4750;
+    cursor: pointer;
+    width: 1.25rem;
+    height: 1.25rem;
+    display: inline-block;
+    position: relative;
+    margin: 0 1rem;
+    margin-top: 5px;
+    transform: rotate(0deg);
+    transition: transform 0.2s ease;
+}
+
+.arrow:hover {
+    transform: rotate(180deg);
+    transition: transform 0.2s ease;
+}
+
+/* .arrow:active {
+    transform: rotate(0deg);
+    transition: transform 0.2s ease;
 } */
 
-.day-title, .exercise-card, .exercise-title, .exercise-intensity {
+.arrow span {
+    top: 0.5rem;
+    position: absolute;
+    width: 0.75rem;
+    height: 0.1rem;
+    background-color: #d7dfe3b0;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.arrow span:first-of-type {
+    left: 0;
+    transform: rotate(45deg);
+}
+
+.arrow span:last-of-type {
+    right: 0;
+    transform: rotate(-45deg);
+}
+
+.arrow.active span:first-of-type {
+    transform: rotate(-45deg);
+}
+
+.arrow.active span:last-of-type {
+    transform: rotate(45deg);
+}
+
+.replaceExerciseButton {
+    background: linear-gradient(180deg, #4b76d4, transparent) #0d93b8;
+    border: none;
+    color: white;
+    transition: background-color 0.5s;
+    margin-bottom: 10px;
+    width: 100px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.replaceExerciseButton:hover {
+    background-color: #2028be;
+}
+
+.deleteExerciseButton {
+    background: linear-gradient(180deg, #b0465f, transparent) #d4544b;
+    border: none;
+    color: white;
+    transition: background-color 0.5s;
+    margin-bottom: 10px;
+    width: 100px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.deleteExerciseButton:hover {
+    background-color: #7e1b1b;
+}
+
+/* Standard CSS styling */
+.exercise-card,
+.modal-title,
+.exercise-title,
+.exercise-intensity {
     color: black;
 }
 
+.day-title,
+.date-title {
+    color: #ebebeb;
+}
+
+.day-title {
+    font-family: retroica, sans-serif;
+}
+
 .day-card {
-    background-color: lightgrey;
-    border-radius: 5px;
+    background: linear-gradient(135deg, #27262e, transparent) #4a4750;
+    border-radius: 10px;
     padding: 5px;
     margin-top: 15px;
 }
@@ -42,11 +164,11 @@ day-title */
     /* margin-top: 5px; */
 }
 
-#modalBodyPart{
+#modalBodyPart {
     font-style: italic;
 }
 
-#modalIntensity{
+#modalIntensity {
     font-weight: 600;
 }
 
@@ -61,12 +183,40 @@ day-title */
 }
 
 .exercise-card {
-    background-color: white;
-    border-radius: 5px;
+    background: linear-gradient(180deg, #6c6c7ca9, transparent) #d7dfe3b0;
+    color:#27262e;
+    border-radius: 10px;
     padding: 10px;
     margin: 15px;
-}   
+    transform: scale(1);
+    transition: background-color 0.5s, transform 0.5s;
+}
+
+.exercise-card:hover {
+    background-color: #74e0ead5;
+    transform: scale(1.05);
+}
 
 .modal-body {
     padding-top: 3px;
+}
+
+#HelloTitle {
+    font-family: retroica, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.info-link {
+    color: black;
+    border: none !important;
+    outline: none !important;
+}
+
+.info-link:focus {
+    border: none !important;
+    outline: none !important;
+}
+
+.info-link:hover {
+    color: #4b76d4;
 }

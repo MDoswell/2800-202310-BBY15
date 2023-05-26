@@ -1,0 +1,23 @@
+// Function to check if a user is an admin
+function isAdmin(req) {
+    if (req.session.user_type === 'admin') {
+        return true;
+    }
+    return false;
+}
+
+// Middleware for admin authorization
+function adminAuthorization(req, res, next) {
+    // Check if the current user is an admin
+    if (!isAdmin(req)) {
+        // If not an admin, set the response status to 403 (Forbidden)
+        res.status(403);
+        res.render("403", { error: "Not Authorized" });
+        return;
+    }
+    // If the user is an admin, call the next middleware or route handler
+    next();
+}
+
+// Export the isAdmin and adminAuthorization functions
+module.exports = { isAdmin, adminAuthorization };
