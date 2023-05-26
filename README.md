@@ -275,24 +275,20 @@ In the app itself, the AI comes up in three places. First is when the initial ro
 
 # 9. Contact Information
 
-Mike Doswell
+Mike Doswell (Github: [MDoswell](https://github.com/MDoswell "Link to GitHub"))
 	
-	Email:
-	Github: MDoswell
+	Email: mike.doswell@gmail.com
 	
-Steven Lai
+Steven Lai (Github: [TinLeaves](https://github.com/TinLeaves "Link to GitHub"))
 
 	Email: tinleaves.0@gmail.com	
-	Github: TinLeaves
 	
-Jeffery Lee
+Jeffery Lee (Github: [JefferyWlLee](https://github.com/JefferyWlLee "Link to GitHub"))
 	
-	Email:
-	Github: JefferyWlLee
+	Email: jefferywllee@gmail.com
 	
-Ebod Shojaei
+Ebod Shojaei (Github: [EbodShojaei](https://github.com/EbodShojaei "Link to GitHub"))
 
-	Email: 
-	Github: EbodShojaei
+	Email: ebodshojaei@gmail.com
 	
 	
