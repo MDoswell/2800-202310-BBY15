@@ -12,7 +12,7 @@ Introducing mytrAIner, a personalized fitness app utilizing AI technology to gen
 	 Authors: Mike Doswell, Steven Lai, Jeffery Lee, Ebod Shojaei
 	 Version: 1.0
 	 
-## 3. Technologies and Resources Used
+# 3. Technologies and Resources Used
 	Javascript
 	CSS
 	Bootstrap v4.3.1
@@ -187,6 +187,7 @@ To begin you will need to have:
 	- Node.js installed, 
 	- An OpenAPI key,
 	- A MongoDB cluster and connection URI,
+	- Fitness Exercise Dataset from Kaggle **[LINK](https://www.kaggle.com/datasets/edoardoba/fitness-exercises-with-animations)**
 	
 To install and run this web app locally, please follow these steps:
 
@@ -194,8 +195,9 @@ To install and run this web app locally, please follow these steps:
 	2. Navigate to the project directory in your terminal. 
 	3. Install the required dependencies using npm install. 
 	4. Create a .env file in the root directory of the project and provide your necessary environmental variables (MONGODB_HOST, MONGO_USER, MONGODB_PASSWORD, MONGODB_SECRET, MONGODB_EXERCISE_DATABASE, MONGODB_SESSION_DATABASE, MONGODB_SESSION_SECRET, NODE_SESSION_SECRET, OPENAI_API_KEY)
-	5. Start the application on your terminal using node index.js
-	6. Open your web browser and visit 'http://localhost:8000' to access the web app.
+	5. Export data from 'https://www.kaggle.com/datasets/edoardoba/fitness-exercises-with-animations' into MongoDB.
+	6. Start the application on your terminal using node index.js
+	7. Open your web browser and visit 'http://localhost:8000' to access the web app.
 	Note: The default port is set to 8000. If you need to change it, you can modify the PORT environment variable in index.js
 
 To deploy this web app to Qoddi hosting, please follow these steps:
@@ -256,12 +258,12 @@ To deploy this web app to Qoddi hosting, please follow these steps:
 
 <br>
 
-## 7. Credits, References, and Licenses
+# 7. Credits, References, and Licenses
 - **[TBD](LINK)** by TBD (AUTHOR)
 	- TBD (DESCRIPTION)
 <br>
 
-## 8. How We Used AI for Our App
+# 8. How We Used AI for Our App
 
 For development specifically AI was mainly used for debugging. We would ask the ai for ideas as to why we’re getting this error or why this result was happening when we were expecting this result.
 
@@ -271,7 +273,7 @@ In the app itself, the AI comes up in three places. First is when the initial ro
 
 <br>
 
-## 9. Contact Information
+# 9. Contact Information
 
 Mike Doswell
 	
