@@ -74,16 +74,10 @@
 
               <input name="experience" type="range" value="1" min="1" max="10"
                 oninput="this.nextElementSibling.value = this.value" style="width: 90%;">
+                <!-- The output element is is updated to be the same value of the experience slider no matter what-->
               <output id="experience" style="color:whitesmoke">1</output>
             </div>
-            <!-- <div class="py-3"><label for="equipment" class="form-label">What kind of equipment is available to you? (include gym equipment if applicable)</label>
-              <select id="equipment" class="form-select" aria-label="Default select example">
-                <option selected>Equipment</option>
-                <option value="Only bodyweight">One</option>
-                <option value="dumbell">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div> -->
+
             <hr>
 
             <div>
@@ -205,6 +199,7 @@
     // If the submit button is clicked, display the loader animation.
     submitButton.addEventListener('click', function () {
       
+      //if any of the inputs are illegal stop the loading screen from appearing
       if (age.value < 16 ||
           age.value > 99 ||
           weight.value == "" ||

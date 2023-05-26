@@ -1,6 +1,8 @@
 const { router } = require('../config/dependencies');
 
 router.post('/setup/routine', async (req, res) => {
+    // grab the inputs from the setup form and create a prompt with that profile.
+
     const { userCollection } = await require('../config/databaseConnection');
     const user = await userCollection.findOne({ name: req.session.name });
     const availabilityData = user.availabilityData;
@@ -18,38 +20,6 @@ router.post('/setup/routine', async (req, res) => {
         + " and my height is " + req.body.feet + " foot " + req.body.inches + " inches. "
         + " My exercise goals are as follows: " + req.body.goals
         + ". I would rate my experience in exercising out of 10 a " + req.body.experience + " out of 10. ";
-    //     + " The category of exercises I like are";
-
-    // if (req.body.cardio != null) {
-    //     str += ', cardio';
-    // }
-    // if (req.body.strength != null) {
-    //     str += ', strength training';
-    // }
-    // if (req.body.flexibility != null) {
-    //     str += ', flexibility';
-    // }
-    // if (req.body.balance != null) {
-    //     str += ', balance';
-    // }
-    // if (req.body.high != null) {
-    //     str += ', high-intensity';
-    // }
-    // if (req.body.low != null) {
-    //     str += ', low-impact';
-    // }
-    // if (req.body.sport != null) {
-    //     str += ', sport specific';
-    // }
-    // if (req.body.functional != null) {
-    //     str += ', functional';
-    // }
-    // if (req.body.bodyweight != null) {
-    //     str += ', bodyweight';
-    // }
-    // if (req.body.endurance != null) {
-    //     str += ', endurance';
-    // }
 
     const strPrefix = str;
 
