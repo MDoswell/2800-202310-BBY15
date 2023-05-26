@@ -12,3 +12,10 @@ th, td, .form-text {
 .btn-success {
     font-weight: bold;
 }
+
+@media only screen and (max-width: 600px) {
+    #availabilityTable {
+        width: 100%;
+        overflow-x: auto;
+    }
+  }
