@@ -208,7 +208,7 @@ To deploy this web app to Qoddi hosting, please follow these steps:
 	5. Deploy the application using the Qoddi platform. Qoddi will automatically build and deploy the web app. 
 	6. Once the deployment is successful you can access the web app from the provided Qoddi deployment URL.
 	
-Testing Log: [LINK](https://docs.google.com/spreadsheets/d/1C3LgINfKB8wusl7ZmSiHxZ26lydoVTqSXj-24yKU7Mo/edit?usp=sharing "Link to Google Sheets")
+Testing Log and Bug Fixes: [LINK](https://docs.google.com/spreadsheets/d/1C3LgINfKB8wusl7ZmSiHxZ26lydoVTqSXj-24yKU7Mo/edit?usp=sharing "Link to Google Sheets")
 
 <br>
 
