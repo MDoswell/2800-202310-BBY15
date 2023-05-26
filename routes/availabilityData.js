@@ -19,6 +19,7 @@ router.get('/availabilityData', sessionValidation, async (req, res) => {
     }
   } catch (error) {
     console.error(error);
+    // Render error message if unable to fetch availability data
     res.render('error', { message: 'Error retrieving availability data.' });
   }
 });
